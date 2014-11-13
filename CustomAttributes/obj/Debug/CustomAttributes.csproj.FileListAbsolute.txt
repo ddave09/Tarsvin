@@ -1,5 +1,0 @@
-C:\_Automation\CustomAttributesLibrary\CustomAttributes\CustomAttributes\bin\Debug\CustomAttributes.dll
-C:\_Automation\CustomAttributesLibrary\CustomAttributes\CustomAttributes\bin\Debug\CustomAttributes.pdb
-C:\_Automation\CustomAttributesLibrary\CustomAttributes\CustomAttributes\obj\Debug\CustomAttributes.dll
-C:\_Automation\CustomAttributesLibrary\CustomAttributes\CustomAttributes\obj\Debug\CustomAttributes.pdb
-C:\_Automation\CustomAttributesLibrary\CustomAttributes\CustomAttributes\obj\Debug\CustomAttributes.csprojResolveAssemblyReference.cache
