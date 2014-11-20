@@ -5,6 +5,7 @@
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Build.Construction;
@@ -21,8 +22,16 @@
             List<DllInfo> addRefList = new List<DllInfo>();
             foreach (SolutionProject sp in sln.Projects)
             {
+                if (!Regex.IsMatch(sp.ProjectName, "SunGard.PNE.Test.*"))
+                    continue;
                 string[] pName = sp.ProjectName.Split('.');
-                if (StringComparer.OrdinalIgnoreCase.Equals(pName.Last<string>(), findTestProj))
+                string projectType = pName.Last<string>();
+                Array.Resize(ref pName, pName.Length - 1);
+                string projectName = pName.Last<string>();
+                if (Convert.ToBoolean(args.Length))
+                    if (!args.Contains(projectName.ToLower()))
+                        continue;
+                if (StringComparer.OrdinalIgnoreCase.Equals(projectType, findTestProj))
                 {
                     DllInfo info = new DllInfo();
                     info.name = sp.ProjectName;

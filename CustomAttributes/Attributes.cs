@@ -41,4 +41,27 @@ namespace CustomAttributes
             }
         }
     }
+
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    public class FixtureEndAttr : Attribute
+    {
+        public string value;
+        public FixtureEndAttr(string value)
+        {
+            this.value = value;
+        }
+
+        public FixtureEndAttr()
+        {
+
+        }
+
+        string GetValue
+        {
+            get
+            {
+                return this.value;
+            }
+        }
+    }
 }

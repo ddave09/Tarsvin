@@ -214,8 +214,8 @@
                         previousToken = "background";
                         lineToken = "background";
                         backgroundExists = true;
-                        foreach (string attr in attrs)
-                            writeString += "\t[CustomAttributes.CaseAttr(\"" + attr + "\")]\r\n";
+                        //foreach (string attr in attrs)
+                        //    writeString += "\t[CustomAttributes.CaseAttr(\"" + attr + "\")]\r\n";
                         attrs.Clear();
                         writeString += "\t" + modifiers["public"] + " " + modifiers["void"] + " " + "FeatureBackground";
                         continue;
@@ -241,12 +241,14 @@
                     if (hierarchyName != null)
                     {
                         writeString += "\t" + "public " + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallBeforeX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
-                        writeString += "\t" + "~" + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
+                        writeString += "\t" + "[CustomAttributes.FixtureEndAttr()]" + "\r\n";
+                        writeString += "\t" + "public void " + "FeatureTearDown" + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                     }
                     else
                     {
                         writeString += "\t" + "public " + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallBeforeX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
-                        writeString += "\t" + "~" + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
+                        writeString += "\t" + "[CustomAttributes.FixtureEndAttr()]" + "\r\n";
+                        writeString += "\t" + "public void " + "FeatureTearDown" + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                     }
                     
                 }                    

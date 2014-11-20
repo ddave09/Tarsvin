@@ -1,4 +1,4 @@
-namespace FPBRTest
+namespace SunGard.PNE.CustomerSite.Specs.Features
 {
 using System;
 using StepBinder;
@@ -12,7 +12,8 @@ public class CustomerSiteLogin
 		FunctionBinder.CallBeforeX("CustomerSite", "", "CustomerSiteLogin", "feature");
 	}
 
-	~CustomerSiteLogin()
+	[CustomAttributes.FixtureEndAttr()]
+	public void FeatureTearDown()
 	{
 		FunctionBinder.CallAfterX("CustomerSite", "", "CustomerSiteLogin", "feature");
 	}
@@ -23,11 +24,11 @@ public class CustomerSiteLogin
 	{
 		FunctionBinder.CallBeforeX("CustomerSite", "", "CustomerSiteLogin", "4. Login with empty password", "CustomerSite.CustomerSiteLogin", "scenario");
 		FunctionBinder.Given("CustomerSite", "", "CustomerSiteLogin", "GivenIAmOnTheLoginPage");
-        //FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterInvalidUsername");
-        //FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterEmptyPassword");
-        //FunctionBinder.When("CustomerSite", "", "CustomerSiteLogin", "WhenILogin");
-        //FunctionBinder.Then("CustomerSite", "", "CustomerSiteLogin", "ThenIShouldSeeADeniedErrorMessage");
-        FunctionBinder.CallAfterX("CustomerSite", "", "CustomerSiteLogin", "scenario");
+		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterInvalidUsername");
+		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterEmptyPassword");
+		FunctionBinder.When("CustomerSite", "", "CustomerSiteLogin", "WhenILogin");
+		FunctionBinder.Then("CustomerSite", "", "CustomerSiteLogin", "ThenIShouldSeeADeniedErrorMessage");
+		FunctionBinder.CallAfterX("CustomerSite", "", "CustomerSiteLogin", "scenario");
 	}
 
 	[CustomAttributes.CaseAttr("CustomerSite")]
@@ -62,11 +63,11 @@ public class CustomerSiteLogin
 	{
 		FunctionBinder.CallBeforeX("CustomerSite", "", "CustomerSiteLogin", "7. Login with empty password and invalid password", "CustomerSite.CustomerSiteLogin", "scenario");
 		FunctionBinder.Given("CustomerSite", "", "CustomerSiteLogin", "GivenIAmOnTheLoginPage");
-        //FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterEmptyUsername");
-        //FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterInvalidPassword");
-        //FunctionBinder.When("CustomerSite", "", "CustomerSiteLogin", "WhenILogin");
-        //FunctionBinder.Then("CustomerSite", "", "CustomerSiteLogin", "ThenIShouldSeeADeniedErrorMessage");
-        FunctionBinder.CallAfterX("CustomerSite", "", "CustomerSiteLogin", "scenario");
+		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterEmptyUsername");
+		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterInvalidPassword");
+		FunctionBinder.When("CustomerSite", "", "CustomerSiteLogin", "WhenILogin");
+		FunctionBinder.Then("CustomerSite", "", "CustomerSiteLogin", "ThenIShouldSeeADeniedErrorMessage");
+		FunctionBinder.CallAfterX("CustomerSite", "", "CustomerSiteLogin", "scenario");
 	}
 
 	[CustomAttributes.CaseAttr("CustomerSite")]
