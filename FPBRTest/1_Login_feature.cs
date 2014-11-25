@@ -1,4 +1,4 @@
-namespace SunGard.PNE.CustomerSite.Specs.Features
+namespace FPBRTest
 {
 using System;
 using StepBinder;

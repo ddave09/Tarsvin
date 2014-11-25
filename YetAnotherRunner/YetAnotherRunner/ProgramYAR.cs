@@ -1,6 +1,7 @@
 ﻿namespace YetAnotherRunner
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -41,6 +42,38 @@
             }
             new StepLoader(addRefList);
             exe.ExcecuteTest(addRefList);
+            IEnumerator ie = GlobalTestStates.manageState.GetEnumerator();
+            while (ie.MoveNext())
+            {
+                IndividualTestState its = ie.Current as IndividualTestState;
+                //Console.WriteLine("Time Name {0} Test Span {1} Result {2}", its.ExecTime, its.TestName, its.Result);
+                Console.WriteLine("********************************************************************************");
+                Console.WriteLine("Scenario Namespace {0}", its.NameSpace);
+                Console.WriteLine("Scenario Name {0}", its.TestName);
+                Console.WriteLine("Execution Time {0}", its.ExecTime);
+                Console.Write("Attributes:  ");
+                foreach (string s in its.Attributes)
+                {
+                    Console.Write("{0}   ", s.Trim('"'));
+                }
+                Console.WriteLine();
+                Console.WriteLine("Result {0}", its.Result);
+                if (its.ThrownException != null)
+                {
+                    Console.WriteLine("--------------------");
+                    Console.WriteLine(its.ExceptionMessageStackTrace);
+                    Console.WriteLine("--------------------");
+                }
+
+                //if (its.ReasonOfFailure != string.Empty)
+                //{
+                //    Console.WriteLine("Failure Stack Trace");
+                //    Console.WriteLine("--------------------");
+                //    Console.WriteLine(its.ReasonOfFailure);
+                //    Console.WriteLine("--------------------");
+                //}
+            }
+            Console.WriteLine("*******************************************************************************");
             Console.ReadKey();
         }
     }

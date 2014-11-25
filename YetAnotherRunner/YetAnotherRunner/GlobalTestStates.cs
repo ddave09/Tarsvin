@@ -10,7 +10,7 @@ namespace YetAnotherRunner
     public static class GlobalTestStates
     {
         public static HashSet<IndividualTestState> manageState = new HashSet<IndividualTestState>();
-        private static Object lockHash = new Object();
+        private static SpinLock lockHash = new SpinLock();
         private static SpinLock lockCountRw = new SpinLock();
         private static int scenarioCount = 0;
 
@@ -41,10 +41,10 @@ namespace YetAnotherRunner
 
         public static void Add(IndividualTestState its)
         {
-            lock (lockHash)
-            {
-                manageState.Add(its);
-            }     
+            bool isLock = false;
+            lockHash.Enter(ref isLock);
+            manageState.Add(its);
+            if (isLock) lockHash.Exit();     
         }
 
 

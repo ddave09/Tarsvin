@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -12,7 +13,7 @@ namespace YetAnotherRunner
     {
         public Runner()
         {
-           
+
         }
 
         ~Runner()
@@ -20,32 +21,49 @@ namespace YetAnotherRunner
 
         }
 
-        public void Run(Object typeObject, MethodInfo testMethod)
+        public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs)
         {
             Task task = Task.Factory.StartNew((Object obj) =>
             {
                 IndividualTestState its = obj as IndividualTestState;
                 testMethod.Invoke(typeObject, null);
             },
-            new IndividualTestState() { TestName = testMethod.Name, StartTime = DateTime.Now.Ticks });
+            new IndividualTestState() { NameSpace = nameSpace, Attributes = attrs, TestName = testMethod.Name, StartTime = DateTime.Now.Ticks });
+
+            task.ContinueWith(continuation =>
+                continuation.Exception.Handle(ex =>
+                {
+                    var dataFault = task.AsyncState as IndividualTestState;
+                    dataFault.EndTime = DateTime.Now.Ticks;
+                    dataFault.Result = false;
+                    dataFault.ThrownException = ex;
+                    GlobalTestStates.Add(dataFault);
+                    if (GlobalTestStates.GetScenarioCount > 0)
+                    {
+                        GlobalTestStates.DecrementScenarioCount();
+                    }
+                    return false;
+                })
+            , TaskContinuationOptions.OnlyOnFaulted
+            );
 
             Task continueTask = task.ContinueWith((continuation) =>
             {
-                var data = task.AsyncState as IndividualTestState;
-                if (data != null)
+                var dataPass = task.AsyncState as IndividualTestState;
+                if (dataPass != null)
                 {
-                    data.EndTime = DateTime.Now.Ticks;
-                    long elapsedTicks = data.EndTime - data.StartTime;
-                    TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
-                    data.ExecTime = elapsedSpan;
-                    GlobalTestStates.manageState.Add(data);
-                    Console.WriteLine("Time span {0} Test name {1}", elapsedSpan, data.TestName);
+                    dataPass.EndTime = DateTime.Now.Ticks;
+                    dataPass.Result = true;
+                    dataPass.ThrownException = null;
+                    GlobalTestStates.Add(dataPass);
                     if (GlobalTestStates.GetScenarioCount > 0)
                     {
                         GlobalTestStates.DecrementScenarioCount();
                     }
                 }
-            });
+            }
+            , TaskContinuationOptions.NotOnFaulted
+            );
         }
     }
 }
