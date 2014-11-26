@@ -9,7 +9,7 @@ public class CustomerSiteLogin
 {
 	public CustomerSiteLogin()
 	{
-		FunctionBinder.CallBeforeX("CustomerSite", "", "CustomerSiteLogin", "feature");
+		FunctionBinder.CallBeforeFeature("CustomerSite", "", "CustomerSiteLogin");
 	}
 
 	[CustomAttributes.FixtureEndAttr()]
@@ -22,7 +22,7 @@ public class CustomerSiteLogin
 	[CustomAttributes.CaseAttr("CustomerSiteLogin")]
 	public void LoginWithEmptyPassword()
 	{
-		FunctionBinder.CallBeforeX("CustomerSite", "", "CustomerSiteLogin", "4. Login with empty password", "CustomerSite.CustomerSiteLogin", "scenario");
+		FunctionBinder.CallBeforeScenario("CustomerSite", "", "CustomerSiteLogin", "4. Login with empty password", "CustomerSite.CustomerSiteLogin");
 		FunctionBinder.Given("CustomerSite", "", "CustomerSiteLogin", "GivenIAmOnTheLoginPage");
 		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterInvalidUsername");
 		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterEmptyPassword");
@@ -35,7 +35,7 @@ public class CustomerSiteLogin
 	[CustomAttributes.CaseAttr("CustomerSiteLogin")]
 	public void LoginWithEmptyUsername()
 	{
-		FunctionBinder.CallBeforeX("CustomerSite", "", "CustomerSiteLogin", "5. Login with empty username", "CustomerSite.CustomerSiteLogin", "scenario");
+		FunctionBinder.CallBeforeScenario("CustomerSite", "", "CustomerSiteLogin", "5. Login with empty username", "CustomerSite.CustomerSiteLogin");
 		FunctionBinder.Given("CustomerSite", "", "CustomerSiteLogin", "GivenIAmOnTheLoginPage");
 		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterEmptyUsername");
 		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterInvalidPassword");
@@ -48,7 +48,7 @@ public class CustomerSiteLogin
 	[CustomAttributes.CaseAttr("CustomerSiteLogin")]
 	public void LoginWithEmptyUsernameAndInvalidPassword()
 	{
-		FunctionBinder.CallBeforeX("CustomerSite", "", "CustomerSiteLogin", "6. Login with empty username and invalid password", "CustomerSite.CustomerSiteLogin", "scenario");
+		FunctionBinder.CallBeforeScenario("CustomerSite", "", "CustomerSiteLogin", "6. Login with empty username and invalid password", "CustomerSite.CustomerSiteLogin");
 		FunctionBinder.Given("CustomerSite", "", "CustomerSiteLogin", "GivenIAmOnTheLoginPage");
 		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterEmptyUsername");
 		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterInvalidPassword");
@@ -61,7 +61,7 @@ public class CustomerSiteLogin
 	[CustomAttributes.CaseAttr("CustomerSiteLogin")]
 	public void LoginWithEmptyPasswordAndInvalidPassword()
 	{
-		FunctionBinder.CallBeforeX("CustomerSite", "", "CustomerSiteLogin", "7. Login with empty password and invalid password", "CustomerSite.CustomerSiteLogin", "scenario");
+		FunctionBinder.CallBeforeScenario("CustomerSite", "", "CustomerSiteLogin", "7. Login with empty password and invalid password", "CustomerSite.CustomerSiteLogin");
 		FunctionBinder.Given("CustomerSite", "", "CustomerSiteLogin", "GivenIAmOnTheLoginPage");
 		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterEmptyUsername");
 		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIEnterInvalidPassword");
@@ -74,7 +74,7 @@ public class CustomerSiteLogin
 	[CustomAttributes.CaseAttr("CustomerSiteLogin")]
 	public void LoginWithTooManyInvalidAttempts()
 	{
-		FunctionBinder.CallBeforeX("CustomerSite", "", "CustomerSiteLogin", "8. Login with too many invalid attempts", "CustomerSite.CustomerSiteLogin", "scenario");
+		FunctionBinder.CallBeforeScenario("CustomerSite", "", "CustomerSiteLogin", "8. Login with too many invalid attempts", "CustomerSite.CustomerSiteLogin");
 		FunctionBinder.Given("CustomerSite", "", "CustomerSiteLogin", "GivenIAmOnTheLoginPage");
 		FunctionBinder.And("CustomerSite", "", "CustomerSiteLogin", "GivenIAttemptToLoginWithTooManyInvalidAttempts");
 		FunctionBinder.Then("CustomerSite", "", "CustomerSiteLogin", "ThenIShouldBeLockedOut");

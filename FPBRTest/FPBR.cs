@@ -4,6 +4,8 @@ using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Build.Construction;
+using Microsoft.Build.Evaluation;
 using StepBinder;
 using YetAnotherRunner;
 
@@ -38,13 +40,31 @@ namespace FPBRTest
         [TestMethod]
         public void StepLoaderTest()
         {
-            CustomerSiteLogin csl = new CustomerSiteLogin();
-            CustomerSiteLogin csl1 = new CustomerSiteLogin();
-            //csl.LoginWithEmptyPassword();
-            //csl1.LoginWithEmptyPasswordAndInvalidPassword();
-            Task t1 = Task.Factory.StartNew(() => csl.LoginWithEmptyPassword());
-            Task t2 = Task.Factory.StartNew(() => csl.LoginWithEmptyPasswordAndInvalidPassword());
-            Task.WaitAll(t1, t2);
+            Project p = new Project(@"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test.CustomerSite.Specs\SunGard.PNE.Test.CustomerSite.Specs.csproj");
+            var itemsT = p.ItemTypes;
+            var items = p.GetItems("Compile");
+            p.AddItem("Compile", @"Features\removeimmediately.cs");
+            ICollection<ProjectItem> itemsAfter = p.GetItems("Compile");
+            List<ProjectItem> pis = new List<ProjectItem>();
+            foreach (ProjectItem pi in itemsAfter)
+            {
+                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, @"features\removeimmediately.cs"))
+                {
+                    pis.Add(pi);
+                }
+
+            }
+            p.RemoveItems(pis.AsEnumerable());
+            items = p.GetItems("Compile");
+            p.Save(@"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test.CustomerSite.Specs\SunGard.PNE.Test.CustomerSite.Specs.csproj");
+
+            //CustomerSiteLogin csl = new CustomerSiteLogin();
+            //CustomerSiteLogin csl1 = new CustomerSiteLogin();
+            ////csl.LoginWithEmptyPassword();
+            ////csl1.LoginWithEmptyPasswordAndInvalidPassword();
+            //Task t1 = Task.Factory.StartNew(() => csl.LoginWithEmptyPassword());
+            //Task t2 = Task.Factory.StartNew(() => csl.LoginWithEmptyPasswordAndInvalidPassword());
+            //Task.WaitAll(t1, t2);
         }
     }
 }

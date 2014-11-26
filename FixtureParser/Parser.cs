@@ -8,6 +8,8 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using Microsoft.Build.Construction;
+    using Microsoft.Build.Evaluation;
 
     public class Parser
     {
@@ -29,9 +31,12 @@
 
         }
 
-        public void Parse(string fixtureFilePath)
+        public void Parse(string fixtureFilePath, string pName)
         {
-            File.Delete(@"C:\_Automation\AutomatedCSharpFiles\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs");
+            Project p = new Project(@"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test." + pName + @".Specs\SunGard.PNE.Test." + pName + @".Specs.csproj");
+            string fileName = fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs";
+            File.Delete(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs");
+            RemoveFileFromProject(p, fileName);
             Stopwatch sw = Stopwatch.StartNew();
             string nameSpaceFinder = null;
             string className = null;
@@ -64,9 +69,9 @@
                     if (token == string.Empty)
                         continue;
 
-                    if (lineToken!=string.Empty)
+                    if (lineToken != string.Empty)
                         goto merger;
- 
+
                     if (StringComparer.OrdinalIgnoreCase.Equals(token.First(), '#'))
                     {
                         break;
@@ -76,8 +81,8 @@
                     {
                         skipFound = false;
                         string sub = token.Substring(1);
-                        if(StringComparer.OrdinalIgnoreCase.Equals(token.Substring(1),"Ignore") ||
-                            StringComparer.OrdinalIgnoreCase.Equals(token.Substring(1),"Incomplete") ||
+                        if (StringComparer.OrdinalIgnoreCase.Equals(token.Substring(1), "Ignore") ||
+                            StringComparer.OrdinalIgnoreCase.Equals(token.Substring(1), "Incomplete") ||
                             StringComparer.OrdinalIgnoreCase.Equals(token.Substring(1), "Manual"))
                         {
                             attrs.Clear();
@@ -87,7 +92,7 @@
                                 writeString = null;
                                 isFeatureIgnoreAttr = false;
                                 goto FinishProgram;
-                            }                          
+                            }
                             break;
                         }
                         if (projectNameFlag)
@@ -95,7 +100,7 @@
                             nameSpaceFinder = tokens[0].Substring(1);
                             projectNameFlag = false;
                         }
-                        
+
                         attrs.Add(token.Substring(1));
                         isFeatureIgnoreAttr = false;
                         continue;
@@ -113,7 +118,7 @@
                         writeString += "using StepBinder;\r\n\r\n";
                         hierarchyNameFlag = false;
                     }
-                    
+
 
                     if (skipFound)
                         break;
@@ -123,7 +128,7 @@
                         previousToken = "step";
                         lineToken = "step";
                         currentStep = "Given";
-                        if(hierarchyName!=null)
+                        if (hierarchyName != null)
                             writeString += "\t\t" + "FunctionBinder." + token + "(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"" + token;
                         else
                             writeString += "\t\t" + "FunctionBinder." + token + "(\"" + nameSpaceFinder + "\", \"\", \"" + className + "\", \"" + token;
@@ -148,7 +153,7 @@
                         if (hierarchyName != null)
                             writeString += "\t\t" + "FunctionBinder." + token + "(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"" + token;
                         else
-                            writeString += "\t\t" + "FunctionBinder." + token + "(\"" + nameSpaceFinder + "\", \"\", \"" + className + "\", \"" + token;                        
+                            writeString += "\t\t" + "FunctionBinder." + token + "(\"" + nameSpaceFinder + "\", \"\", \"" + className + "\", \"" + token;
                         continue;
                     }
                     if (StringComparer.OrdinalIgnoreCase.Equals(token, "and"))
@@ -192,9 +197,9 @@
                             writeString += "\t[CustomAttributes.CaseAttr(\"" + attr + "\")]\r\n";
                             attributeString += attr + ".";
                         }
-                            
+
                         attrs.Clear();
-                        writeString += "\t"+ modifiers["public"] + " " + modifiers["void"] + " ";
+                        writeString += "\t" + modifiers["public"] + " " + modifiers["void"] + " ";
                         continue;
                     }
                     if (StringComparer.OrdinalIgnoreCase.Equals(token, "feature:"))
@@ -214,8 +219,6 @@
                         previousToken = "background";
                         lineToken = "background";
                         backgroundExists = true;
-                        //foreach (string attr in attrs)
-                        //    writeString += "\t[CustomAttributes.CaseAttr(\"" + attr + "\")]\r\n";
                         attrs.Clear();
                         writeString += "\t" + modifiers["public"] + " " + modifiers["void"] + " " + "FeatureBackground";
                         continue;
@@ -223,11 +226,10 @@
                 merger:
                     if (lineToken == string.Empty)
                         break;
-                
+
                     lineName += " " + token;
                     if (Regex.IsMatch(token, @"\d."))
                         continue;
-                    //lineName += " " + token;
                     name += token[0].ToString().ToUpper() + token.Substring(1);
                     writeString += token[0].ToString().ToUpper() + token.Substring(1);
                 }
@@ -240,18 +242,18 @@
                     writeString += "\r\n" + "{" + "\r\n";
                     if (hierarchyName != null)
                     {
-                        writeString += "\t" + "public " + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallBeforeX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
+                        writeString += "\t" + "public " + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallBeforeFeature(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\");"/*, \"feature\");"*/ + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                         writeString += "\t" + "[CustomAttributes.FixtureEndAttr()]" + "\r\n";
                         writeString += "\t" + "public void " + "FeatureTearDown" + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                     }
                     else
                     {
-                        writeString += "\t" + "public " + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallBeforeX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
+                        writeString += "\t" + "public " + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallBeforeFeature(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\");"/*, \"feature\");"*/ + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                         writeString += "\t" + "[CustomAttributes.FixtureEndAttr()]" + "\r\n";
                         writeString += "\t" + "public void " + "FeatureTearDown" + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                     }
-                    
-                }                    
+
+                }
                 else if (StringComparer.OrdinalIgnoreCase.Equals(lineToken, "background"))
                 {
                     writeString += "(" + ")" + "\r\n\t" + "{" + "\r\n";
@@ -259,15 +261,15 @@
                     lineName = string.Empty;
                     attributeString = string.Empty;
                 }
-                    
+
                 else if (StringComparer.OrdinalIgnoreCase.Equals(lineToken, "scenario"))
-                {      
-                    
+                {
+
                     writeString += "(" + ")" + "\r\n\t" + "{" + "\r\n" + "\t\t";
                     if (hierarchyName != null)
-                        writeString += "FunctionBinder.CallBeforeX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\", \"scenario\");" + "\r\n";
+                        writeString += "FunctionBinder.CallBeforeScenario(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\");"/*, \"scenario\");"*/ + "\r\n";
                     else
-                        writeString += "FunctionBinder.CallBeforeX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\", \"scenario\");" + "\r\n";
+                        writeString += "FunctionBinder.CallBeforeScenario(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\");"/*, \"scenario\");"*/ + "\r\n";
 
                     name = string.Empty;
                     lineName = string.Empty;
@@ -279,25 +281,6 @@
                         writeString += "this.FeatureBackground();" + "\r\n";
                     }
                 }
-                    
-                //else if (StringComparer.OrdinalIgnoreCase.Equals(lineToken, "scenario"))
-                //    if (backgroundExists)
-                //    {
-                //        writeString += "(" + ")" + "\r\n\t" + "{" + "\r\n" + "\t\t";
-                //        if (hierarchyName == null)
-                //            writeString += "FunctionBinder.CallBeforeX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"scenario\");";
-                //        else
-                //            writeString += "FunctionBinder.CallBeforeX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"scenario\");";
-                //        writeString += "this.FeatureBackground();" + "\r\n";
-                //    }
-                //    else
-                //    {
-                //        if (hierarchyName == null)
-                //            writeString += "FunctionBinder.CallBeforeX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"scenario\");";
-                //        else
-                //            writeString += "FunctionBinder.CallBeforeX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"scenario\");";
-                //        writeString += "(" + ")" + "\r\n\t" + "{" + "\r\n";
-                //    }
 
                 else if (StringComparer.OrdinalIgnoreCase.Equals(lineToken, "step"))
                 {
@@ -305,7 +288,7 @@
                     name = string.Empty;
                     lineName = string.Empty;
                 }
-                    
+
             }
             writeString += "\t\t";
             if (hierarchyName != null)
@@ -313,10 +296,39 @@
             else
                 writeString += "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"scenario\");" + "\r\n";
             writeString += "\t" + "}" + "\r\n" + "}" + "\r\n" + "}";
-            File.WriteAllText(@"C:\_Automation\AutomatedCSharpFiles\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs", writeString);
-
+            File.WriteAllText(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs", writeString);
+            AddFileToProject(p, fileName);
         FinishProgram:
             Console.WriteLine("Elapsed Time: {0}", sw.ElapsedMilliseconds);
+        }
+
+        public void AddFileToProject(Project p, string fileName)
+        {
+            foreach (ProjectItem pi in p.GetItems("Compile"))
+            {
+                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, "features\\" + fileName))
+                    goto Finish;
+            }
+            p.AddItem("Compile", @"Features\" + fileName);
+        Finish:
+            p.Save();
+        }
+
+        public void RemoveFileFromProject(Project p, string fileName)
+        {
+            List<ProjectItem> pis = new List<ProjectItem>();
+            foreach (ProjectItem pi in p.GetItems("Compile"))
+            {
+                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, "features\\" + fileName))
+                {
+                    pis.Add(pi);
+                }
+            }
+            if (Convert.ToBoolean(pis.Count))
+            {
+                p.RemoveItems(pis.AsEnumerable());
+            }
+            p.Save();
         }
     }
 }

@@ -12,8 +12,9 @@ namespace FixtureParser
         {
             string filePath = @"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\1_Login.feature";
             string filePath1 = @"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\12_UserAdministration.feature";
+            string projectName = "CustomerSite";
             Parser ps = new Parser();
-            ps.Parse(filePath);
+            ps.Parse(filePath, projectName);
             Console.ReadKey();
         }
     }

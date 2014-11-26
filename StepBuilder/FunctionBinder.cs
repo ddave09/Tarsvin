@@ -26,78 +26,25 @@ namespace StepBinder
             }
             string y = "SunGard.PNE.Test." + nameSpace + ".Specs.Steps." + hierarchy + "." + type + "Steps";
             return "SunGard.PNE.Test." + nameSpace + ".Specs.Steps." + hierarchy + "." + type + "Steps";
-            
         }
 
-
-        public static MethodInfo FetchBeforeX(List<MethodInfo> methods, string beforeX)
+        public static MethodInfo FetchX(List<MethodInfo> methods, string beforeX, string before_after)
         {
-            if (StringComparer.OrdinalIgnoreCase.Equals(beforeX, "feature"))
+            foreach (MethodInfo method in methods)
             {
-                foreach (MethodInfo method in methods)
+                List<Attribute> li = method.GetCustomAttributes().ToList();
+                foreach (Attribute a in li)
                 {
-                    List<Attribute> li = method.GetCustomAttributes().ToList();
-                    foreach (Attribute a in li)
+                    if (StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), "techtalk.specflow." + before_after + beforeX + "attribute"))
                     {
-                        if (StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), "techtalk.specflow.beforefeatureattribute"))
-                        {
-                            return method;
-                        }
-                    }
-                }
-            }
-            else if (StringComparer.OrdinalIgnoreCase.Equals(beforeX, "scenario"))
-            {
-                foreach (MethodInfo method in methods)
-                {
-                    List<Attribute> li = method.GetCustomAttributes().ToList();
-                    foreach (Attribute a in li)
-                    {
-                        if (StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), "techtalk.specflow.beforescenarioattribute"))
-                        {
-                            return method;
-                        }
+                        return method;
                     }
                 }
             }
             return null;
         }
 
-
-        public static MethodInfo FetchAfterX(List<MethodInfo> methods, string afterX)
-        {
-            if (StringComparer.OrdinalIgnoreCase.Equals(afterX, "feature"))
-            {
-                foreach (MethodInfo method in methods)
-                {
-                    List<Attribute> li = method.GetCustomAttributes().ToList();
-                    foreach (Attribute a in li)
-                    {
-                        if (StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), "techtalk.specflow.afterfeatureattribute"))
-                        {
-                            return method;
-                        }
-                    }
-                }
-            }
-            else if (StringComparer.OrdinalIgnoreCase.Equals(afterX, "scenario"))
-            {
-                foreach (MethodInfo method in methods)
-                {
-                    List<Attribute> li = method.GetCustomAttributes().ToList();
-                    foreach (Attribute a in li)
-                    {
-                        if (StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), "techtalk.specflow.afterscenarioattribute"))
-                        {
-                            return method;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        public static void CallBeforeX(string nameSpace, string hierarchy, string type,  string beforeX)
+        public static void CallBeforeFeature(string nameSpace, string hierarchy, string type)
         {
             InvokeInfo iI = null;
             FindKey(nameSpace, hierarchy, type, out iI);
@@ -105,19 +52,9 @@ namespace StepBinder
             Type t = iI.type;
             List<MethodInfo> methods = iI.methods;
             MethodInfo methodToInvoke = null;
-            if (StringComparer.OrdinalIgnoreCase.Equals(beforeX, "feature"))
+            if ((methodToInvoke = FetchX(methods, "feature", "before")) == null)
             {
-                if ((methodToInvoke = FetchBeforeX(methods, "feature")) == null)
-                {
-                    throw new MissingMethodException();
-                }        
-            }
-            else if (StringComparer.OrdinalIgnoreCase.Equals(beforeX, "scenario"))
-            {
-                if ((methodToInvoke = FetchBeforeX(methods, "scenario")) == null)
-                {
-                    throw new MissingMethodException();
-                }           
+                throw new MissingMethodException();
             }
             List<string> ltags = new List<string>();
             ltags.Add(nameSpace);
@@ -129,8 +66,7 @@ namespace StepBinder
             methodToInvoke.Invoke(Activator.CreateInstance(t), parameters);
         }
 
-
-        public static void CallBeforeX(string nameSpace, string hierarchy, string type, string scenarioName, string scenarioAttrs, string beforeX)
+        public static void CallBeforeScenario(string nameSpace, string hierarchy, string type, string scenarioName, string scenarioAttrs)
         {
             InvokeInfo iI = null;
             FindKey(nameSpace, hierarchy, type, out iI);
@@ -138,19 +74,9 @@ namespace StepBinder
             Type t = iI.type;
             List<MethodInfo> methods = iI.methods;
             MethodInfo methodToInvoke = null;
-            if (StringComparer.OrdinalIgnoreCase.Equals(beforeX, "feature"))
+            if ((methodToInvoke = FetchX(methods, "scenario", "before")) == null)
             {
-                if ((methodToInvoke = FetchBeforeX(methods, "feature")) == null)
-                {
-                    throw new MissingMethodException();
-                }
-            }
-            else if (StringComparer.OrdinalIgnoreCase.Equals(beforeX, "scenario"))
-            {
-                if ((methodToInvoke = FetchBeforeX(methods, "scenario")) == null)
-                {
-                    throw new MissingMethodException();
-                }
+                throw new MissingMethodException();
             }
             List<string> ltags = new List<string>();
             ltags.AddRange(scenarioAttrs.Split('.').ToList());
@@ -168,7 +94,6 @@ namespace StepBinder
             object[] parameters = param.ToArray();
             return parameters;
         }
-
 
         private static object[] BindFeatureParameters(List<string> ltags, string type)
         {
@@ -190,14 +115,14 @@ namespace StepBinder
             MethodInfo methodToInvoke = null;
             if (StringComparer.OrdinalIgnoreCase.Equals(afterX, "feature"))
             {
-                if ((methodToInvoke = FetchAfterX(methods, "feature")) == null)
+                if ((methodToInvoke = FetchX(methods, "feature", "after")) == null)
                 {
                     throw new MissingMethodException();
                 }
             }
             else if (StringComparer.OrdinalIgnoreCase.Equals(afterX, "scenario"))
             {
-                if ((methodToInvoke = FetchAfterX(methods, "scenario")) == null)
+                if ((methodToInvoke = FetchX(methods, "scenario", "after")) == null)
                 {
                     throw new MissingMethodException();
                 }
@@ -221,69 +146,34 @@ namespace StepBinder
                 }
             }
             return null;
-        } 
+        }
 
         public static void Given(string nameSpace, string hierarchy, string type, string functionName)
         {
-            InvokeInfo iI = null;
-            FindKey(nameSpace, hierarchy, type, out iI);
-            string dllPath = iI.dllPath;
-            Type t = iI.type;
-            List<MethodInfo> methods = iI.methods;
-            MethodInfo methodToInvoke = null;
-            if ((methodToInvoke = FetchFunctionByName(methods, functionName)) == null)
-            {
-                throw new MissingMethodException();
-            }
-            methodToInvoke.Invoke(Activator.CreateInstance(t), null);                        
+            FetchExecuteStep(nameSpace, hierarchy, type, functionName);
         }
 
         public static void And(string nameSpace, string hierarchy, string type, string functionName)
         {
-            InvokeInfo iI = null;
-            FindKey(nameSpace, hierarchy, type, out iI);
-            string dllPath = iI.dllPath;
-            Type t = iI.type;
-            List<MethodInfo> methods = iI.methods;
-            MethodInfo methodToInvoke = null;
-            if ((methodToInvoke = FetchFunctionByName(methods, functionName)) == null)
-            {
-                throw new MissingMethodException();
-            }
-            methodToInvoke.Invoke(Activator.CreateInstance(t), null);         
+            FetchExecuteStep(nameSpace, hierarchy, type, functionName);
         }
 
         public static void When(string nameSpace, string hierarchy, string type, string functionName)
         {
-            InvokeInfo iI = null;
-            FindKey(nameSpace, hierarchy, type, out iI);
-            string dllPath = iI.dllPath;
-            Type t = iI.type;
-            List<MethodInfo> methods = iI.methods;
-            MethodInfo methodToInvoke = null;
-            if ((methodToInvoke = FetchFunctionByName(methods, functionName)) == null)
-            {
-                throw new MissingMethodException();
-            }
-            methodToInvoke.Invoke(Activator.CreateInstance(t), null);         
+            FetchExecuteStep(nameSpace, hierarchy, type, functionName);
         }
 
         public static void Then(string nameSpace, string hierarchy, string type, string functionName)
         {
-            InvokeInfo iI = null;
-            FindKey(nameSpace, hierarchy, type, out iI);
-            string dllPath = iI.dllPath;
-            Type t = iI.type;
-            List<MethodInfo> methods = iI.methods;
-            MethodInfo methodToInvoke = null;
-            if ((methodToInvoke = FetchFunctionByName(methods, functionName)) == null)
-            {
-                throw new MissingMethodException();
-            }
-            methodToInvoke.Invoke(Activator.CreateInstance(t), null);         
+            FetchExecuteStep(nameSpace, hierarchy, type, functionName);
         }
 
         public static void But(string nameSpace, string hierarchy, string type, string functionName)
+        {
+            FetchExecuteStep(nameSpace, hierarchy, type, functionName);
+        }
+
+        private static void FetchExecuteStep(string nameSpace, string hierarchy, string type, string functionName)
         {
             InvokeInfo iI = null;
             FindKey(nameSpace, hierarchy, type, out iI);
@@ -295,7 +185,7 @@ namespace StepBinder
             {
                 throw new MissingMethodException();
             }
-            methodToInvoke.Invoke(Activator.CreateInstance(t), null);         
+            methodToInvoke.Invoke(Activator.CreateInstance(t), null);
         }
     }
 }
