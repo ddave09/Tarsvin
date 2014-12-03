@@ -116,6 +116,7 @@
                         writeString += "namespace SunGard.PNE." + nameSpaceFinder + ".Specs.Features" + hierarchyName + "\r\n" + "{" + "\r\n";
                         writeString += "using System;\r\n";
                         writeString += "using StepBinder;\r\n\r\n";
+                        //writeString += "using SunGard.PNE.Test." + nameSpaceFinder + ".Specs.Steps;\r\n\r\n";
                         hierarchyNameFlag = false;
                     }
 
@@ -181,9 +182,9 @@
                         if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "step") && !StringComparer.OrdinalIgnoreCase.Equals(previousParentToken, "background"))
                         {
                             if (hierarchyName != null)
-                                writeString += "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"scenario\");" + "\r\n";
+                                writeString += "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", obj);" + "\r\n";
                             else
-                                writeString += "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"scenario\");" + "\r\n";
+                                writeString += "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", obj);" + "\r\n";
                             writeString += "\t" + "}" + "\r\n" + "\r\n";
                         }
                         else if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "step"))
@@ -244,13 +245,13 @@
                     {
                         writeString += "\t" + "public " + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallBeforeFeature(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\");"/*, \"feature\");"*/ + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                         writeString += "\t" + "[CustomAttributes.FixtureEndAttr()]" + "\r\n";
-                        writeString += "\t" + "public void " + "FeatureTearDown" + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
+                        writeString += "\t" + "public void " + "FeatureTearDown" + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\");"/*, \"feature\");"*/ + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                     }
                     else
                     {
                         writeString += "\t" + "public " + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallBeforeFeature(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\");"/*, \"feature\");"*/ + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                         writeString += "\t" + "[CustomAttributes.FixtureEndAttr()]" + "\r\n";
-                        writeString += "\t" + "public void " + "FeatureTearDown" + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"feature\");" + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
+                        writeString += "\t" + "public void " + "FeatureTearDown" + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\");"/*, \"feature\");"*/ + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                     }
 
                 }
@@ -267,9 +268,9 @@
 
                     writeString += "(" + ")" + "\r\n\t" + "{" + "\r\n" + "\t\t";
                     if (hierarchyName != null)
-                        writeString += "FunctionBinder.CallBeforeScenario(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\");"/*, \"scenario\");"*/ + "\r\n";
+                        writeString += "Object" + " obj" + "= " + "FunctionBinder.CallBeforeScenario(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\");"/*, \"scenario\");"*/ + "\r\n";
                     else
-                        writeString += "FunctionBinder.CallBeforeScenario(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\");"/*, \"scenario\");"*/ + "\r\n";
+                        writeString += "Object" + " obj" + "= " + "FunctionBinder.CallBeforeScenario(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\");"/*, \"scenario\");"*/ + "\r\n";
 
                     name = string.Empty;
                     lineName = string.Empty;
@@ -284,7 +285,7 @@
 
                 else if (StringComparer.OrdinalIgnoreCase.Equals(lineToken, "step"))
                 {
-                    writeString += "\")" + ";" + "\r\n";
+                    writeString += "\", obj)" + ";" + "\r\n";
                     name = string.Empty;
                     lineName = string.Empty;
                 }
@@ -292,9 +293,9 @@
             }
             writeString += "\t\t";
             if (hierarchyName != null)
-                writeString += "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"scenario\");" + "\r\n";
+                writeString += "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", obj);" + "\r\n";
             else
-                writeString += "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", \"scenario\");" + "\r\n";
+                writeString += "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", obj);" + "\r\n";
             writeString += "\t" + "}" + "\r\n" + "}" + "\r\n" + "}";
             File.WriteAllText(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs", writeString);
             AddFileToProject(p, fileName);

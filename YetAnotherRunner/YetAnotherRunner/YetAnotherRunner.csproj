@@ -66,20 +66,21 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TestPipe.Common">
-      <HintPath>..\..\..\_TestPipe\source\application\TestPipe.Core\bin\Debug\TestPipe.Common.dll</HintPath>
+    <Reference Include="TestPipe.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\_TestPipe\source\application\TestPipe.Core\bin\Debug\TestPipe.Core.dll</HintPath>
     </Reference>
-    <Reference Include="TestPipe.Core">
-      <HintPath>..\..\..\_TestPipe\source\application\TestPipe.Core\bin\Debug\TestPipe.Core.dll</HintPath>
+    <Reference Include="TestPipe.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\_TestPipe\source\application\TestPipe.Data\bin\Debug\TestPipe.Data.dll</HintPath>
     </Reference>
-    <Reference Include="TestPipe.Data">
-      <HintPath>..\..\..\_TestPipe\source\application\TestPipe.Core\bin\Debug\TestPipe.Data.dll</HintPath>
+    <Reference Include="TestPipe.NPoco, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\_TestPipe\source\application\TestPipe.NPoco\bin\Debug\TestPipe.NPoco.dll</HintPath>
     </Reference>
-    <Reference Include="TestPipe.NPoco">
-      <HintPath>..\..\..\_TestPipe\source\application\TestPipe.Core\bin\Debug\TestPipe.NPoco.dll</HintPath>
-    </Reference>
-    <Reference Include="TestPipe.SpecFlow">
-      <HintPath>..\..\..\_TestPipe\source\application\TestPipe.SpecFlow\bin\Debug\TestPipe.SpecFlow.dll</HintPath>
+    <Reference Include="TestPipe.SpecFlow, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\_TestPipe\source\application\TestPipe.SpecFlow\bin\Debug\TestPipe.SpecFlow.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver">
       <HintPath>..\packages\Selenium.WebDriver.2.43.1\lib\net40\WebDriver.dll</HintPath>

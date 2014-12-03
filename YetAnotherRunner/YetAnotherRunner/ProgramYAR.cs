@@ -64,18 +64,9 @@
                     Console.WriteLine(its.ExceptionMessageStackTrace);
                     Console.WriteLine("--------------------");
                 }
-
-                //if (its.ReasonOfFailure != string.Empty)
-                //{
-                //    Console.WriteLine("Failure Stack Trace");
-                //    Console.WriteLine("--------------------");
-                //    Console.WriteLine(its.ReasonOfFailure);
-                //    Console.WriteLine("--------------------");
-                //}
             }
             Console.WriteLine("*******************************************************************************");
             Console.ReadKey();
         }
     }
 }
-
