@@ -93,6 +93,7 @@
     <Compile Include="DllInfo.cs" />
     <Compile Include="Executor.cs" />
     <Compile Include="GlobalTestStates.cs" />
+    <Compile Include="IndividualFeatureTestState.cs" />
     <Compile Include="IndividualTestState.cs" />
     <Compile Include="ProgramYAR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -69,6 +69,7 @@
     <Compile Include="1_Login_feature.cs" />
     <Compile Include="FPBR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YetAnotherRunner_Efficient\YetAnotherRunner\YetAnotherRunner.csproj">

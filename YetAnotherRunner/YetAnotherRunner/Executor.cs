@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,9 +29,12 @@ namespace YetAnotherRunner
                 List<Type> types = TestTypes(runtimeAssembly.GetTypes().ToList());
                 foreach (Type type in types)
                 {
+                    IndividualFeatureTestState itfs = new IndividualFeatureTestState();
                     Object obj = Activator.CreateInstance(type);
                     MethodInfo TearDownFeature = null;
                     List<MethodInfo> methods = TestMethods(type.GetMethods().ToList(), ref TearDownFeature);
+                    itfs.FeatureName = type.FullName;
+                    itfs.StartTick = DateTime.Now.Ticks;
                     foreach (MethodInfo method in methods)
                     {
                         List<string> attrsValues = this.GetAttributesConstructorValues(method);
@@ -38,6 +43,9 @@ namespace YetAnotherRunner
                     }
                     while (Convert.ToBoolean(GlobalTestStates.GetScenarioCount)) ;
                     TearDownFeature.Invoke(obj, null);
+                    itfs.EndTick = DateTime.Now.Ticks;
+                    GlobalTestStates.AddFeature(itfs);
+                    this.KillTasks();
                 }
             }            
         }
@@ -114,6 +122,12 @@ namespace YetAnotherRunner
                 }
             }
             return false;
+        }
+
+        public void KillTasks()
+        {
+            Process p = Process.Start("TaskKiller.bat");
+            p.WaitForExit();
         }
     }
 }

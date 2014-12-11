@@ -43,6 +43,15 @@
             new StepLoader(addRefList);
             exe.ExcecuteTest(addRefList);
             IEnumerator ie = GlobalTestStates.manageState.GetEnumerator();
+            IEnumerator fie = GlobalTestStates.featureState.GetEnumerator();
+            while (fie.MoveNext())
+            {
+                IndividualFeatureTestState itfs = fie.Current as IndividualFeatureTestState;
+                Console.WriteLine("********************************************************************************");
+                Console.WriteLine("Feature Namespace {0}", itfs.FeatureName);
+                Console.WriteLine("Execution Time {0}", itfs.FeatureExecutionTime);
+            }
+           
             while (ie.MoveNext())
             {
                 IndividualTestState its = ie.Current as IndividualTestState;
@@ -66,6 +75,7 @@
                 }
             }
             Console.WriteLine("*******************************************************************************");
+            //Console.WriteLine("Total Execution time in Parallel: {0}", GlobalTestStates.TotalExecP());
             Console.ReadKey();
         }
     }

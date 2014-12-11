@@ -10,9 +10,36 @@ namespace YetAnotherRunner
     public static class GlobalTestStates
     {
         public static HashSet<IndividualTestState> manageState = new HashSet<IndividualTestState>();
+        public static HashSet<IndividualFeatureTestState> featureState = new HashSet<IndividualFeatureTestState>();
         private static SpinLock lockHash = new SpinLock();
+        private static SpinLock featureHasLock = new SpinLock();
         private static SpinLock lockCountRw = new SpinLock();
         private static int scenarioCount = 0;
+
+        public static void AddFeature(IndividualFeatureTestState itfs)
+        {
+            bool isLock = false;
+            featureHasLock.Enter(ref isLock);
+            featureState.Add(itfs);
+            if (isLock) featureHasLock.Exit();
+        }
+
+        //public static long StartTick
+        //{
+        //    get;
+        //    set;
+        //}
+
+        //public static long EndTick
+        //{
+        //    get;
+        //    set;
+        //}
+
+        //public static TimeSpan TotalExecP()
+        //{
+        //    return new TimeSpan(EndTick - StartTick);
+        //}
 
         public static void IncrementScenarioCount()
         {

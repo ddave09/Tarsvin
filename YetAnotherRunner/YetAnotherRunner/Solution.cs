@@ -15,19 +15,19 @@ namespace YetAnotherRunner
         //Name: Microsoft.Build.Construction.SolutionParser
         //Assembly: Microsoft.Build, Version=4.0.0.0
 
-        static readonly Type s_SolutionParser;
-        static readonly PropertyInfo s_SolutionParser_solutionReader;
-        static readonly MethodInfo s_SolutionParser_parseSolution;
-        static readonly PropertyInfo s_SolutionParser_projects;
+        static readonly Type parser;
+        static readonly PropertyInfo reader;
+        static readonly MethodInfo parserMethodInfo;
+        static readonly PropertyInfo parserPropertyInfo;
 
         static Solution()
         {
-            s_SolutionParser = Type.GetType("Microsoft.Build.Construction.SolutionParser, Microsoft.Build, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", false, false);
-            if (s_SolutionParser != null)
+            parser = Type.GetType("Microsoft.Build.Construction.SolutionParser, Microsoft.Build, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", false, false);
+            if (parser != null)
             {
-                s_SolutionParser_solutionReader = s_SolutionParser.GetProperty("SolutionReader", BindingFlags.NonPublic | BindingFlags.Instance);
-                s_SolutionParser_projects = s_SolutionParser.GetProperty("Projects", BindingFlags.NonPublic | BindingFlags.Instance);
-                s_SolutionParser_parseSolution = s_SolutionParser.GetMethod("ParseSolution", BindingFlags.NonPublic | BindingFlags.Instance);
+                reader = parser.GetProperty("SolutionReader", BindingFlags.NonPublic | BindingFlags.Instance);
+                parserPropertyInfo = parser.GetProperty("Projects", BindingFlags.NonPublic | BindingFlags.Instance);
+                parserMethodInfo = parser.GetMethod("ParseSolution", BindingFlags.NonPublic | BindingFlags.Instance);
             }
         }
 
@@ -35,18 +35,18 @@ namespace YetAnotherRunner
 
         public Solution(string solutionFileName)
         {
-            if (s_SolutionParser == null)
+            if (parser == null)
             {
                 throw new InvalidOperationException("Can not find type 'Microsoft.Build.Construction.SolutionParser' are you missing a assembly reference to 'Microsoft.Build.dll'?");
             }
-            var solutionParser = s_SolutionParser.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic).First().Invoke(null);
+            var solutionParser = parser.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic).First().Invoke(null);
             using (var streamReader = new StreamReader(solutionFileName))
             {
-                s_SolutionParser_solutionReader.SetValue(solutionParser, streamReader, null);
-                s_SolutionParser_parseSolution.Invoke(solutionParser, null);
+                reader.SetValue(solutionParser, streamReader, null);
+                parserMethodInfo.Invoke(solutionParser, null);
             }
             var projects = new List<SolutionProject>();
-            var array = (Array)s_SolutionParser_projects.GetValue(solutionParser, null);
+            var array = (Array)parserPropertyInfo.GetValue(solutionParser, null);
             for (int i = 0; i < array.Length; i++)
             {
                 projects.Add(new SolutionProject(array.GetValue(i)));
@@ -58,21 +58,21 @@ namespace YetAnotherRunner
     [DebuggerDisplay("{ProjectName}, {RelativePath}, {ProjectGuid}")]
     public class SolutionProject
     {
-        static readonly Type s_ProjectInSolution;
-        static readonly PropertyInfo s_ProjectInSolution_ProjectName;
-        static readonly PropertyInfo s_ProjectInSolution_RelativePath;
-        static readonly PropertyInfo s_ProjectInSolution_ProjectGuid;
-        static readonly PropertyInfo s_ProjectInSolution_ProjectType;
+        static readonly Type solutionProject;
+        static readonly PropertyInfo projectName;
+        static readonly PropertyInfo relativePath;
+        static readonly PropertyInfo projectGuid;
+        static readonly PropertyInfo projectType;
 
         static SolutionProject()
         {
-            s_ProjectInSolution = Type.GetType("Microsoft.Build.Construction.ProjectInSolution, Microsoft.Build, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", false, false);
-            if (s_ProjectInSolution != null)
+            solutionProject = Type.GetType("Microsoft.Build.Construction.ProjectInSolution, Microsoft.Build, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", false, false);
+            if (solutionProject != null)
             {
-                s_ProjectInSolution_ProjectName = s_ProjectInSolution.GetProperty("ProjectName", BindingFlags.NonPublic | BindingFlags.Instance);
-                s_ProjectInSolution_RelativePath = s_ProjectInSolution.GetProperty("RelativePath", BindingFlags.NonPublic | BindingFlags.Instance);
-                s_ProjectInSolution_ProjectGuid = s_ProjectInSolution.GetProperty("ProjectGuid", BindingFlags.NonPublic | BindingFlags.Instance);
-                s_ProjectInSolution_ProjectType = s_ProjectInSolution.GetProperty("ProjectType", BindingFlags.NonPublic | BindingFlags.Instance);
+                projectName = solutionProject.GetProperty("ProjectName", BindingFlags.NonPublic | BindingFlags.Instance);
+                relativePath = solutionProject.GetProperty("RelativePath", BindingFlags.NonPublic | BindingFlags.Instance);
+                projectGuid = solutionProject.GetProperty("ProjectGuid", BindingFlags.NonPublic | BindingFlags.Instance);
+                projectType = solutionProject.GetProperty("ProjectType", BindingFlags.NonPublic | BindingFlags.Instance);
             }
         }
 
@@ -83,10 +83,10 @@ namespace YetAnotherRunner
 
         public SolutionProject(object solutionProject)
         {
-            this.ProjectName = s_ProjectInSolution_ProjectName.GetValue(solutionProject, null) as string;
-            this.RelativePath = s_ProjectInSolution_RelativePath.GetValue(solutionProject, null) as string;
-            this.ProjectGuid = s_ProjectInSolution_ProjectGuid.GetValue(solutionProject, null) as string;
-            this.ProjectType = s_ProjectInSolution_ProjectType.GetValue(solutionProject, null).ToString();
+            this.ProjectName = projectName.GetValue(solutionProject, null) as string;
+            this.RelativePath = relativePath.GetValue(solutionProject, null) as string;
+            this.ProjectGuid = projectGuid.GetValue(solutionProject, null) as string;
+            this.ProjectType = projectType.GetValue(solutionProject, null).ToString();
         }
     }
 

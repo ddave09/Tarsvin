@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
@@ -65,6 +66,26 @@ namespace FPBRTest
             //Task t1 = Task.Factory.StartNew(() => csl.LoginWithEmptyPassword());
             //Task t2 = Task.Factory.StartNew(() => csl.LoginWithEmptyPasswordAndInvalidPassword());
             //Task.WaitAll(t1, t2);
+        }
+
+        [TestMethod]
+        public void KillTasks()
+        {
+            Process p = Process.Start("TaskKiller.bat");
+            p.WaitForExit();
+            //ProcessStartInfo ps = new ProcessStartInfo("TaskKiller.bat");
+            //ps.UseShellExecute = false;
+            //try
+            //{
+            //    Process p = Process.Start(ps);
+            //    p.WaitForExit();
+            //}
+            //catch (Exception e)
+            //{
+            //    string x = e.StackTrace;
+            //    string m = e.Message;
+            //}
+            
         }
     }
 }

@@ -31,10 +31,10 @@
 
         }
 
-        public void Parse(string fixtureFilePath, string pName)
+        public void Parse(string fixtureFilePath, string pName, string fName)
         {
             Project p = new Project(@"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test." + pName + @".Specs\SunGard.PNE.Test." + pName + @".Specs.csproj");
-            string fileName = fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs";
+            string fileName = fName.Replace(".feature", "_feature.cs");
             File.Delete(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs");
             RemoveFileFromProject(p, fileName);
             Stopwatch sw = Stopwatch.StartNew();
@@ -225,14 +225,14 @@
                         continue;
                     }
                 merger:
-                    if (lineToken == string.Empty)
+                    if (lineToken == string.Empty || lineToken == "background")
                         break;
 
                     lineName += " " + token;
                     if (Regex.IsMatch(token, @"\d."))
                         continue;
                     name += token[0].ToString().ToUpper() + token.Substring(1);
-                    writeString += token[0].ToString().ToUpper() + token.Substring(1);
+                    writeString += (token[0].ToString().ToUpper() + token.Substring(1)).Trim(',');
                 }
                 if (StringComparer.OrdinalIgnoreCase.Equals(lineToken, "feature"))
                 {
@@ -257,7 +257,7 @@
                 }
                 else if (StringComparer.OrdinalIgnoreCase.Equals(lineToken, "background"))
                 {
-                    writeString += "(" + ")" + "\r\n\t" + "{" + "\r\n";
+                    writeString += "(Object obj)" + "\r\n\t" + "{" + "\r\n";
                     name = string.Empty;
                     lineName = string.Empty;
                     attributeString = string.Empty;
@@ -279,7 +279,7 @@
                     if (backgroundExists)
                     {
                         writeString += "\t\t";
-                        writeString += "this.FeatureBackground();" + "\r\n";
+                        writeString += "this.FeatureBackground(obj);" + "\r\n";
                     }
                 }
 
@@ -307,10 +307,10 @@
         {
             foreach (ProjectItem pi in p.GetItems("Compile"))
             {
-                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, "features\\" + fileName))
+                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, fileName))
                     goto Finish;
             }
-            p.AddItem("Compile", @"Features\" + fileName);
+            p.AddItem("Compile", fileName);
         Finish:
             p.Save();
         }
@@ -320,7 +320,7 @@
             List<ProjectItem> pis = new List<ProjectItem>();
             foreach (ProjectItem pi in p.GetItems("Compile"))
             {
-                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, "features\\" + fileName))
+                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, fileName))
                 {
                     pis.Add(pi);
                 }
