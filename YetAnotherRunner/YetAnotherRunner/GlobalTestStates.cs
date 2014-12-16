@@ -11,67 +11,42 @@ namespace YetAnotherRunner
     {
         public static HashSet<IndividualTestState> manageState = new HashSet<IndividualTestState>();
         public static HashSet<IndividualFeatureTestState> featureState = new HashSet<IndividualFeatureTestState>();
-        private static SpinLock lockHash = new SpinLock();
-        private static SpinLock featureHasLock = new SpinLock();
-        private static SpinLock lockCountRw = new SpinLock();
+        static Object lockFeatureAdd = new Object();
+        static Object lockScenarioAdd = new Object();
         private static int scenarioCount = 0;
-
+        
         public static void AddFeature(IndividualFeatureTestState itfs)
         {
-            bool isLock = false;
-            featureHasLock.Enter(ref isLock);
-            featureState.Add(itfs);
-            if (isLock) featureHasLock.Exit();
+            lock (lockFeatureAdd)
+            {
+                featureState.Add(itfs);
+            }                  
         }
-
-        //public static long StartTick
-        //{
-        //    get;
-        //    set;
-        //}
-
-        //public static long EndTick
-        //{
-        //    get;
-        //    set;
-        //}
-
-        //public static TimeSpan TotalExecP()
-        //{
-        //    return new TimeSpan(EndTick - StartTick);
-        //}
 
         public static void IncrementScenarioCount()
         {
-            bool isLock = false;
-            lockCountRw.Enter(ref isLock);
-            scenarioCount++;
-            if(isLock) lockCountRw.Exit();
+            Interlocked.Increment(ref GlobalTestStates.scenarioCount);
         }
 
         public static void DecrementScenarioCount()
         {
-            bool isLock = false;
-            lockCountRw.Enter(ref isLock);
-            scenarioCount--;
-            if(isLock) lockCountRw.Exit();
+            Interlocked.Decrement(ref GlobalTestStates.scenarioCount);            
         }
 
         public static int GetScenarioCount
         {
             get
             {
-                while (lockCountRw.IsHeld) ;
                 return scenarioCount;
             }
         }
 
         public static void Add(IndividualTestState its)
         {
-            bool isLock = false;
-            lockHash.Enter(ref isLock);
-            manageState.Add(its);
-            if (isLock) lockHash.Exit();     
+            lock (lockScenarioAdd)
+            {
+                manageState.Add(its);
+            }            
         }
 
 

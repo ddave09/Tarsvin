@@ -11,16 +11,6 @@ namespace YetAnotherRunner
 {
     public class Runner
     {
-        public Runner()
-        {
-
-        }
-
-        ~Runner()
-        {
-
-        }
-
         public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs)
         {
             Task task = Task.Factory.StartNew((Object obj) =>

@@ -10,6 +10,76 @@
     using System.Threading.Tasks;
     using Microsoft.Build.Construction;
     using Microsoft.Build.Evaluation;
+    using System.Collections;
+
+    public class Cleanup
+    {
+        public void CleanSolution(SolutionManger sim, FileManger fim, Project p, string fixtureFilePath, string fileName)
+        {
+            fim.DeleteFile(fixtureFilePath);
+            sim.RemoveFileFromProject(p, fileName);
+        }
+    }
+
+    public class SolutionManger
+    {
+        public Project GetProject(string pName)
+        {
+            return new Project(@"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test." + pName + @".Specs\SunGard.PNE.Test." + pName + @".Specs.csproj");
+        }
+
+        public void AddFileToProject(Project p, string fileName)
+        {
+            foreach (ProjectItem pi in p.GetItems("Compile"))
+            {
+                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, fileName))
+                    goto Finish;
+            }
+            p.AddItem("Compile", fileName);
+        Finish:
+            p.Save();
+        }
+
+        public void RemoveFileFromProject(Project p, string fileName)
+        {
+            List<ProjectItem> pis = new List<ProjectItem>();
+            foreach (ProjectItem pi in p.GetItems("Compile"))
+            {
+                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, fileName))
+                {
+                    pis.Add(pi);
+                }
+            }
+            if (Convert.ToBoolean(pis.Count))
+            {
+                p.RemoveItems(pis.AsEnumerable());
+            }
+            p.Save();
+        }
+    }
+
+    public class FileManger
+    {
+        public void DeleteFile(string fixtureFilePath)
+        {
+            File.Delete(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs");
+        }
+
+        public void WriteFile(string fixtureFilePath, string data)
+        {
+            File.WriteAllText(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs", data);
+        }
+
+        public string CastFileName(string fName)
+        {
+            return fName.Replace(".feature", "_feature.cs");
+        }
+
+        public IEnumerator TextToEnumerator(string fixtureFilePath)
+        {
+            return File.ReadAllLines(fixtureFilePath).GetEnumerator();
+        }
+    }
 
     public class Parser
     {
@@ -26,18 +96,23 @@
             modifiers.Add("static", "static");
             modifiers.Add("sealed", "sealed");
         }
-        ~Parser()
-        {
-
-        }
 
         public void Parse(string fixtureFilePath, string pName, string fName)
         {
-            Project p = new Project(@"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test." + pName + @".Specs\SunGard.PNE.Test." + pName + @".Specs.csproj");
-            string fileName = fName.Replace(".feature", "_feature.cs");
-            File.Delete(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs");
-            RemoveFileFromProject(p, fileName);
+            #region Instanciation
+            SolutionManger sim = new SolutionManger();
+            FileManger fim = new FileManger();
+            Cleanup cp = new Cleanup();
+            #endregion
+            #region PreParsing
+            Project p = sim.GetProject(pName);    
+            string fileName = fim.CastFileName(fName);
+            cp.CleanSolution(sim, fim, p, fixtureFilePath, fileName);      
+            #endregion
+
             Stopwatch sw = Stopwatch.StartNew();
+
+            #region Variable Initialization
             string nameSpaceFinder = null;
             string className = null;
             string lineName = null;
@@ -54,9 +129,12 @@
             string previousToken = string.Empty;
             string currentStep = string.Empty; // (Given|When|Then)
             string previousParentToken = string.Empty;
-            string[] lines = File.ReadAllLines(fixtureFilePath);
             string line = string.Empty;
-            var enumerator = lines.GetEnumerator();
+            #endregion
+
+            var enumerator = fim.TextToEnumerator(fixtureFilePath);
+
+            #region Main Loop
             while (enumerator.MoveNext())
             {
                 string lineToken = string.Empty;
@@ -64,6 +142,8 @@
                 if (line == string.Empty)
                     continue;
                 string[] tokens = line.Split();
+                
+                #region ProcessTokens
                 foreach (string token in tokens)
                 {
                     if (token == string.Empty)
@@ -234,6 +314,9 @@
                     name += token[0].ToString().ToUpper() + token.Substring(1);
                     writeString += (token[0].ToString().ToUpper() + token.Substring(1)).Trim(',');
                 }
+                #endregion
+
+                #region PostTokenProcess
                 if (StringComparer.OrdinalIgnoreCase.Equals(lineToken, "feature"))
                 {
                     className = name;
@@ -289,47 +372,25 @@
                     name = string.Empty;
                     lineName = string.Empty;
                 }
-
+                #endregion
             }
+
+            #region EndLastScenario
+
             writeString += "\t\t";
             if (hierarchyName != null)
                 writeString += "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", obj);" + "\r\n";
             else
                 writeString += "FunctionBinder.CallAfterX(\"" + nameSpaceFinder + "\", \"" + "\", \"" + className + "\", obj);" + "\r\n";
             writeString += "\t" + "}" + "\r\n" + "}" + "\r\n" + "}";
-            File.WriteAllText(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs", writeString);
-            AddFileToProject(p, fileName);
+
+            #endregion
+            fim.WriteFile(fixtureFilePath, writeString);
+            sim.AddFileToProject(p, fileName);
         FinishProgram:
             Console.WriteLine("Elapsed Time: {0}", sw.ElapsedMilliseconds);
+            #endregion
         }
-
-        public void AddFileToProject(Project p, string fileName)
-        {
-            foreach (ProjectItem pi in p.GetItems("Compile"))
-            {
-                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, fileName))
-                    goto Finish;
-            }
-            p.AddItem("Compile", fileName);
-        Finish:
-            p.Save();
-        }
-
-        public void RemoveFileFromProject(Project p, string fileName)
-        {
-            List<ProjectItem> pis = new List<ProjectItem>();
-            foreach (ProjectItem pi in p.GetItems("Compile"))
-            {
-                if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, fileName))
-                {
-                    pis.Add(pi);
-                }
-            }
-            if (Convert.ToBoolean(pis.Count))
-            {
-                p.RemoveItems(pis.AsEnumerable());
-            }
-            p.Save();
-        }
+     
     }
 }

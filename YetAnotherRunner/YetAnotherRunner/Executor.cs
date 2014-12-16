@@ -45,7 +45,7 @@ namespace YetAnotherRunner
                     TearDownFeature.Invoke(obj, null);
                     itfs.EndTick = DateTime.Now.Ticks;
                     GlobalTestStates.AddFeature(itfs);
-                    this.KillTasks();
+                    //this.KillTasks();
                 }
             }            
         }
@@ -124,10 +124,10 @@ namespace YetAnotherRunner
             return false;
         }
 
-        public void KillTasks()
-        {
-            Process p = Process.Start("TaskKiller.bat");
-            p.WaitForExit();
-        }
+        //public void KillTasks()
+        //{
+        //    Process p = Process.Start("TaskKiller.bat");
+        //    p.WaitForExit();
+        //}
     }
 }

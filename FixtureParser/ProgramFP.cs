@@ -15,7 +15,7 @@ namespace FixtureParser
             string projectName = "CustomerSite";
             string rmAddPath = filePath1.Substring(filePath1.IndexOf("Features"));
             Parser ps = new Parser();
-            ps.Parse(filePath1, projectName, rmAddPath);
+            ps.Parse(filePath, projectName, rmAddPath);
             Console.ReadKey();
         }
     }
