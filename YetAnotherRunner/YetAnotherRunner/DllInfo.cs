@@ -8,16 +8,6 @@ namespace YetAnotherRunner
 {
     public class DllInfo
     {
-        public DllInfo()
-        {
-
-        }
-
-        ~DllInfo()
-        {
-
-        }
-
         public string name;
         public string path;
     }

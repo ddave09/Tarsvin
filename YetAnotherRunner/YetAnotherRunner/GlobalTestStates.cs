@@ -48,28 +48,5 @@ namespace YetAnotherRunner
                 manageState.Add(its);
             }            
         }
-
-
-        /// <summary>
-        /// This function is not implemented yet!!!
-        /// </summary>
-        public static void remove()
-        {
-
-        }
-
-        public static void removeAll()
-        {
-            manageState.Clear();
-        }
-
-        public static bool Find(IndividualTestState its)
-        {
-            if (!manageState.Contains(its))
-            {
-                return false;
-            }
-            return true;
-        }
     }
 }
