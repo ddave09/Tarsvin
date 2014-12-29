@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Build.Construction;
 using Microsoft.Build.Evaluation;
 using StepBinder;
-using YetAnotherRunner;
+using Runner;
 
 
 namespace FPBRTest

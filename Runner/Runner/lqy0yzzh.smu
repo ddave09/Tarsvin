@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace YetAnotherRunner
+{
+    public class Executor
+    {
+        public Executor()
+        {
+
+        }
+
+        //public void ExcecuteTest(List<string> testMethods)
+        public void ExcecuteTest(List<DllInfo> dll)
+        {
+            //Runner runner = new Runner();
+            //runner.Run(testMethods);
+            Assembly runtimeAssembly = null;
+            foreach (DllInfo dllinfo in dll)
+            {
+                runtimeAssembly = Assembly.LoadFile(dllinfo.path);
+                Type[] types = runtimeAssembly.GetTypes();
+                foreach (Type type in types)
+                {
+                    List<CustomAttributeData> li = new List<CustomAttributeData>();
+                    li = type.CustomAttributes.ToList();
+                    string attr = li.Last<CustomAttributeData>().AttributeType.ToString();
+                }
+            }
+
+            //AppDomain app = AppDomain.CurrentDomain;
+            //Assembly[] ass = app.GetAssemblies();
+            //Type[] types;
+            //foreach (Assembly a in ass)
+            //{
+            //    types = a.GetTypes();
+            //    foreach (Type t in types)
+            //    {
+            //        MethodInfo[] methods = t.GetMethods();
+            //        foreach (MethodInfo method in methods)
+            //        {
+            //            MethodAttributes att =  method.Attributes;
+            //        }
+            //    }
+            //}
+
+            //foreach (string testMethod in testMethods)
+            //{
+            //    //runner.Run(testMethod);
+            //    //using (Runner runner = new Runner())
+            //    //{
+            //    //    runner.Run(testMethod);
+            //    //}
+            //    new Runner().Run(testMethod);
+            //}
+            
+        }
+    }
+}

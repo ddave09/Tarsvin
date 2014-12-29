@@ -71,13 +71,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\YetAnotherRunner_Efficient\YetAnotherRunner\YetAnotherRunner.csproj">
-      <Project>{b55f8446-aad0-4c31-bddf-1cf8ea427f51}</Project>
-      <Name>YetAnotherRunner</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CustomAttributes\CustomAttributes.csproj">
       <Project>{9202e856-3f34-47ce-ab99-b14eb8319e29}</Project>
       <Name>CustomAttributes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Runner\Runner\Runner.csproj">
+      <Project>{b55f8446-aad0-4c31-bddf-1cf8ea427f51}</Project>
+      <Name>Runner</Name>
     </ProjectReference>
     <ProjectReference Include="..\StepBuilder\StepBinder.csproj">
       <Project>{3b70a0ed-5d3d-4c13-9c6c-c0cc5e26a85c}</Project>

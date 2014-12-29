@@ -1,0 +1,17 @@
+= SpecFlow
+
+SpecFlow is a pragmatic BDD solution for .NET. It uses the Gherkin specification language and integrates to many development tools 
+(VS2008, VS2010, MonoDevelop, SharpDevelop, MsBuild). It provides efficient testing solution for the .NET-related platforms, like .NET 3.5, .NET4.0 , Mono, Silverlight 3, Silverlight 4 or Windows Phone 7.
+
+- Project website: http://www.specflow.org
+- Documentation: https://github.com/techtalk/SpecFlow/wiki/Documentation
+- Discussion group: http://groups.google.com/group/SpecFlow
+
+== Contributing
+
+If you are interested in contributing, there are some useful information on this page: https://github.com/techtalk/SpecFlow/wiki/Contributing.
+
+== Copyright
+
+Copyright (c) TechTalk. See LICENSE for details.
+
