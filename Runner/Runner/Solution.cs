@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* Reference
+ * Microsoft.Build.Construction.SolutionParser
+ * StackOverflow: http://stackoverflow.com/questions/707107/library-for-parsing-visual-studio-solution-files
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -11,10 +16,6 @@ namespace Runner
 {
     public class Solution
     {
-        //internal class SolutionParser
-        //Name: Microsoft.Build.Construction.SolutionParser
-        //Assembly: Microsoft.Build, Version=4.0.0.0
-
         static readonly Type parser;
         static readonly PropertyInfo reader;
         static readonly MethodInfo parserMethodInfo;
