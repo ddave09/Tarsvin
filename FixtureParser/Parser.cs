@@ -25,7 +25,8 @@
     {
         public Project GetProject(string pName)
         {
-            return new Project(@"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test." + pName + @".Specs\SunGard.PNE.Test." + pName + @".Specs.csproj");
+            //TODO: Enter your project path - where pName is the project name
+            return new Project("SubPath" + pName + "SubPath");
         }
 
         public void AddFileToProject(Project p, string fileName)
@@ -193,10 +194,10 @@
                             hierarchyName += ".";
                             hierarchyName += attrs[i];
                         }
-                        writeString += "namespace SunGard.PNE." + nameSpaceFinder + ".Specs.Features" + hierarchyName + "\r\n" + "{" + "\r\n";
+                        //TODO: Designed for internal use configure namespace and change the code accordingly. Future releases will be configurable.
+                        writeString += "subNameSpace" + nameSpaceFinder + "subNameSpace" + hierarchyName + "\r\n" + "{" + "\r\n";
                         writeString += "using System;\r\n";
                         writeString += "using StepBinder;\r\n\r\n";
-                        //writeString += "using SunGard.PNE.Test." + nameSpaceFinder + ".Specs.Steps;\r\n\r\n";
                         hierarchyNameFlag = false;
                     }
 

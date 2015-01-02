@@ -119,7 +119,7 @@ namespace TechTalk.SpecFlow.Generator
                     GenerateTest(generationContext, scenario);
             }
             
-            //before return the generated code, call generate provider's method in case the provider want to customerize the generated code            
+            //before return the generated code, call generate provider's method in case the provider want to customize the generated code            
             testGeneratorProvider.FinalizeTestClass(generationContext);
             return codeNamespace;
         }

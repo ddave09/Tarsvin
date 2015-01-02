@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
+//TODO: Configure App.config file
+
 namespace StepBinder
 {
     public static class FunctionBinder
@@ -17,15 +19,18 @@ namespace StepBinder
             }
         }
 
+        //TODO: This function generates Full Type name using sub namespace where hierarchy is a part of the namespace and type
+        //which is the class name if these values are not enough Build strings here to generate full name space
+        //Parameters here are taken from the tags in feature file
         public static string GenerateTypeName(string nameSpace, string type, string hierarchy)
         {
             if (hierarchy == string.Empty)
             {
-                string x = "SunGard.PNE.Test." + nameSpace + ".Specs.Steps." + type + "Steps";
-                return "SunGard.PNE.Test." + nameSpace + ".Specs.Steps." + type + "Steps";
+                string x = "sunNamespace" + nameSpace + "sunNamespace" + type + "sunNamespace";
+                return "sunNamespace" + nameSpace + "sunNamespace" + type + "sunNamespace";
             }
-            string y = "SunGard.PNE.Test." + nameSpace + ".Specs.Steps." + hierarchy + "." + type + "Steps";
-            return "SunGard.PNE.Test." + nameSpace + ".Specs.Steps." + hierarchy + "." + type + "Steps";
+            string y = "sunNamespace" + nameSpace + "sunNamespace" + hierarchy + "sunNamespace" + type + "sunNamespace";
+            return "sunNamespace" + nameSpace + "sunNamespace" + hierarchy + "sunNamespace" + type + "sunNamespace";
         }
 
         public static MethodInfo FetchX(List<MethodInfo> methods, string beforeX, string before_after)

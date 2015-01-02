@@ -18,7 +18,8 @@ namespace FPBRTest
     {
         public FPBR()
         {
-            string actualPath = @"C:\_Automation\test_nunit_test\SunGard.PNE.Test.sln";
+            //TODO: Pass solution file path
+            string actualPath = @"SolutionFile";
             string slnDirPath = Path.GetDirectoryName(actualPath) + @"\";
             Executor exe = new Executor();
             Solution sln = new Solution(actualPath);
