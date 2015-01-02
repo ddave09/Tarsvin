@@ -26,11 +26,11 @@ namespace StepBinder
         {
             if (hierarchy == string.Empty)
             {
-                string x = "sunNamespace" + nameSpace + "sunNamespace" + type + "sunNamespace";
-                return "sunNamespace" + nameSpace + "sunNamespace" + type + "sunNamespace";
+                string x = "subNamespace" + nameSpace + "subNamespace" + type + "subNamespace";
+                return "subNamespace" + nameSpace + "subNamespace" + type + "subNamespace";
             }
-            string y = "sunNamespace" + nameSpace + "sunNamespace" + hierarchy + "sunNamespace" + type + "sunNamespace";
-            return "sunNamespace" + nameSpace + "sunNamespace" + hierarchy + "sunNamespace" + type + "sunNamespace";
+            string y = "subNamespace" + nameSpace + "subNamespace" + hierarchy + "subNamespace" + type + "subNamespace";
+            return "subNamespace" + nameSpace + "subNamespace" + hierarchy + "subNamespace" + type + "subNamespace";
         }
 
         public static MethodInfo FetchX(List<MethodInfo> methods, string beforeX, string before_after)
