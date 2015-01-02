@@ -130,30 +130,6 @@
       <Project>{3b70a0ed-5d3d-4c13-9c6c-c0cc5e26a85c}</Project>
       <Name>StepBinder</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SpecFlow\Generator\TechTalk.SpecFlow.Generator.csproj">
-      <Project>{453d8014-b6cd-4e86-80a8-d59f59092334}</Project>
-      <Name>TechTalk.SpecFlow.Generator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SpecFlow\Parser\TechTalk.SpecFlow.Parser.csproj">
-      <Project>{7ccef6d6-fc17-422e-9bed-edd752b6496f}</Project>
-      <Name>TechTalk.SpecFlow.Parser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SpecFlow\Reporting\TechTalk.SpecFlow.Reporting.csproj">
-      <Project>{fc43509f-e7d3-40c4-b4c3-1e6c9d5530a4}</Project>
-      <Name>TechTalk.SpecFlow.Reporting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SpecFlow\Runtime\TechTalk.SpecFlow.csproj">
-      <Project>{413ee28c-4f89-4c6f-ba1e-2cdee4cd43b4}</Project>
-      <Name>TechTalk.SpecFlow</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SpecFlow\Tools\TechTalk.SpecFlow.Tools.csproj">
-      <Project>{87be7fe6-c3de-4409-abf6-fa5b60af3de1}</Project>
-      <Name>TechTalk.SpecFlow.Tools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SpecFlow\Utils\TechTalk.SpecFlow.Utils.csproj">
-      <Project>{c0af4a43-0c3b-47c7-86de-79fb632b1453}</Project>
-      <Name>TechTalk.SpecFlow.Utils</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
