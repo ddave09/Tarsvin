@@ -27,6 +27,7 @@ namespace Runner
                     dataFault.EndTime = DateTime.Now.Ticks;
                     dataFault.Result = false;
                     dataFault.ThrownException = ex;
+                    Console.WriteLine("{0}.{1}: Failed", dataFault.NameSpace, dataFault.TestName);
                     GlobalTestStates.Add(dataFault);
                     if (GlobalTestStates.GetScenarioCount > 0)
                     {
@@ -45,6 +46,7 @@ namespace Runner
                     dataPass.EndTime = DateTime.Now.Ticks;
                     dataPass.Result = true;
                     dataPass.ThrownException = null;
+                    Console.WriteLine("{0}.{1}: Passed", dataPass.NameSpace, dataPass.TestName);
                     GlobalTestStates.Add(dataPass);
                     if (GlobalTestStates.GetScenarioCount > 0)
                     {

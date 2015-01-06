@@ -25,7 +25,8 @@
     {
         public Project GetProject(string pName)
         {
-            return new Project(@"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test." + pName + @".Specs\SunGard.PNE.Test." + pName + @".Specs.csproj");
+            // test_nunit_test to test
+            return new Project(@"C:\_Automation\test\source\application\SunGard.PNE.Test." + pName + @".Specs\SunGard.PNE.Test." + pName + @".Specs.csproj");
         }
 
         public void AddFileToProject(Project p, string fileName)

@@ -15,7 +15,8 @@
     {
         static void Main(string[] args)
         {
-            string actualPath = @"C:\_Automation\test_nunit_test\SunGard.PNE.Test.sln";
+            // test_nunit_test to test
+            string actualPath = @"C:\_Automation\test\SunGard.PNE.Test.sln";
             string slnDirPath = Path.GetDirectoryName(actualPath) + @"\";
             Executor exe = new Executor();
             Solution sln = new Solution(actualPath);

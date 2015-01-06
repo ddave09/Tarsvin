@@ -18,7 +18,8 @@ namespace FPBRTest
     {
         public FPBR()
         {
-            string actualPath = @"C:\_Automation\test_nunit_test\SunGard.PNE.Test.sln";
+            // test_nunit_test to test
+            string actualPath = @"C:\_Automation\test\SunGard.PNE.Test.sln";
             string slnDirPath = Path.GetDirectoryName(actualPath) + @"\";
             Executor exe = new Executor();
             Solution sln = new Solution(actualPath);
@@ -41,7 +42,8 @@ namespace FPBRTest
         [TestMethod]
         public void StepLoaderTest()
         {
-            //Project p = new Project(@"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test.CustomerSite.Specs\SunGard.PNE.Test.CustomerSite.Specs.csproj");
+            // test_nunit_test to test
+            //Project p = new Project(@"C:\_Automation\test\source\application\SunGard.PNE.Test.CustomerSite.Specs\SunGard.PNE.Test.CustomerSite.Specs.csproj");
             //var itemsT = p.ItemTypes;
             //var items = p.GetItems("Compile");
             //p.AddItem("Compile", @"Features\removeimmediately.cs");
@@ -57,7 +59,8 @@ namespace FPBRTest
             //}
             //p.RemoveItems(pis.AsEnumerable());
             //items = p.GetItems("Compile");
-            //p.Save(@"C:\_Automation\test_nunit_test\source\application\SunGard.PNE.Test.CustomerSite.Specs\SunGard.PNE.Test.CustomerSite.Specs.csproj");
+            // test_nunit_test to test
+            //p.Save(@"C:\_Automation\test\source\application\SunGard.PNE.Test.CustomerSite.Specs\SunGard.PNE.Test.CustomerSite.Specs.csproj");
 
             CustomerSiteLogin csl = new CustomerSiteLogin();
             //CustomerSiteLogin csl1 = new CustomerSiteLogin();
