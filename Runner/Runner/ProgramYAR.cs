@@ -76,7 +76,8 @@
                 }
             }
             Console.WriteLine("*******************************************************************************");
-            //Console.WriteLine("Total Execution time in Parallel: {0}", GlobalTestStates.TotalExecP());
+            Console.WriteLine("All available tests are completed");
+            Console.WriteLine("*******************************************************************************");
             Console.ReadKey();
         }
     }

@@ -31,7 +31,8 @@
 
         public void AddFileToProject(Project p, string fileName)
         {
-            foreach (ProjectItem pi in p.GetItems("Compile"))
+            ICollection<ProjectItem> items = p.GetItems("Compile");
+            foreach (ProjectItem pi in items)
             {
                 if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, fileName))
                     goto Finish;
@@ -44,7 +45,8 @@
         public void RemoveFileFromProject(Project p, string fileName)
         {
             List<ProjectItem> pis = new List<ProjectItem>();
-            foreach (ProjectItem pi in p.GetItems("Compile"))
+            ICollection<ProjectItem> items = p.GetItems("Compile");
+            foreach (ProjectItem pi in items)
             {
                 if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, fileName))
                 {
