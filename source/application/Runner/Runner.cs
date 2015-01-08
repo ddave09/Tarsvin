@@ -27,7 +27,7 @@ namespace Runner
                     dataFault.EndTime = DateTime.Now.Ticks;
                     dataFault.Result = false;
                     dataFault.ThrownException = ex;
-                    Console.WriteLine("***\n{0}.{1}: Failed", dataFault.NameSpace, dataFault.TestName);
+                    Console.WriteLine("***\n\n\n{0}.{1}: Failed\n\n\n", dataFault.NameSpace, dataFault.TestName);
                     GlobalTestStates.Add(dataFault);
                     if (GlobalTestStates.GetScenarioCount > 0)
                     {
