@@ -193,7 +193,7 @@ namespace StepBinder
             MethodInfo methodToInvoke = null;
             if ((methodToInvoke = FetchFunctionByName(methods, functionName)) == null)
             {
-                throw new MissingMethodException();
+                throw new MissingMethodException(t.ToString(), methodToInvoke.ToString());
             }
             methodToInvoke.Invoke(obj, null);
         }
