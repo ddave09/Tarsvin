@@ -1,53 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{967F1C73-A97A-4DF6-AF1E-A4A322F34959}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixtureParser", "FixtureParser\FixtureParser.csproj", "{E4D3A085-6296-484A-A779-2E47E657B090}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAttributes", "source\application\CustomAttributes\CustomAttributes.csproj", "{9202E856-3F34-47CE-AB99-B14EB8319E29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPBRTest", "FPBRTest\FPBRTest.csproj", "{5C95B030-8E09-447F-89C0-5829D7FBCF18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixtureParser", "source\application\FixtureParser\FixtureParser.csproj", "{E4D3A085-6296-484A-A779-2E47E657B090}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TechTalk.Specflow", "TechTalk.Specflow", "{4051002C-C20E-4AC2-9B88-065833E66E08}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B6731B74-CE3F-47C5-9F09-B32B13FF7932}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{577A0375-1436-446C-802B-3C75C8CEF94F}"
-	ProjectSection(SolutionItems) = preProject
-		SpecFlow\changelog.txt = SpecFlow\changelog.txt
-		SpecFlow\CommonAssemblyInfo.cs = SpecFlow\CommonAssemblyInfo.cs
-		SpecFlow\LICENSE.txt = SpecFlow\LICENSE.txt
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPBRTest", "source\test\FPBRTest\FPBRTest.csproj", "{C54DDC83-7692-4828-90B8-D416DBA0507D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AlternativeRuntimes", "AlternativeRuntimes", "{01A98306-2E7F-42E5-A180-C31C4DC82C57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "source\application\Runner\Runner.csproj", "{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8C4BDE8C-3363-4575-AAA4-E6D7AAA51C5B}"
-	ProjectSection(SolutionItems) = preProject
-		SpecFlow\.nuget\NuGet.Config = SpecFlow\.nuget\NuGet.Config
-		SpecFlow\.nuget\nuget.exe = SpecFlow\.nuget\nuget.exe
-		SpecFlow\.nuget\NuGet.targets = SpecFlow\.nuget\NuGet.targets
-		SpecFlow\.nuget\packages.config = SpecFlow\.nuget\packages.config
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.Reporting", "SpecFlow\Reporting\TechTalk.SpecFlow.Reporting.csproj", "{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow", "SpecFlow\Runtime\TechTalk.SpecFlow.csproj", "{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.Parser", "SpecFlow\Parser\TechTalk.SpecFlow.Parser.csproj", "{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.Generator", "SpecFlow\Generator\TechTalk.SpecFlow.Generator.csproj", "{453D8014-B6CD-4E86-80A8-D59F59092334}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.Tools", "SpecFlow\Tools\TechTalk.SpecFlow.Tools.csproj", "{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.Utils", "SpecFlow\Utils\TechTalk.SpecFlow.Utils.csproj", "{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StepBinder", "StepBuilder\StepBinder.csproj", "{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAttributes", "CustomAttributes\CustomAttributes.csproj", "{9202E856-3F34-47CE-AB99-B14EB8319E29}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner\Runner.csproj", "{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StepBuilder", "source\application\StepBuilder\StepBuilder.csproj", "{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,105 +30,6 @@ Global
 		VS2010IntegrationTest|x86 = VS2010IntegrationTest|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E4D3A085-6296-484A-A779-2E47E657B090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4D3A085-6296-484A-A779-2E47E657B090}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4D3A085-6296-484A-A779-2E47E657B090}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E4D3A085-6296-484A-A779-2E47E657B090}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4D3A085-6296-484A-A779-2E47E657B090}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4D3A085-6296-484A-A779-2E47E657B090}.Release|x86.ActiveCfg = Release|Any CPU
-		{E4D3A085-6296-484A-A779-2E47E657B090}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
-		{E4D3A085-6296-484A-A779-2E47E657B090}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
-		{E4D3A085-6296-484A-A779-2E47E657B090}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
-		{5C95B030-8E09-447F-89C0-5829D7FBCF18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C95B030-8E09-447F-89C0-5829D7FBCF18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C95B030-8E09-447F-89C0-5829D7FBCF18}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5C95B030-8E09-447F-89C0-5829D7FBCF18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C95B030-8E09-447F-89C0-5829D7FBCF18}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C95B030-8E09-447F-89C0-5829D7FBCF18}.Release|x86.ActiveCfg = Release|Any CPU
-		{5C95B030-8E09-447F-89C0-5829D7FBCF18}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
-		{5C95B030-8E09-447F-89C0-5829D7FBCF18}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
-		{5C95B030-8E09-447F-89C0-5829D7FBCF18}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.Debug|x86.ActiveCfg = Debug|x86
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.Debug|x86.Build.0 = Debug|x86
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.Release|x86.ActiveCfg = Release|x86
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.Release|x86.Build.0 = Release|x86
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.VS2010IntegrationTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.VS2010IntegrationTest|Any CPU.Build.0 = Debug|Any CPU
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.VS2010IntegrationTest|x86.ActiveCfg = Release|x86
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4}.VS2010IntegrationTest|x86.Build.0 = Release|x86
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.Debug|x86.ActiveCfg = Debug|x86
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.Debug|x86.Build.0 = Debug|x86
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.Release|x86.ActiveCfg = Release|x86
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.Release|x86.Build.0 = Release|x86
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.VS2010IntegrationTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.VS2010IntegrationTest|Any CPU.Build.0 = Debug|Any CPU
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.VS2010IntegrationTest|x86.ActiveCfg = Release|x86
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4}.VS2010IntegrationTest|x86.Build.0 = Release|x86
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.Debug|x86.ActiveCfg = Debug|x86
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.Debug|x86.Build.0 = Debug|x86
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.Release|x86.ActiveCfg = Release|x86
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.Release|x86.Build.0 = Release|x86
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.VS2010IntegrationTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.VS2010IntegrationTest|Any CPU.Build.0 = Debug|Any CPU
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.VS2010IntegrationTest|x86.ActiveCfg = Release|x86
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F}.VS2010IntegrationTest|x86.Build.0 = Release|x86
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.Debug|x86.ActiveCfg = Debug|x86
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.Debug|x86.Build.0 = Debug|x86
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.Release|Any CPU.Build.0 = Release|Any CPU
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.Release|x86.ActiveCfg = Release|x86
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.Release|x86.Build.0 = Release|x86
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.VS2010IntegrationTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.VS2010IntegrationTest|Any CPU.Build.0 = Debug|Any CPU
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.VS2010IntegrationTest|x86.ActiveCfg = Release|x86
-		{453D8014-B6CD-4E86-80A8-D59F59092334}.VS2010IntegrationTest|x86.Build.0 = Release|x86
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.Debug|x86.ActiveCfg = Debug|x86
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.Debug|x86.Build.0 = Debug|x86
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.Release|x86.ActiveCfg = Release|x86
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.Release|x86.Build.0 = Release|x86
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.VS2010IntegrationTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.VS2010IntegrationTest|Any CPU.Build.0 = Debug|Any CPU
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.VS2010IntegrationTest|x86.ActiveCfg = Release|x86
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1}.VS2010IntegrationTest|x86.Build.0 = Release|x86
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.Debug|x86.ActiveCfg = Debug|x86
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.Debug|x86.Build.0 = Debug|x86
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.Release|x86.ActiveCfg = Release|x86
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.Release|x86.Build.0 = Release|x86
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.VS2010IntegrationTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.VS2010IntegrationTest|Any CPU.Build.0 = Debug|Any CPU
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.VS2010IntegrationTest|x86.ActiveCfg = Release|x86
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453}.VS2010IntegrationTest|x86.Build.0 = Release|x86
-		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Release|x86.ActiveCfg = Release|Any CPU
-		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
-		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
-		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
 		{9202E856-3F34-47CE-AB99-B14EB8319E29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9202E856-3F34-47CE-AB99-B14EB8319E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9202E856-3F34-47CE-AB99-B14EB8319E29}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -167,6 +39,24 @@ Global
 		{9202E856-3F34-47CE-AB99-B14EB8319E29}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
 		{9202E856-3F34-47CE-AB99-B14EB8319E29}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
 		{9202E856-3F34-47CE-AB99-B14EB8319E29}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
+		{E4D3A085-6296-484A-A779-2E47E657B090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4D3A085-6296-484A-A779-2E47E657B090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4D3A085-6296-484A-A779-2E47E657B090}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E4D3A085-6296-484A-A779-2E47E657B090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4D3A085-6296-484A-A779-2E47E657B090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4D3A085-6296-484A-A779-2E47E657B090}.Release|x86.ActiveCfg = Release|Any CPU
+		{E4D3A085-6296-484A-A779-2E47E657B090}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
+		{E4D3A085-6296-484A-A779-2E47E657B090}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
+		{E4D3A085-6296-484A-A779-2E47E657B090}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
+		{C54DDC83-7692-4828-90B8-D416DBA0507D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54DDC83-7692-4828-90B8-D416DBA0507D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54DDC83-7692-4828-90B8-D416DBA0507D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C54DDC83-7692-4828-90B8-D416DBA0507D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54DDC83-7692-4828-90B8-D416DBA0507D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54DDC83-7692-4828-90B8-D416DBA0507D}.Release|x86.ActiveCfg = Release|Any CPU
+		{C54DDC83-7692-4828-90B8-D416DBA0507D}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
+		{C54DDC83-7692-4828-90B8-D416DBA0507D}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
+		{C54DDC83-7692-4828-90B8-D416DBA0507D}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
 		{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -176,19 +66,20 @@ Global
 		{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
 		{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
 		{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
+		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.Release|x86.ActiveCfg = Release|Any CPU
+		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
+		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
+		{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{577A0375-1436-446C-802B-3C75C8CEF94F} = {4051002C-C20E-4AC2-9B88-065833E66E08}
-		{01A98306-2E7F-42E5-A180-C31C4DC82C57} = {4051002C-C20E-4AC2-9B88-065833E66E08}
-		{8C4BDE8C-3363-4575-AAA4-E6D7AAA51C5B} = {4051002C-C20E-4AC2-9B88-065833E66E08}
-		{FC43509F-E7D3-40C4-B4C3-1E6C9D5530A4} = {4051002C-C20E-4AC2-9B88-065833E66E08}
-		{413EE28C-4F89-4C6F-BA1E-2CDEE4CD43B4} = {4051002C-C20E-4AC2-9B88-065833E66E08}
-		{7CCEF6D6-FC17-422E-9BED-EDD752B6496F} = {4051002C-C20E-4AC2-9B88-065833E66E08}
-		{453D8014-B6CD-4E86-80A8-D59F59092334} = {4051002C-C20E-4AC2-9B88-065833E66E08}
-		{87BE7FE6-C3DE-4409-ABF6-FA5B60AF3DE1} = {4051002C-C20E-4AC2-9B88-065833E66E08}
-		{C0AF4A43-0C3B-47C7-86DE-79FB632B1453} = {4051002C-C20E-4AC2-9B88-065833E66E08}
+		{C54DDC83-7692-4828-90B8-D416DBA0507D} = {B6731B74-CE3F-47C5-9F09-B32B13FF7932}
 	EndGlobalSection
 EndGlobal
