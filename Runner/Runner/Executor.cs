@@ -22,7 +22,7 @@ namespace Runner
 
         public void ExcecuteTest(List<DllInfo> dlls)
         {
-            Assembly runtimeAssembly = null;           
+            Assembly runtimeAssembly = null;
             foreach (DllInfo dllinfo in dlls)
             {
                 runtimeAssembly = Assembly.Load(AssemblyName.GetAssemblyName(dllinfo.path));
@@ -46,7 +46,7 @@ namespace Runner
                     itfs.EndTick = DateTime.Now.Ticks;
                     GlobalTestStates.AddFeature(itfs);
                 }
-            }            
+            }
         }
 
         private List<string> GetAttributesConstructorValues(MethodInfo method)
@@ -110,7 +110,7 @@ namespace Runner
             foreach (Attribute attr in li)
             {
                 string x = attr.ToString();
-                
+
                 if (StringComparer.OrdinalIgnoreCase.Equals(attr.ToString(), "customAttributes.CaseAttr"))
                 {
                     return true;

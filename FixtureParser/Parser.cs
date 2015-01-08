@@ -29,7 +29,7 @@
             return new Project(@"C:\_Automation\test\source\application\SunGard.PNE.Test." + pName + @".Specs\SunGard.PNE.Test." + pName + @".Specs.csproj");
         }
 
-        public void AddFileToProject(Project p, string fileName)
+        public void AddFileToProject(Project p, string fileName, string featurFileName)
         {
             ICollection<ProjectItem> items = p.GetItems("Compile");
             foreach (ProjectItem pi in items)
@@ -37,7 +37,11 @@
                 if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, fileName))
                     goto Finish;
             }
-            p.AddItem("Compile", fileName);
+            //p.AddItem("Compile", fileName);
+            KeyValuePair<string, string> kivi = new KeyValuePair<string, string>("DependentUpon", featurFileName);
+            List<KeyValuePair<string, string>> likivi = new List<KeyValuePair<string, string>>();
+            likivi.Add(kivi);
+            p.AddItem("Compile", fileName, likivi);
         Finish:
             p.Save();
         }
@@ -65,12 +69,26 @@
     {
         public void DeleteFile(string fixtureFilePath)
         {
-            File.Delete(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs");
+            try
+            {
+                File.Delete(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0} \nStackTrace: {1}", e.Message, e.StackTrace);
+            }            
         }
 
         public void WriteFile(string fixtureFilePath, string data)
         {
-            File.WriteAllText(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs", data);
+            try
+            {
+                File.WriteAllText(Path.GetDirectoryName(fixtureFilePath) + @"\" + fixtureFilePath.Split('\\').Last().Replace('.', '_') + ".cs", data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Message: {0} \nStackTrace: {1}", e.Message, e.StackTrace);
+            }            
         }
 
         public string CastFileName(string fName)
@@ -389,7 +407,7 @@
 
             #endregion
             fim.WriteFile(fixtureFilePath, writeString);
-            sim.AddFileToProject(p, fileName);
+            sim.AddFileToProject(p, fileName, (fName.Split(new char[] {'\\'})).Last());
         FinishProgram:
             Console.WriteLine("Elapsed Time: {0}", sw.ElapsedMilliseconds);
             #endregion

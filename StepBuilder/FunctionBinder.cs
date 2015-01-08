@@ -35,7 +35,7 @@ namespace StepBinder
                 List<Attribute> li = method.GetCustomAttributes().ToList();
                 foreach (Attribute a in li)
                 {
-                    if (StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), "techtalk.specflow." + before_after + beforeX + "attribute"))
+                    if (StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), "customattributes." + before_after + beforeX + "attribute"))
                     {
                         return method;
                     }

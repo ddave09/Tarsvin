@@ -64,4 +64,28 @@ namespace CustomAttributes
             }
         }
     }
+
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    public class BeforeFeatureAttribute : Attribute
+    {
+
+    }
+
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    public class AfterFeatureAttribute : Attribute
+    {
+
+    }
+
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    public class BeforeScenarioAttribute : Attribute
+    {
+
+    }
+
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    public class AfterScenarioAttribute : Attribute
+    {
+
+    }
 }
