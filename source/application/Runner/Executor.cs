@@ -23,6 +23,7 @@ namespace Runner
         public void ExcecuteTest(List<DllInfo> dlls)
         {
             Assembly runtimeAssembly = null;
+            GlobalTestStates.GrandStartTime = DateTime.Now.Ticks;
             foreach (DllInfo dllinfo in dlls)
             {
                 runtimeAssembly = Assembly.Load(AssemblyName.GetAssemblyName(dllinfo.path));
@@ -47,6 +48,7 @@ namespace Runner
                     GlobalTestStates.AddFeature(itfs);
                 }
             }
+            GlobalTestStates.GrandEndTime = DateTime.Now.Ticks;
         }
 
         private List<string> GetAttributesConstructorValues(MethodInfo method)

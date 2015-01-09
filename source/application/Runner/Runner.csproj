@@ -76,6 +76,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TestPipe.Common">
+      <HintPath>..\..\..\packages\TestPipe.Common.3.2.2.4\lib\net451\TestPipe.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DllInfo.cs" />
