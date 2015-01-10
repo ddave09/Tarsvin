@@ -11,7 +11,7 @@ namespace FixtureParser
         static void Main(string[] args)
         {
             // test_nunit_test to test
-            string filePath = @"C:\_Automation\test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\Jobs\BatchDetail.feature";
+            string filePath = @"C:\_Automation\test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\Jobs\UploadFile.feature";
             string projectName = "CustomerSite";
             string rmAddPath = filePath.Substring(filePath.IndexOf("Features"));
             Parser ps = new Parser();

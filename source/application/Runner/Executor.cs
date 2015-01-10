@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using TestPipe.Common;
 
 namespace Runner
 {
@@ -22,6 +23,7 @@ namespace Runner
 
         public void ExcecuteTest(List<DllInfo> dlls)
         {
+            ILogManager logActivatorException = new Logger();
             Assembly runtimeAssembly = null;
             GlobalTestStates.GrandStartTime = DateTime.Now.Ticks;
             foreach (DllInfo dllinfo in dlls)
@@ -31,7 +33,18 @@ namespace Runner
                 foreach (Type type in types)
                 {
                     IndividualFeatureTestState itfs = new IndividualFeatureTestState();
-                    Object obj = Activator.CreateInstance(type);
+                    Object obj = null;
+                    try
+                    {
+                        obj = Activator.CreateInstance(type);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Could not find Step class, Most Probable: Check feature file namespace or step class name");
+                        logActivatorException.Fatal("Could not find Step class, Most Probable: Check feature file namespace or step class name", e);
+                        System.Environment.Exit(-1);
+                    }
+                    
                     MethodInfo TearDownFeature = null;
                     List<MethodInfo> methods = TestMethods(type.GetMethods().ToList(), ref TearDownFeature);
                     itfs.FeatureName = type.FullName;

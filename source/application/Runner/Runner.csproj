@@ -76,8 +76,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TestPipe.Common">
-      <HintPath>..\..\..\packages\TestPipe.Common.3.2.2.4\lib\net451\TestPipe.Common.dll</HintPath>
+    <Reference Include="TestPipe.Common, Version=3.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\TestPipe.Common.3.2.3.0\lib\net451\TestPipe.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
