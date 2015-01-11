@@ -1,0 +1,1 @@
+﻿FixtureParser.exe -f C:\_Tarsvin\source\test\FPBRTest\Features\Logout.feature -p FPBRTest

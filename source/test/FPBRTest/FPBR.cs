@@ -3,23 +3,21 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.IO;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.Build.Construction;
-using Microsoft.Build.Evaluation;
-using StepBinder;
-using Runner;
-
-
 namespace FPBRTest
 {
+    using System.Threading.Tasks;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Microsoft.Build.Construction;
+    using Microsoft.Build.Evaluation;
+    using StepBinder;
+    using Runner;
+
     [TestClass]
     public class FPBR
     {
         public FPBR()
         {
-            // test_nunit_test to test
-            string actualPath = @"C:\_Automation\test\SunGard.PNE.Test.sln";
+            string actualPath = @"FPBRTest.sln";
             string slnDirPath = Path.GetDirectoryName(actualPath) + @"\";
             Executor exe = new Executor();
             Solution sln = new Solution(actualPath);
@@ -42,33 +40,9 @@ namespace FPBRTest
         [TestMethod]
         public void StepLoaderTest()
         {
-            // test_nunit_test to test
-            //Project p = new Project(@"C:\_Automation\test\source\application\SunGard.PNE.Test.CustomerSite.Specs\SunGard.PNE.Test.CustomerSite.Specs.csproj");
-            //var itemsT = p.ItemTypes;
-            //var items = p.GetItems("Compile");
-            //p.AddItem("Compile", @"Features\removeimmediately.cs");
-            //ICollection<ProjectItem> itemsAfter = p.GetItems("Compile");
-            //List<ProjectItem> pis = new List<ProjectItem>();
-            //foreach (ProjectItem pi in itemsAfter)
-            //{
-            //    if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, @"features\removeimmediately.cs"))
-            //    {
-            //        pis.Add(pi);
-            //    }
-
-            //}
-            //p.RemoveItems(pis.AsEnumerable());
-            //items = p.GetItems("Compile");
-            // test_nunit_test to test
-            //p.Save(@"C:\_Automation\test\source\application\SunGard.PNE.Test.CustomerSite.Specs\SunGard.PNE.Test.CustomerSite.Specs.csproj");
-
             CustomerSiteLogin csl = new CustomerSiteLogin();
-            //CustomerSiteLogin csl1 = new CustomerSiteLogin();
             csl.LoginWithEmptyPassword();
             csl.LoginWithEmptyPasswordAndInvalidPassword();
-            //Task t1 = Task.Factory.StartNew(() => csl.LoginWithEmptyPassword());
-            //Task t2 = Task.Factory.StartNew(() => csl.LoginWithEmptyPasswordAndInvalidPassword());
-            //Task.WaitAll(t1, t2);
         }
 
         [TestMethod]
@@ -76,19 +50,6 @@ namespace FPBRTest
         {
             Process p = Process.Start("TaskKiller.bat");
             p.WaitForExit();
-            //ProcessStartInfo ps = new ProcessStartInfo("TaskKiller.bat");
-            //ps.UseShellExecute = false;
-            //try
-            //{
-            //    Process p = Process.Start(ps);
-            //    p.WaitForExit();
-            //}
-            //catch (Exception e)
-            //{
-            //    string x = e.StackTrace;
-            //    string m = e.Message;
-            //}
-            
         }
     }
 }

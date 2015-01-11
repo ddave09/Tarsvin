@@ -3,48 +3,45 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Microsoft.Build.Construction;
+    using System.Configuration;
 
-    class ProgramYAR
+    internal class ProgramYAR
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            // test_nunit_test to test
-            string actualPath = @"C:\_Automation\test\SunGard.PNE.Test.sln";
-            string slnDirPath = Path.GetDirectoryName(actualPath) + @"\";
+            var options = new Options();
+
+            if (!CommandLine.Parser.Default.ParseArguments(args, options))
+            {
+                Console.Error.Write("Invalid arguments.");
+                return;
+            }
+
+            if (!options.SolutionFile.EndsWith(".sln"))
+            {
+                Console.Error.WriteLine("-s is a required argument.");
+                Console.Error.WriteLine("");
+                Console.Error.Write(options.GetUsage());
+                Console.Error.WriteLine("");
+                return;
+            }
+
+            string actualPath = options.SolutionFile;
+            Console.WriteLine("Solution File: {0}", actualPath);
+
+            string projectPrefix = options.ProjectPrefix ?? ConfigurationManager.AppSettings["tarsvin.test.projectnameprefix"];
+            Console.WriteLine("Project Prefix: {0}", projectPrefix);
+
             Executor exe = new Executor();
             Solution sln = new Solution(actualPath);
-            string findTestProj = "specs";
-            List<DllInfo> addRefList = new List<DllInfo>();
-            foreach (SolutionProject sp in sln.Projects)
-            {
-                if (!Regex.IsMatch(sp.ProjectName, "SunGard.PNE.Test.*"))
-                    continue;
-                string[] pName = sp.ProjectName.Split('.');
-                string projectType = pName.Last<string>();
-                Array.Resize(ref pName, pName.Length - 1);
-                string projectName = pName.Last<string>();
-                if (Convert.ToBoolean(args.Length))
-                    if (!args.Contains(projectName.ToLower()))
-                        continue;
-                if (StringComparer.OrdinalIgnoreCase.Equals(projectType, findTestProj))
-                {
-                    DllInfo info = new DllInfo();
-                    info.name = sp.ProjectName;
-                    info.path = slnDirPath + Path.GetDirectoryName(sp.RelativePath) + @"\bin\debug\" + sp.RelativePath.Split('\\').Last<string>().Replace(".csproj",".dll");
-                    addRefList.Add(info);
-                }       
-            }
-            new StepLoader(addRefList);
-            exe.ExcecuteTest(addRefList);
+            List<DllInfo> dllList = RunnerHelper.GetDllList(options, actualPath, projectPrefix, sln);
+
+            new StepLoader(dllList);
+            exe.ExcecuteTest(dllList);
+
             IEnumerator ie = GlobalTestStates.manageState.GetEnumerator();
             IEnumerator fie = GlobalTestStates.featureState.GetEnumerator();
+
             while (fie.MoveNext())
             {
                 IndividualFeatureTestState itfs = fie.Current as IndividualFeatureTestState;
@@ -52,7 +49,7 @@
                 Console.WriteLine("Feature Namespace {0}", itfs.FeatureName);
                 Console.WriteLine("Execution Time {0}", itfs.FeatureExecutionTime);
             }
-           
+
             while (ie.MoveNext())
             {
                 IndividualTestState its = ie.Current as IndividualTestState;

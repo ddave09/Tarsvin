@@ -19,13 +19,17 @@ namespace StepBinder
 
         public static string GenerateTypeName(string nameSpace, string type, string hierarchy)
         {
+            string rootNamespace = string.Format("{0}.Specs.Steps.", nameSpace);
+
             if (hierarchy == string.Empty)
             {
-                string x = "SunGard.PNE.Test." + nameSpace + ".Specs.Steps." + type + "Steps";
-                return "SunGard.PNE.Test." + nameSpace + ".Specs.Steps." + type + "Steps";
+
+                string x = string.Format("{0}{1}Steps", rootNamespace, type);
+                return x;
             }
-            string y = "SunGard.PNE.Test." + nameSpace + ".Specs.Steps." + hierarchy + "." + type + "Steps";
-            return "SunGard.PNE.Test." + nameSpace + ".Specs.Steps." + hierarchy + "." + type + "Steps";
+
+            string y = string.Format("{0}{1}.{2}Steps", rootNamespace, hierarchy, type);
+            return y;
         }
 
         public static MethodInfo FetchX(List<MethodInfo> methods, string beforeX, string before_after)
