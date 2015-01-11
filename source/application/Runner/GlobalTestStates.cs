@@ -14,13 +14,33 @@ namespace Runner
         static Object lockFeatureAdd = new Object();
         static Object lockScenarioAdd = new Object();
         private static int scenarioCount = 0;
-        
+
+        public static long GrandStartTime
+        {
+            get;
+            set;
+        }
+
+        public static long GrandEndTime
+        {
+            get;
+            set;
+        }
+
+        public static TimeSpan GrandExecTime
+        {
+            get
+            {
+                return new TimeSpan(GrandEndTime - GrandStartTime);
+            }
+        }
+
         public static void AddFeature(IndividualFeatureTestState itfs)
         {
             lock (lockFeatureAdd)
             {
                 featureState.Add(itfs);
-            }                  
+            }
         }
 
         public static void IncrementScenarioCount()

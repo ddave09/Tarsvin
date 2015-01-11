@@ -1,6 +1,6 @@
 namespace FPBRTest
 {
-using System;
+    using System;
 using StepBinder;
 
 [CustomAttributes.FixtureAttr("CustomerSite")]
