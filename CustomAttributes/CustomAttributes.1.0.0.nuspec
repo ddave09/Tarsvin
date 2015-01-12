@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>CustomAttributes</id>
+        <version>1.0.0</version>
+        <title>CustomAttributes</title>
+        <authors>Dave</authors>
+        <owners>Dave</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Attributes for Feature C# files</description>
+        <language>en-US</language>
+    </metadata>
+    <files>
+        <file src="bin\Debug\CustomAttributes.dll" target="lib\net451\CustomAttributes.dll" />
+    </files>
+</package>
