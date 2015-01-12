@@ -19,7 +19,7 @@ namespace StepBinder
 
         public static string GenerateTypeName(string nameSpace, string type, string hierarchy)
         {
-            string rootNamespace = string.Format("{0}.Specs.Steps.", nameSpace);
+            string rootNamespace = string.Format("{0}.", nameSpace);
 
             if (hierarchy == string.Empty)
             {

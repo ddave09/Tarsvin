@@ -25,7 +25,14 @@
     {
         public Project GetProject(string projectPath)
         {
-            return new Project(projectPath);
+            Project loadedProject = Microsoft.Build.Evaluation.ProjectCollection.GlobalProjectCollection.LoadedProjects.Where(x => x.FullPath == projectPath).FirstOrDefault();
+
+            if (loadedProject == null)
+            {
+                return new Project(projectPath);
+            }
+
+            return loadedProject;
         }
 
         public void AddFileToProject(Project p, string fileName, string featurFileName)
@@ -213,7 +220,7 @@
                         continue;
                     }
 
-                    functionNamespace = string.Format("{0}.{1}", rootNamespace, namespaceFinder);
+                    functionNamespace = string.Format("{0}.Steps", rootNamespace);
 
                     if (hierarchyNameFlag)
                     {
@@ -223,7 +230,8 @@
                             hierarchyName += attrs[i];
                         }
 
-                        writeString += "namespace " + rootNamespace + ".Features" + hierarchyName + "\r\n" + "{" + "\r\n";
+                        string featureNamespace =  string.Format("namespace {0}.Features{1}\r\n{{\r\n", rootNamespace, hierarchyName);
+                        writeString += featureNamespace;
                         writeString += "using System;\r\n";
                         writeString += "using StepBinder;\r\n\r\n";
                         hierarchyNameFlag = false;
@@ -417,6 +425,8 @@
             solutionManager.AddFileToProject(project, fileName, (fName.Split(new char[] {'\\'})).Last());
         FinishProgram:
             Console.WriteLine("Elapsed Time: {0}", sw.ElapsedMilliseconds);
+
+            project = null;
             #endregion
         }
      

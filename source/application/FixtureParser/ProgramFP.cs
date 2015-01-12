@@ -1,6 +1,7 @@
 ﻿namespace FixtureParser
 {
     using System;
+    using System.IO;
 
     internal class ProgramFP
     {
@@ -17,17 +18,29 @@
                 return;
             }
 
-            //@"C:\_Automation\test\source\application\CustomerSite.Specs\Features\Customer\MyProfile.feature"
             string filePath = options.File;
+            bool multiple = options.Multiple;
 
-            //"CustomerSite.Specs"
-            string projectName = options.Project;
+           string projectName = options.Project;
             string rootProjectPath = filePath.Substring(0, filePath.IndexOf(FeatureFolder));
             string projectPath = string.Format("{0}{1}.{2}", rootProjectPath, projectName, ProjectExtension);
             string fileName = filePath.Substring(filePath.IndexOf(FeatureFolder));
 
-            Parser ps = new Parser();
-            ps.Parse(filePath, projectPath, fileName);
+            if (multiple)
+            {
+                foreach (string file in Directory.EnumerateFiles(rootProjectPath, "*.feature", SearchOption.AllDirectories))
+                {
+                    Parser ps = new Parser();
+                    fileName = filePath.Substring(filePath.IndexOf(FeatureFolder));
+                    ps.Parse(file, projectPath, fileName);
+                }
+            }
+            else
+            {
+                Parser ps = new Parser();
+                ps.Parse(filePath, projectPath, fileName);
+            }
+
             Console.ReadKey();
         }
     }

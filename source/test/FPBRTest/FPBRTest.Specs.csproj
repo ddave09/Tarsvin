@@ -6,8 +6,8 @@
     <ProjectGuid>{C54DDC83-7692-4828-90B8-D416DBA0507D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tarsvin.FPBRTest</RootNamespace>
-    <AssemblyName>FPBRTest</AssemblyName>
+    <RootNamespace>Tarsvin</RootNamespace>
+    <AssemblyName>FPBRTest.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,17 +35,58 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Build, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Engine, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Framework, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Tasks.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Utilities.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Logging">
+      <HintPath>..\..\..\packages\Ninject.Extensions.Logging.3.2.0.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Logging.Log4Net">
+      <HintPath>..\..\..\packages\Ninject.Extensions.Logging.Log4net.3.2.0.0\lib\net45-full\Ninject.Extensions.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.XML" />
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="TestPipe.Assertions">
+      <HintPath>..\..\..\packages\TestPipe.Assertions.3.0.1.0\lib\net451\TestPipe.Assertions.dll</HintPath>
+    </Reference>
+    <Reference Include="TestPipe.Common, Version=3.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\TestPipe.Common.3.2.3.0\lib\net451\TestPipe.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TestPipe.Core">
+      <HintPath>..\..\..\packages\TestPipe.Core.3.2.3.0\lib\net451\TestPipe.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="TestPipe.Runner">
+      <HintPath>..\..\..\packages\TestPipe.Runner.3.2.3.0\lib\net451\TestPipe.Runner.dll</HintPath>
+    </Reference>
+    <Reference Include="TestPipe.Selenium, Version=3.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\TestPipe.Plugins.Selenium.3.2.3.0\content\Plugins\Browsers\TestPipe.Selenium.dll</HintPath>
+    </Reference>
+    <Reference Include="TestPipe.SpecFlow">
+      <HintPath>..\..\..\packages\TestPipe.SpecFlow.3.2.3.0\lib\net451\TestPipe.SpecFlow.dll</HintPath>
+    </Reference>
     <Reference Include="WebDriver">
       <HintPath>..\packages\Selenium.WebDriver.2.44.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
@@ -66,12 +107,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="1_Login_feature.cs" />
-    <Compile Include="Features\Logout_feature.cs">
-      <DependentUpon>Logout.feature</DependentUpon>
+    <Compile Include="Features\Search_feature.cs">
+      <DependentUpon>Search.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SearchPage.cs" />
+    <Compile Include="Features\Search.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Search.feature</DependentUpon>
     </Compile>
     <Compile Include="FPBR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\SearchSteps.cs" />
+    <Compile Include="Steps\StepHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\application\CustomAttributes\CustomAttributes.csproj">
@@ -89,11 +137,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Features\Logout.feature">
+    <None Include="Data\Search_feature.json" />
+    <None Include="Data\FPBRTest_suite.json" />
+    <None Include="Features\Search.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Logout.feature.cs</LastGenOutput>
+      <LastGenOutput>Search.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="TaskKiller.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -120,6 +173,10 @@
       <Link>IEDriverServer.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Plugins\Browsers\TestPipe.Selenium.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

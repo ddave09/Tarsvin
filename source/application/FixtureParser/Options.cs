@@ -1,7 +1,6 @@
 ﻿namespace FixtureParser
 {
     using System;
-    using System.Text;
     using CommandLine;
     using CommandLine.Text;
 
@@ -9,6 +8,9 @@
     {
         [Option('f', "file", Required = true, HelpText = "Path to feature file.")]
         public string File { get; set; }
+
+        [Option('m', "multiple", Required = false, HelpText = "If -m is provided, all matching files in the project will be parsed.")]
+        public bool Multiple { get; set; }
 
         [Option('p', "project", Required = true, HelpText = "Name of project containing feature file.")]
         public string Project { get; set; }

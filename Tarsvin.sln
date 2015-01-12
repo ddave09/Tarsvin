@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixtureParser", "source\app
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B6731B74-CE3F-47C5-9F09-B32B13FF7932}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPBRTest", "source\test\FPBRTest\FPBRTest.csproj", "{C54DDC83-7692-4828-90B8-D416DBA0507D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPBRTest.Specs", "source\test\FPBRTest\FPBRTest.Specs.csproj", "{C54DDC83-7692-4828-90B8-D416DBA0507D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "source\application\Runner\Runner.csproj", "{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}"
 EndProject

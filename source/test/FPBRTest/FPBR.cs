@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.IO;
-namespace FPBRTest
+﻿namespace Tarsvin.FPBRTest.Specs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.Build.Construction;
     using Microsoft.Build.Evaluation;
-    using StepBinder;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Runner;
+    using StepBinder;
+    using Tarsvin.FPBRTest.Specs.Features;
 
     [TestClass]
     public class FPBR
     {
         public FPBR()
         {
-            string actualPath = @"FPBRTest.sln";
+            string actualPath = @"../../FPBRTest.sln";
             string slnDirPath = Path.GetDirectoryName(actualPath) + @"\";
             Executor exe = new Executor();
             Solution sln = new Solution(actualPath);
@@ -38,18 +39,17 @@ namespace FPBRTest
         }
 
         [TestMethod]
-        public void StepLoaderTest()
-        {
-            CustomerSiteLogin csl = new CustomerSiteLogin();
-            csl.LoginWithEmptyPassword();
-            csl.LoginWithEmptyPasswordAndInvalidPassword();
-        }
-
-        [TestMethod]
         public void KillTasks()
         {
             Process p = Process.Start("TaskKiller.bat");
             p.WaitForExit();
+        }
+
+        [TestMethod]
+        public void StepLoaderStepTest()
+        {
+            //SearchFeature csl = new SearchFeature();
+            //csl.UserClicksOnLogoutLink();
         }
     }
 }

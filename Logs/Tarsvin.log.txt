@@ -1,0 +1,306 @@
+2015-01-12 10:54:48,792 [10] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at SunGard.PNE.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 10:54:59,371 [1] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at SunGard.PNE.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 12:47:28,794 [9] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at Tarsvin.FPBRTest.Specs.Features.Search..ctor() in c:\_Tarsvin\source\test\FPBRTest\Features\Search_feature.cs:line 12
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 12:48:26,201 [1] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at Tarsvin.FPBRTest.Specs.Features.Search..ctor() in c:\_Tarsvin\source\test\FPBRTest\Features\Search_feature.cs:line 12
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 12:59:19,291 [9] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.MissingMethodException: Attempted to access a missing method.
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 61
+   at Tarsvin.FPBRTest.Specs.Features.Search..ctor() in c:\_Tarsvin\source\test\FPBRTest\Features\Search_feature.cs:line 12
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 12:59:30,964 [1] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.MissingMethodException: Attempted to access a missing method.
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 61
+   at Tarsvin.FPBRTest.Specs.Features.Search..ctor() in c:\_Tarsvin\source\test\FPBRTest\Features\Search_feature.cs:line 12
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 14:01:53,446 [9] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.MissingMethodException: Attempted to access a missing method.
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 61
+   at Tarsvin.FPBRTest.Specs.Features.Search..ctor() in c:\_Tarsvin\source\test\FPBRTest\Features\Search_feature.cs:line 12
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 14:02:28,762 [8] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.MissingMethodException: Attempted to access a missing method.
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 61
+   at Tarsvin.FPBRTest.Specs.Features.Search..ctor() in c:\_Tarsvin\source\test\FPBRTest\Features\Search_feature.cs:line 12
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 14:16:06,658 [10] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.MissingMethodException: Attempted to access a missing method.
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 61
+   at Tarsvin.FPBRTest.Specs.Features.Search..ctor() in c:\_Tarsvin\source\test\FPBRTest\Features\Search_feature.cs:line 12
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 14:16:18,186 [1] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.MissingMethodException: Attempted to access a missing method.
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 61
+   at Tarsvin.FPBRTest.Specs.Features.Search..ctor() in c:\_Tarsvin\source\test\FPBRTest\Features\Search_feature.cs:line 12
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 14:44:07,937 [10] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at Tarsvin.FPBRTest.Specs.Features.FPBRTestSearch..ctor() in c:\_Tarsvin\source\test\FPBRTest\Features\Search_feature.cs:line 12
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 14:44:20,178 [1] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at Tarsvin.FPBRTest.Specs.Features.FPBRTestSearch..ctor() in c:\_Tarsvin\source\test\FPBRTest\Features\Search_feature.cs:line 12
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 14:57:50,864 [6] INFO  Browser Loaded: IE
+2015-01-12 14:58:08,732 [10] INFO  Browser Loaded: IE
+2015-01-12 14:58:23,956 [9] INFO  ********************************************************************************
+Scenario Namespace Tarsvin.FPBRTest.Specs.Features.FPBRTestSearch
+Scenario Name SearchForTestPipe
+Execution Time 00:00:44.0490000
+Attributes:  
+2015-01-12 14:58:23,962 [9] INFO  Smoke   
+2015-01-12 14:58:23,963 [9] INFO  Search   
+2015-01-12 14:58:23,964 [9] INFO  FPBRTest   
+2015-01-12 14:58:23,967 [9] INFO  ********************************************************************************
+Scenario Namespace Tarsvin.FPBRTest.Specs.Features.FPBRTestSearch
+Scenario Name SearchForSomething
+Execution Time 00:00:48.7410000
+Attributes:  
+2015-01-12 14:58:23,972 [9] INFO  FPBRTest   
+2015-01-12 14:58:23,973 [9] INFO  Search   
+2015-01-12 14:58:23,979 [9] INFO  *******************************************************************************
+Troll Time: 00:00:49.0890000
+*******************************************************************************
+All available tests are completed
+*******************************************************************************
+
+2015-01-12 15:00:58,907 [1] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at SunGard.PNE.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 16:06:29,722 [6] INFO  Browser Loaded: IE
+2015-01-12 16:06:29,870 [11] INFO  Browser Loaded: IE
+2015-01-12 16:06:39,736 [10] INFO  ********************************************************************************
+Scenario Namespace Tarsvin.FPBRTest.Specs.Features.FPBRTestSearch
+Scenario Name SearchForSomething
+Execution Time 00:00:11.8341833
+Attributes:  
+2015-01-12 16:06:39,746 [10] INFO  FPBRTest   
+2015-01-12 16:06:39,749 [10] INFO  Search   
+2015-01-12 16:06:39,755 [10] INFO  ********************************************************************************
+Scenario Namespace Tarsvin.FPBRTest.Specs.Features.FPBRTestSearch
+Scenario Name SearchForTestPipe
+Execution Time 00:00:15.7665765
+Attributes:  
+2015-01-12 16:06:39,772 [10] INFO  Smoke   
+2015-01-12 16:06:39,787 [10] INFO  Search   
+2015-01-12 16:06:39,799 [10] INFO  FPBRTest   
+2015-01-12 16:06:39,818 [10] INFO  *******************************************************************************
+Troll Time: 00:00:16.0926091
+*******************************************************************************
+All available tests are completed
+*******************************************************************************
+
+2015-01-12 16:09:14,106 [9] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at SunGard.PNE.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 16:09:53,384 [9] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at SunGard.PNE.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 16:11:36,596 [1] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at SunGard.PNE.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 16:11:48,250 [9] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at SunGard.PNE.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 16:12:28,379 [9] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at SunGard.PNE.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 16:12:51,852 [10] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at SunGard.PNE.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 16:16:53,802 [9] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
+   at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 54
+   at SunGard.PNE.Test.CustomerSite.Specs.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 16:45:32,225 [1] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> TestPipe.Core.Exceptions.TestPipeException: TestSession.Suite.Features does not contain a feature with title "ActivityLog".
+   at TestPipe.Runner.RunnerHelper.LoadFeature(String title)
+   at TestPipe.Runner.RunnerBase.SetupFeature(String title, String[] tags)
+   at TestPipe.SpecFlow.Runner.SetupFeature(String[] tags, String title)
+   at SunGard.PNE.Test.CustomerSite.Specs.Steps.StepHelper.SetupFeature(String[] tags, String title) in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Steps\StepHelper.cs:line 46
+   at SunGard.PNE.Test.CustomerSite.Specs.Steps.Customer.ActivityLogSteps.SetupFeature(String[] tags, String title) in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Steps\Customer\ActivityLogSteps.cs:line 25
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at StepBinder.FunctionBinder.CallBeforeFeature(String nameSpace, String hierarchy, String type) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 70
+   at SunGard.PNE.Test.CustomerSite.Specs.Features.Customer.ActivityLog..ctor() in c:\_Automation\Test\source\application\SunGard.PNE.Test.CustomerSite.Specs\Features\Customer\ActivityLog_feature.cs:line 13
+   --- End of inner exception stack trace ---
+   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at Runner.Executor.ExcecuteTest(List`1 dlls) in c:\_Tarsvin\source\application\Runner\Executor.cs:line 39
+2015-01-12 16:54:19,152 [9] INFO  Browser Loaded: IE
+2015-01-12 16:54:47,951 [12] INFO  Browser Loaded: IE
+2015-01-12 16:54:48,251 [9] INFO  Browser Loaded: IE
+2015-01-12 16:54:48,801 [10] INFO  Browser Loaded: IE
+2015-01-12 16:54:49,228 [15] INFO  Browser Loaded: IE

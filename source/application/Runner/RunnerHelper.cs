@@ -52,14 +52,14 @@
                 return false;
             }
 
-            string projectNameSuffix = options.ProjectSuffix.ToLower();
+            string projectNameSuffix = options.ProjectSuffix;
 
             if (string.IsNullOrWhiteSpace(projectNameSuffix))
             {
                 return true;
             }
 
-            if (!projectName.ToLower().EndsWith(projectNameSuffix))
+            if (!projectName.ToLower().EndsWith(projectNameSuffix.ToLower()))
             {
                 return false;
             }
