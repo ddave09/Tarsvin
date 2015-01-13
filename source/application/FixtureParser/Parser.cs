@@ -105,7 +105,16 @@
 
         public IEnumerator TextToEnumerator(string fixtureFilePath)
         {
-            return File.ReadAllLines(fixtureFilePath).GetEnumerator();
+            try
+            {
+                return File.ReadAllLines(fixtureFilePath).GetEnumerator();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Message: {0} \nStackTrace: {1}", e.Message, e.StackTrace);
+                return null;
+            }
+            
         }
     }
 
