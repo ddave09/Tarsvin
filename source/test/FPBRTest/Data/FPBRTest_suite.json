@@ -1,0 +1,33 @@
+﻿{
+	"ApplicationKey": "C5851267-AD37-482B-9762-A3FE5DF017EE",
+	"BaseURL": "https://www.google.com/",
+	"BrowserDriver": "IE",
+	"DefaultBrowserVersion": "10",
+	"RemoteDriverPath": "http://localhost:4444/wd/hub",
+	"Browser": "IE",
+	"Environment": "Prod",
+	"LoginUrl": "",
+	"LogoutURL": "",
+	"Name": "Google",
+	"Timeout": 60,
+	"DbConnections": [
+		{
+			"Name": "Main",
+			"ConnectionString": "Data Source=localhost;Initial Catalog=FPBRTest;Integrated Security=True"
+		},
+		{
+			"Name": "Security",
+			"ConnectionString": "Data Source=localhost;Initial Catalog=FPBRTest;Integrated Security=True"
+		}
+	],
+	"Features": [
+		{
+			"Title": "FPBRTest Search",
+			"Path": "Search_feature.json"
+		},
+		{
+			"Title": "Result",
+			"Path": "Result_feature.json"
+		}
+	]
+}
