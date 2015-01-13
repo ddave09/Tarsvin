@@ -304,3 +304,49 @@ System.Reflection.TargetInvocationException: Exception has been thrown by the ta
 2015-01-12 16:54:48,251 [9] INFO  Browser Loaded: IE
 2015-01-12 16:54:48,801 [10] INFO  Browser Loaded: IE
 2015-01-12 16:54:49,228 [15] INFO  Browser Loaded: IE
+2015-01-12 21:46:07,101 [10] INFO  Browser Loaded: IE
+2015-01-12 21:46:07,446 [9] INFO  Browser Loaded: IE
+2015-01-12 21:46:15,603 [8] INFO  ********************************************************************************
+Scenario Namespace Tarsvin.FPBRTest.Specs.Features.FPBRTestSearch
+Scenario Name SearchForTestPipe
+Execution Time 00:00:12.2622261
+Attributes:  
+2015-01-12 21:46:15,616 [8] INFO  Smoke   
+2015-01-12 21:46:15,620 [8] INFO  Search   
+2015-01-12 21:46:15,622 [8] INFO  FPBRTest   
+2015-01-12 21:46:15,626 [8] INFO  ********************************************************************************
+Scenario Namespace Tarsvin.FPBRTest.Specs.Features.FPBRTestSearch
+Scenario Name SearchForSomething
+Execution Time 00:00:14.2404239
+Attributes:  
+2015-01-12 21:46:15,634 [8] INFO  FPBRTest   
+2015-01-12 21:46:15,636 [8] INFO  Search   
+2015-01-12 21:46:15,646 [8] INFO  *******************************************************************************
+Troll Time: 00:00:14.5974596
+*******************************************************************************
+All available tests are completed
+*******************************************************************************
+
+2015-01-12 21:47:56,416 [12] INFO  Browser Loaded: IE
+2015-01-12 21:47:56,758 [10] INFO  Browser Loaded: IE
+2015-01-12 21:48:04,752 [9] INFO  ********************************************************************************
+Scenario Namespace Tarsvin.FPBRTest.Specs.Features.FPBRTestSearch
+Scenario Name SearchForSomething
+Execution Time 00:00:09.4929492
+Attributes:  
+2015-01-12 21:48:04,775 [9] INFO  FPBRTest   
+2015-01-12 21:48:04,778 [9] INFO  Search   
+2015-01-12 21:48:04,784 [9] INFO  ********************************************************************************
+Scenario Namespace Tarsvin.FPBRTest.Specs.Features.FPBRTestSearch
+Scenario Name SearchForTestPipe
+Execution Time 00:00:13.2803279
+Attributes:  
+2015-01-12 21:48:04,792 [9] INFO  Smoke   
+2015-01-12 21:48:04,796 [9] INFO  Search   
+2015-01-12 21:48:04,798 [9] INFO  FPBRTest   
+2015-01-12 21:48:04,808 [9] INFO  *******************************************************************************
+Troll Time: 00:00:13.6173616
+*******************************************************************************
+All available tests are completed
+*******************************************************************************
+

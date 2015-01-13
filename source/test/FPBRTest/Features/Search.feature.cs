@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Tarsvin.Features
+namespace Tarsvin.FPBRTest.Specs.Features
 {
     using TechTalk.SpecFlow;
     

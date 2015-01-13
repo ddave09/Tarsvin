@@ -18,25 +18,30 @@
                 return;
             }
 
+            //-f "C:\_Tarsvin - Copy\source\test\FPBRTest\Features\Search.feature" -p FPBRTest.Specs -m
             string filePath = options.File;
             bool multiple = options.Multiple;
+            string projectName = options.Project;
 
-           string projectName = options.Project;
-            string rootProjectPath = filePath.Substring(0, filePath.IndexOf(FeatureFolder));
+            //C:\_Tarsvin - Copy\source\test\FPBRTest\
+            string rootProjectPath = filePath.Substring(0, filePath.IndexOf(ProgramFP.FeatureFolder));
+
+            //C:\_Tarsvin - Copy\source\test\FPBRTest\FPBRTest.Specs.csproj
             string projectPath = string.Format("{0}{1}.{2}", rootProjectPath, projectName, ProjectExtension);
-            string fileName = filePath.Substring(filePath.IndexOf(FeatureFolder));
 
             if (multiple)
             {
                 foreach (string file in Directory.EnumerateFiles(rootProjectPath, "*.feature", SearchOption.AllDirectories))
                 {
+                    string fileName = file.Substring(filePath.IndexOf(ProgramFP.FeatureFolder));
                     Parser ps = new Parser();
-                    fileName = filePath.Substring(filePath.IndexOf(FeatureFolder));
                     ps.Parse(file, projectPath, fileName);
                 }
             }
             else
             {
+                //Features\Search.feature
+                string fileName = filePath.Substring(filePath.IndexOf(ProgramFP.FeatureFolder));
                 Parser ps = new Parser();
                 ps.Parse(filePath, projectPath, fileName);
             }
