@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2015-01-12 10:54:48,792 [10] FATAL Could not find Step class, Most Probable: Check feature file namespace or step class name
 System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentNullException: Value cannot be null.
    at StepBinder.FunctionBinder.FindKey(String nameSpace, String hierarchy, String type, InvokeInfo& iI) in c:\_Tarsvin\source\application\StepBuilder\FunctionBinder.cs:line 16
@@ -807,4 +808,6 @@ Troll Time: 00:06:00.3481098
 *******************************************************************************
 All available tests are completed
 *******************************************************************************
+=======
+>>>>>>> 5f354d7ad448a2e14eca1c4a92de45258f2383b6
 
