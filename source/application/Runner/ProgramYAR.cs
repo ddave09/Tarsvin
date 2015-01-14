@@ -45,7 +45,7 @@
             while (ie.MoveNext())
             {
                 IndividualTestState its = ie.Current as IndividualTestState;
-                string formattedScenario = string.Format("********************************************************************************\nScenario Namespace {0}\nScenario Name {1}\nExecution Time {2}\nAttributes:  ",
+                string formattedScenario = string.Format("\n********************************************************************************\nScenario Namespace {0}\nScenario Name {1}\nExecution Time {2}\nAttributes:  ",
                     its.NameSpace, its.TestName, its.ExecTime);
                 log.Info(formattedScenario);
                 Console.Write(formattedScenario);
@@ -56,11 +56,12 @@
                     Console.Write(formattedAttr);
                 }
                 string formattedResult = string.Format("\nResult {0}", its.Result);
+                log.Info(formattedResult);
                 Console.WriteLine(formattedResult);
                 if (its.ThrownException != null)
                 {
-                    string formattedException = string.Format("--------------------\n{0}\n--------------------\n",its.ExceptionMessageStackTrace);
-                    log.Info(formattedException);
+                    string formattedException = string.Format("\n--------------------\n{0}\n--------------------\n",its.ExceptionMessageStackTrace);
+                    log.Error(formattedException);
                     Console.Write(formattedException);
                 }
             }
@@ -69,11 +70,12 @@
             while (fie.MoveNext())
             {
                 IndividualFeatureTestState itfs = fie.Current as IndividualFeatureTestState;
-                string formattedFeature = string.Format("********************************************************************************\nFeature Namespace {0}\nExecution Time {1}\n", itfs.FeatureName, itfs.FeatureExecutionTime);
+                string formattedFeature = string.Format("\n********************************************************************************\nFeature Namespace {0}\nExecution Time {1}\n", itfs.FeatureName, itfs.FeatureExecutionTime);
+                log.Info(formattedFeature);
                 Console.Write(formattedFeature);
             }
 
-            string formattedTrollTime = string.Format("*******************************************************************************\nTroll Time: {0}\n*******************************************************************************\nAll available tests are completed\n*******************************************************************************\n", GlobalTestStates.GrandExecTime);
+            string formattedTrollTime = string.Format("\n*******************************************************************************\nTroll Time: {0}\n*******************************************************************************\nAll available tests are completed\n*******************************************************************************\n", GlobalTestStates.GrandExecTime);
             log.Info(formattedTrollTime);
             Console.Write(formattedTrollTime);
             Console.ReadKey();
