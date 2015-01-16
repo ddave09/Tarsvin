@@ -20,7 +20,7 @@
         {
             string actualPath = @"../../FPBRTest.sln";
             string slnDirPath = Path.GetDirectoryName(actualPath) + @"\";
-            Executor exe = new Executor();
+            Executor exe = new Executor("Parallel");
             Solution sln = new Solution(actualPath);
             string findTestProj = "specs";
             List<DllInfo> addRefList = new List<DllInfo>();
