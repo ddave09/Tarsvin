@@ -9,16 +9,20 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TestPipe.Common;
+using Runner.Interfaces;
 
 namespace Runner
 {
 
     public class Executor
     {
-        Runner run = null;
-        public Executor()
+        IRunner run = null;
+        public Executor(string selection)
         {
-            run = new Runner();
+            if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Sequential"))
+                run = new ParallelRunner();
+            else
+                run = new SequentialRunner();
         }
 
         public void ExcecuteTest(List<DllInfo> dlls)

@@ -19,6 +19,9 @@
         [Option('s', "solution", Required = true, HelpText = "Path to solution file containing test projects to run.")]
         public string SolutionFile { get; set; }
 
+        [Option('r', "runner", Required = true, HelpText = "Sequential or Parallel")]
+        public string RunnerSelection { get; set; }
+
         [HelpOption]
         public string GetUsage()
         {
@@ -30,7 +33,7 @@
                 AddDashesToOption = true
             };
             help.AddPreOptionsLine("");
-            help.AddPreOptionsLine("Usage: > Runner.exe -s Someone.sln");
+            help.AddPreOptionsLine("Usage: > Runner.exe -s Someone.sln -r Parallel");
             help.AddOptions(this);
             return help;
         }

@@ -27,13 +27,23 @@
                 return;
             }
 
+            if (Convert.ToBoolean(options.RunnerSelection.CompareTo("Sequential")) &&
+                Convert.ToBoolean(options.RunnerSelection.CompareTo("Parallel")))
+            {
+                Console.Error.WriteLine("-r is a required argument.");
+                Console.Error.WriteLine("");
+                Console.Error.Write(options.GetUsage());
+                Console.Error.WriteLine("");
+                return;
+            }
+
             string actualPath = options.SolutionFile;
             Console.WriteLine("Solution File: {0}", actualPath);
 
             string projectPrefix = options.ProjectPrefix ?? ConfigurationManager.AppSettings["tarsvin.test.projectnameprefix"];
             Console.WriteLine("Project Prefix: {0}", projectPrefix);
 
-            Executor exe = new Executor();
+            Executor exe = new Executor(options.RunnerSelection);
             Solution sln = new Solution(actualPath);
             List<DllInfo> dllList = RunnerHelper.GetDllList(options, actualPath, projectPrefix, sln);
 
