@@ -128,3 +128,5 @@ WebProject.*
 /NuGet/TestPipe/TestPipe.1.0.0/*.nupkg
 *.nupkg
 /Plugins/Browsers/TestPipe.Selenium.dll
+/Logs
+/region Tarsvin friends.txt
