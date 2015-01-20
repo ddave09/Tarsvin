@@ -47,13 +47,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Extensions.Logging">
-      <HintPath>..\..\..\packages\Ninject.Extensions.Logging.3.2.0.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
+    <Reference Include="Ninject.Extensions.Logging, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Ninject.Extensions.Logging.3.2.1.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Extensions.Logging.Log4Net">
-      <HintPath>..\..\..\packages\Ninject.Extensions.Logging.Log4net.3.2.0.0\lib\net45-full\Ninject.Extensions.Logging.Log4Net.dll</HintPath>
+    <Reference Include="Ninject.Extensions.Logging.Log4Net, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Ninject.Extensions.Logging.Log4net.3.2.1.0\lib\net45-full\Ninject.Extensions.Logging.Log4Net.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -64,25 +66,29 @@
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
-    <Reference Include="TestPipe.Assertions">
-      <HintPath>..\..\..\packages\TestPipe.Assertions.3.0.1.0\lib\net451\TestPipe.Assertions.dll</HintPath>
-    </Reference>
-    <Reference Include="TestPipe.Common, Version=3.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TestPipe.Assertions, Version=3.2.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\TestPipe.Common.3.2.3.0\lib\net451\TestPipe.Common.dll</HintPath>
+      <HintPath>..\..\..\packages\TestPipe.Assertions.3.2.4.0\lib\net451\TestPipe.Assertions.dll</HintPath>
     </Reference>
-    <Reference Include="TestPipe.Core">
-      <HintPath>..\..\..\packages\TestPipe.Core.3.2.3.0\lib\net451\TestPipe.Core.dll</HintPath>
+    <Reference Include="TestPipe.Common, Version=3.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\TestPipe.Common.3.2.4.0\lib\net451\TestPipe.Common.dll</HintPath>
     </Reference>
-    <Reference Include="TestPipe.Runner">
-      <HintPath>..\..\..\packages\TestPipe.Runner.3.2.3.0\lib\net451\TestPipe.Runner.dll</HintPath>
+    <Reference Include="TestPipe.Core, Version=3.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\TestPipe.Core.3.2.4.0\lib\net451\TestPipe.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="TestPipe.Runner, Version=3.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\TestPipe.Runner.3.2.4.0\lib\net451\TestPipe.Runner.dll</HintPath>
     </Reference>
     <Reference Include="TestPipe.Selenium, Version=3.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\TestPipe.Plugins.Selenium.3.2.3.0\content\Plugins\Browsers\TestPipe.Selenium.dll</HintPath>
     </Reference>
-    <Reference Include="TestPipe.SpecFlow">
-      <HintPath>..\..\..\packages\TestPipe.SpecFlow.3.2.3.0\lib\net451\TestPipe.SpecFlow.dll</HintPath>
+    <Reference Include="TestPipe.SpecFlow, Version=3.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\TestPipe.SpecFlow.3.2.4.0\lib\net451\TestPipe.SpecFlow.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>

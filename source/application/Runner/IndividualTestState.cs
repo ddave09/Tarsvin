@@ -16,6 +16,18 @@ namespace Runner
             
         }
 
+        public Object InvokeObject
+        {
+            get;
+            set;
+        }
+
+        public MethodInfo InvokeMethod
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// This property stores the namespace for the scenario
         /// </summary>
@@ -84,6 +96,12 @@ namespace Runner
             set;
         }
 
+        private void DesiredInnerException(ref Exception e)
+        {
+            while (e is TargetInvocationException && e.InnerException != null)
+                e = e.InnerException;
+        }
+
         public string ExceptionMessageStackTrace
         {
             get
@@ -91,11 +109,24 @@ namespace Runner
                 Exception e = this.ThrownException;
                 string ignoreStackTraceException = ConfigurationManager.AppSettings["IgnoreStackTrace"];
                 string retVal = null;
-                while (e is TargetInvocationException)
-                    e = e.InnerException;
+                DesiredInnerException(ref e);
                 if (!StringComparer.OrdinalIgnoreCase.Equals(ignoreStackTraceException, e.GetType().ToString()))
                     retVal = e.StackTrace + "\r\n\r\n";
                 return retVal += "  Message: " + e.Message;
+            }
+        }
+
+        public bool CatchTimeOut
+        {
+            get
+            {
+                Exception e = this.ThrownException;
+                string captureTimeOut = ConfigurationManager.AppSettings["TimeOut"];
+                DesiredInnerException(ref e);
+                if (!StringComparer.OrdinalIgnoreCase.Equals(captureTimeOut, e.GetType().ToString()))
+                    return true;
+                else
+                    return false;
             }
         }
     }
