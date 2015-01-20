@@ -32,6 +32,8 @@ namespace Runner
                 its.EndTime = DateTime.Now.Ticks;
                 its.Result = false;
                 its.ThrownException = e;
+                if (its.CatchTimeOut)
+                    GlobalTestStates.PushToReRunList(its.InvokeObject, its.InvokeMethod, its.NameSpace, its.Attributes);
                 Console.WriteLine("***\n\n\n{0}.{1}: Failed\n\n\n", its.NameSpace, its.TestName);
             }
             GlobalTestStates.Add(its);
@@ -51,7 +53,7 @@ namespace Runner
                 IndividualTestState its = obj as IndividualTestState;
                 testMethod.Invoke(typeObject, null);
             },
-            new IndividualTestState() { NameSpace = nameSpace, Attributes = attrs, TestName = testMethod.Name, StartTime = DateTime.Now.Ticks });
+            new IndividualTestState() { InvokeObject = typeObject, InvokeMethod = testMethod, NameSpace = nameSpace, Attributes = attrs, TestName = testMethod.Name, StartTime = DateTime.Now.Ticks });
 
             task.ContinueWith(continuation =>
                 continuation.Exception.Handle(ex =>
@@ -60,6 +62,8 @@ namespace Runner
                     dataFault.EndTime = DateTime.Now.Ticks;
                     dataFault.Result = false;
                     dataFault.ThrownException = ex;
+                    if (dataFault.CatchTimeOut)
+                        GlobalTestStates.PushToReRunList(dataFault.InvokeObject, dataFault.InvokeMethod, dataFault.NameSpace, dataFault.Attributes);
                     Console.WriteLine("***\n\n\n{0}.{1}: Failed\n\n\n", dataFault.NameSpace, dataFault.TestName);
                     GlobalTestStates.Add(dataFault);
                     if (GlobalTestStates.GetScenarioCount > 0)
