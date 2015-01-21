@@ -48,6 +48,7 @@ namespace Runner
     {
         public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs)
         {
+            Task finalContinuation = null;
             Task task = Task.Factory.StartNew((Object obj) =>
             {
                 IndividualTestState its = obj as IndividualTestState;
@@ -55,7 +56,7 @@ namespace Runner
             },
             new IndividualTestState() { InvokeObject = typeObject, InvokeMethod = testMethod, NameSpace = nameSpace, Attributes = attrs, TestName = testMethod.Name, StartTime = DateTime.Now.Ticks });
 
-            task.ContinueWith(continuation =>
+            finalContinuation = task.ContinueWith(continuation =>
                 continuation.Exception.Handle(ex =>
                 {
                     var dataFault = task.AsyncState as IndividualTestState;
@@ -66,16 +67,12 @@ namespace Runner
                         GlobalTestStates.PushToReRunList(dataFault.InvokeObject, dataFault.InvokeMethod, dataFault.NameSpace, dataFault.Attributes);
                     Console.WriteLine("***\n\n\n{0}.{1}: Failed\n\n\n", dataFault.NameSpace, dataFault.TestName);
                     GlobalTestStates.Add(dataFault);
-                    if (GlobalTestStates.GetScenarioCount > 0)
-                    {
-                        GlobalTestStates.DecrementScenarioCount();
-                    }
                     return false;
                 })
             , TaskContinuationOptions.OnlyOnFaulted
             );
 
-            Task continueTask = task.ContinueWith((continuation) =>
+            finalContinuation = task.ContinueWith((continuation) =>
             {
                 var dataPass = task.AsyncState as IndividualTestState;
                 if (dataPass != null)
@@ -85,14 +82,18 @@ namespace Runner
                     dataPass.ThrownException = null;
                     Console.WriteLine("***\n\n\n{0}.{1}: Passed\n\n\n", dataPass.NameSpace, dataPass.TestName);
                     GlobalTestStates.Add(dataPass);
-                    if (GlobalTestStates.GetScenarioCount > 0)
-                    {
-                        GlobalTestStates.DecrementScenarioCount();
-                    }
                 }
             }
             , TaskContinuationOptions.NotOnFaulted
             );
+
+            finalContinuation.ContinueWith((continuation) =>
+                {
+                    if (GlobalTestStates.GetScenarioCount > 0)
+                    {
+                        GlobalTestStates.DecrementScenarioCount();
+                    }
+                });
         }
     }
 }

@@ -20,9 +20,9 @@ namespace Runner
         public Executor(string selection)
         {
             if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Sequential"))
-                run = new ParallelRunner();
-            else
                 run = new SequentialRunner();
+            else if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Parallel"))
+                run = new ParallelRunner();
         }
 
         public void ExcecuteTest(List<DllInfo> dlls)
