@@ -19,26 +19,26 @@
         private SearchPage sut;
 
         #region Tarsvin friends
-        [CustomAttributes.BeforeFeature]
+        [Tarsvin.CustomAttributes.BeforeFeature]
         public static void SetupFeature(string[] tags, string title)
         {
             feature = StepHelper.SetupFeature(tags, title);
         }
 
-        [CustomAttributes.BeforeScenario]
+        [Tarsvin.CustomAttributes.BeforeScenario]
         public void SetupScenario(string[] tags, string fTitle, string sTitle)
         {
             scenario = StepHelper.SetupScenario(tags, fTitle, sTitle);
             this.sut = new SearchPage(this.scenario.Browser, TestSession.Environment);
         }
 
-        [CustomAttributes.AfterScenario]
+        [Tarsvin.CustomAttributes.AfterScenario]
         public void TearDownScenario()
         {
             StepHelper.TearDownScenario(scenario);
         }
 
-        [CustomAttributes.AfterFeature]
+        [Tarsvin.CustomAttributes.AfterFeature]
         public static void TearDownFeatureS()
         {
             RunnerBase.TeardownSuite();

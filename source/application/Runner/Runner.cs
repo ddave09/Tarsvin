@@ -46,6 +46,14 @@
 
     public class ParallelRunner : IRunner
     {
+        public event EventHandler InvokeCmpt;
+
+        protected virtual void OnInvokeCmpt(EventArgs e)
+        {
+            if (InvokeCmpt != null)
+                InvokeCmpt(this, e);
+        }
+
         public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs)
         {
             Task finalContinuation = null;
@@ -53,6 +61,7 @@
             {
                 IndividualTestState its = obj as IndividualTestState;
                 testMethod.Invoke(typeObject, null);
+                OnInvokeCmpt(EventArgs.Empty);
             },
             new IndividualTestState() { InvokeObject = typeObject, InvokeMethod = testMethod, NameSpace = nameSpace, Attributes = attrs, TestName = testMethod.Name, StartTime = DateTime.Now.Ticks });
 

@@ -3,8 +3,8 @@ namespace Tarsvin.FPBRTest.Specs.Features
 using System;
 using StepBinder;
 
-[CustomAttributes.FixtureAttr("FPBRTest")]
-[CustomAttributes.FixtureAttr("Search")]
+[Tarsvin.CustomAttributes.FixtureAttr("FPBRTest")]
+[Tarsvin.CustomAttributes.FixtureAttr("Search")]
 public class FPBRTestSearch
 {
 	public FPBRTestSearch()
@@ -12,15 +12,15 @@ public class FPBRTestSearch
 		FunctionBinder.CallBeforeFeature("Tarsvin.FPBRTest.Specs.Steps", "", "FPBRTestSearch");
 	}
 
-	[CustomAttributes.FixtureEndAttr()]
+    [Tarsvin.CustomAttributes.FixtureEndAttr()]
 	public void FeatureTearDown()
 	{
 		FunctionBinder.CallAfterX("Tarsvin.FPBRTest.Specs.Steps", "", "FPBRTestSearch");
 	}
 
-	[CustomAttributes.CaseAttr("FPBRTest")]
-	[CustomAttributes.CaseAttr("Search")]
-	[CustomAttributes.CaseAttr("Smoke")]
+    [Tarsvin.CustomAttributes.CaseAttr("FPBRTest")]
+    [Tarsvin.CustomAttributes.CaseAttr("Search")]
+    [Tarsvin.CustomAttributes.CaseAttr("Smoke")]
 	public void SearchForTestPipe()
 	{
 		Object obj= FunctionBinder.CallBeforeScenario("Tarsvin.FPBRTest.Specs.Steps", "", "FPBRTestSearch", "1. Search for TestPipe", "FPBRTest.Search.Smoke");
@@ -30,8 +30,8 @@ public class FPBRTestSearch
 		FunctionBinder.CallAfterX("Tarsvin.FPBRTest.Specs.Steps", "", "FPBRTestSearch", obj);
 	}
 
-	[CustomAttributes.CaseAttr("FPBRTest")]
-	[CustomAttributes.CaseAttr("Search")]
+    [Tarsvin.CustomAttributes.CaseAttr("FPBRTest")]
+    [Tarsvin.CustomAttributes.CaseAttr("Search")]
 	public void SearchForSomething()
 	{
 		Object obj= FunctionBinder.CallBeforeScenario("Tarsvin.FPBRTest.Specs.Steps", "", "FPBRTestSearch", "2. Search for Something", "FPBRTest.Search");
