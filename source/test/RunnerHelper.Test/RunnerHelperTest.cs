@@ -2,7 +2,7 @@
 {
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Runner;
+    using Tarsvin.Runner;
 
     [TestClass]
     public class RunnerHelperTest

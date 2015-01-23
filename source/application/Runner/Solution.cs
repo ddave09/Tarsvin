@@ -3,17 +3,17 @@
  * StackOverflow: http://stackoverflow.com/questions/707107/library-for-parsing-visual-studio-solution-files
 */
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Runner
+namespace Tarsvin.Runner
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class Solution
     {
         static readonly Type parser;

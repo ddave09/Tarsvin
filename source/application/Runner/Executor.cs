@@ -1,18 +1,17 @@
-﻿using System;
-using System.Configuration;
-using System.Diagnostics;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using TestPipe.Common;
-using Runner.Interfaces;
-
-namespace Runner
+﻿namespace Tarsvin.Runner
 {
+    using System;
+    using System.Configuration;
+    using System.Diagnostics;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+    using TestPipe.Common;
+    using Tarsvin.Runner.Interfaces;
 
     public class Executor
     {

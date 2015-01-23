@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StepBinder
+﻿namespace Tarsvin.StepBinder
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public static class FunctionBinder
     {
         public static void FindKey(string nameSpace, string hierarchy, string type, out InvokeInfo iI)

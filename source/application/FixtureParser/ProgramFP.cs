@@ -1,4 +1,4 @@
-﻿namespace FixtureParser
+﻿namespace Tarsvin.FixtureParser
 {
     using System;
     using System.IO;
