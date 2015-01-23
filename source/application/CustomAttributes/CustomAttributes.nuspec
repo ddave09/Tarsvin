@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>CustomAttributes</id>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <title>CustomAttributes</title>
         <authors>Dave</authors>
         <owners>Dave</owners>
@@ -11,6 +11,6 @@
         <language>en-US</language>
     </metadata>
     <files>
-        <file src="bin\Debug\CustomAttributes.dll" target="lib\net451\CustomAttributes.dll" />
+        <file src="bin\Debug\Tarsvin.CustomAttributes.dll" target="lib\net451\Tarsvin.CustomAttributes.dll" />
     </files>
 </package>

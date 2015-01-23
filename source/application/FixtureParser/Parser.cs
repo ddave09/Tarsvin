@@ -320,7 +320,7 @@
                         previousParentToken = "scenario";
                         foreach (string attr in attrs)
                         {
-                            writeString += "\t[CustomAttributes.CaseAttr(\"" + attr + "\")]\r\n";
+                            writeString += "\t[Tarsvin.CustomAttributes.CaseAttr(\"" + attr + "\")]\r\n";
                             attributeString += attr + ".";
                         }
 
@@ -334,7 +334,7 @@
                         previousToken = "feature";
                         lineToken = "feature";
                         foreach (string attr in attrs)
-                            writeString += "[CustomAttributes.FixtureAttr(\"" + attr + "\")]\r\n";
+                            writeString += "[Tarsvin.CustomAttributes.FixtureAttr(\"" + attr + "\")]\r\n";
                         attrs.Clear();
                         writeString += modifiers["public"] + " " + modifiers["class"] + " ";
                         continue;
@@ -372,13 +372,13 @@
                     if (hierarchyName != null)
                     {
                         writeString += "\t" + "public " + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallBeforeFeature(\"" + functionNamespace + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\");"/*, \"feature\");"*/ + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
-                        writeString += "\t" + "[CustomAttributes.FixtureEndAttr()]" + "\r\n";
+                        writeString += "\t" + "[Tarsvin.CustomAttributes.FixtureEndAttr()]" + "\r\n";
                         writeString += "\t" + "public void " + "FeatureTearDown" + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + functionNamespace + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\");"/*, \"feature\");"*/ + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                     }
                     else
                     {
                         writeString += "\t" + "public " + className + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallBeforeFeature(\"" + functionNamespace + "\", \"" + "\", \"" + className + "\");"/*, \"feature\");"*/ + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
-                        writeString += "\t" + "[CustomAttributes.FixtureEndAttr()]" + "\r\n";
+                        writeString += "\t" + "[Tarsvin.CustomAttributes.FixtureEndAttr()]" + "\r\n";
                         writeString += "\t" + "public void " + "FeatureTearDown" + "()" + "\r\n" + "\t" + "{" + "\r\n" + "\t\t" + "FunctionBinder.CallAfterX(\"" + functionNamespace + "\", \"" + "\", \"" + className + "\");"/*, \"feature\");"*/ + "\r\n" + "\t" + "}" + "\r\n" + "\r\n";
                     }
 

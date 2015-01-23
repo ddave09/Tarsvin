@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>StepBinder</id>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <title>StepBinder</title>
         <authors>Dave</authors>
         <owners>Dave</owners>
@@ -11,6 +11,6 @@
         <language>en-US</language>
     </metadata>
     <files>
-        <file src="bin\Debug\StepBuilder.exe" target="lib\net451\StepBuilder.exe" />
+        <file src="bin\Debug\Tarsvin.StepBuilder.dll" target="lib\net451\Tarsvin.StepBuilder.dll" />
     </files>
 </package>

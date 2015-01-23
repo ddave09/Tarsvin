@@ -115,7 +115,7 @@
             foreach (CustomAttributeData attr in li)
             {
                 IList<CustomAttributeTypedArgument> lii = attr.ConstructorArguments;
-                if (StringComparer.OrdinalIgnoreCase.Equals(attr.AttributeType.ToString(), "customAttributes.fixtureattr"))
+                if (StringComparer.OrdinalIgnoreCase.Equals(attr.AttributeType.ToString(), "Tarsvin.customAttributes.fixtureattr"))
                 {
                     return true;
                 }
@@ -129,11 +129,11 @@
             {
                 string x = attr.ToString();
 
-                if (StringComparer.OrdinalIgnoreCase.Equals(attr.ToString(), "customAttributes.CaseAttr"))
+                if (StringComparer.OrdinalIgnoreCase.Equals(attr.ToString(), "Tarsvin.customAttributes.CaseAttr"))
                 {
                     return true;
                 }
-                else if (StringComparer.OrdinalIgnoreCase.Equals(attr.ToString(), "customAttributes.FixtureEndAttr"))
+                else if (StringComparer.OrdinalIgnoreCase.Equals(attr.ToString(), "Tarsvin.customAttributes.FixtureEndAttr"))
                 {
                     TearDownFeature = method;
                 }
