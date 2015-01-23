@@ -1,4 +1,4 @@
-﻿namespace Runner
+﻿namespace Tarsvin.Runner
 {
     using System;
     using System.Collections;

@@ -57,9 +57,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\application\Runner\Runner.csproj">
+    <ProjectReference Include="..\..\application\Runner\Tarsvin.Runner.csproj">
       <Project>{b55f8446-aad0-4c31-bddf-1cf8ea427f51}</Project>
-      <Name>Runner</Name>
+      <Name>Tarsvin.Runner</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -10,15 +10,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{967F1C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAttributes", "source\application\CustomAttributes\CustomAttributes.csproj", "{9202E856-3F34-47CE-AB99-B14EB8319E29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixtureParser", "source\application\FixtureParser\FixtureParser.csproj", "{E4D3A085-6296-484A-A779-2E47E657B090}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarsvin.FixtureParser", "source\application\FixtureParser\Tarsvin.FixtureParser.csproj", "{E4D3A085-6296-484A-A779-2E47E657B090}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B6731B74-CE3F-47C5-9F09-B32B13FF7932}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPBRTest.Specs", "source\test\FPBRTest\FPBRTest.Specs.csproj", "{C54DDC83-7692-4828-90B8-D416DBA0507D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "source\application\Runner\Runner.csproj", "{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarsvin.Runner", "source\application\Runner\Tarsvin.Runner.csproj", "{B55F8446-AAD0-4C31-BDDF-1CF8EA427F51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StepBuilder", "source\application\StepBuilder\StepBuilder.csproj", "{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarsvin.StepBuilder", "source\application\StepBuilder\Tarsvin.StepBuilder.csproj", "{3B70A0ED-5D3D-4C13-9C6C-C0CC5E26A85C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner.Test.Unit", "source\test\RunnerHelper.Test\Runner.Test.Unit.csproj", "{6D0D385B-05EC-4B53-B259-928E9B1612E3}"
 EndProject

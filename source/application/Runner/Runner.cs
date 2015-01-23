@@ -1,15 +1,15 @@
-﻿using System;
-using System.Configuration;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Runner.Interfaces;
-
-namespace Runner
+﻿namespace Tarsvin.Runner
 {
+    using System;
+    using System.Configuration;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Tarsvin.Runner.Interfaces;
+
     public class SequentialRunner : IRunner
     {
         public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomAttributes
+namespace Tarsvin.CustomAttributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class FixtureAttr : Attribute

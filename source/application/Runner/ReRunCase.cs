@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-
-namespace Runner
+﻿namespace Tarsvin.Runner
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+
     public class ReRunCase
     {
         internal Object obj;
