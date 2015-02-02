@@ -9,6 +9,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
     using TestPipe.Common;
     using Tarsvin.Runner.Interfaces;
@@ -16,12 +17,20 @@
     public class Executor
     {
         IRunner run = null;
+        BackgroundWorker bw;
         public Executor(string selection)
         {
             if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Sequential"))
-                run = new SequentialRunner();
+                run = new SequentialRunner();              
             else if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Parallel"))
                 run = new ParallelRunner();
+            bw = new BackgroundWorker();
+            bw.DoWork += Temp;
+        }
+
+        private void Temp(object sender, DoWorkEventArgs e)
+        {
+            Console.WriteLine("Async Event Test");
         }
 
         public void ExcecuteTest(List<DllInfo> dlls)
@@ -56,7 +65,7 @@
                     {
                         List<string> attrsValues = this.GetAttributesConstructorValues(method);
                         GlobalTestStates.IncrementScenarioCount();
-                        run.Run(obj, method, type.FullName, attrsValues);
+                        run.Run(obj, method, type.FullName, attrsValues, bw);
                     }
                     while (Convert.ToBoolean(GlobalTestStates.GetScenarioCount)) ;
                     TearDownFeature.Invoke(obj, null);

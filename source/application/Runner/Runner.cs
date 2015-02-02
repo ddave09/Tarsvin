@@ -3,6 +3,7 @@
     using System;
     using System.Configuration;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
     using System.Reflection;
     using System.Text;
@@ -12,7 +13,7 @@
 
     public class SequentialRunner : IRunner
     {
-        public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs)
+        public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs, BackgroundWorker bw)
         {
             IndividualTestState its = new IndividualTestState();
             its.NameSpace = nameSpace;
@@ -46,22 +47,14 @@
 
     public class ParallelRunner : IRunner
     {
-        public event EventHandler InvokeCmpt;
-
-        protected virtual void OnInvokeCmpt(EventArgs e)
-        {
-            if (InvokeCmpt != null)
-                InvokeCmpt(this, e);
-        }
-
-        public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs)
+        public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs, BackgroundWorker bw)
         {
             Task finalContinuation = null;
             Task task = Task.Factory.StartNew((Object obj) =>
             {
                 IndividualTestState its = obj as IndividualTestState;
+                bw.RunWorkerAsync();
                 testMethod.Invoke(typeObject, null);
-                OnInvokeCmpt(EventArgs.Empty);
             },
             new IndividualTestState() { InvokeObject = typeObject, InvokeMethod = testMethod, NameSpace = nameSpace, Attributes = attrs, TestName = testMethod.Name, StartTime = DateTime.Now.Ticks });
 

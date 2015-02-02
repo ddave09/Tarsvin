@@ -86,7 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DllInfo.cs" />
-    <Compile Include="EventListners.cs" />
     <Compile Include="Executor.cs" />
     <Compile Include="GlobalTestStates.cs" />
     <Compile Include="IndividualFeatureTestState.cs" />
