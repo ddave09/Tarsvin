@@ -12,7 +12,9 @@
     {
         public static HashSet<IndividualTestState> manageState = new HashSet<IndividualTestState>();
         public static HashSet<IndividualFeatureTestState> featureState = new HashSet<IndividualFeatureTestState>();
+        public static Dictionary<string, IndividualFeatureTestState> featureBook = new Dictionary<string, IndividualFeatureTestState>();
         public static List<ReRunCase> reRunList = new List<ReRunCase>();
+        static Object sceCount = new Object();
         static Object lockFeatureAdd = new Object();
         static Object lockScenarioAdd = new Object();
         static Object reRunCaseAdd = new Object();
@@ -44,6 +46,14 @@
             {
                 featureState.Add(itfs);
             }
+        }
+
+        public static void SetScenarioCount(int count)
+        {
+            lock (sceCount)
+            {
+                scenarioCount = count;
+            }        
         }
 
         public static void IncrementScenarioCount()

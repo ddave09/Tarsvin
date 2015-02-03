@@ -11,12 +11,34 @@
     using System.Threading.Tasks;
     using Tarsvin.Runner.Interfaces;
 
-    public class SequentialRunner : IRunner
+    internal class Inter
     {
-        public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs, BackgroundWorker bw)
+        internal Object obj;
+        internal Type type;
+        internal MethodInfo TearDownFeature;
+        internal bool direct;
+        internal enum MT : sbyte
+        {
+            Type,
+            Method
+        };
+
+        internal Inter(Object obj, Type type, MT m, MethodInfo TearDownFeature)
+        {
+            this.obj = obj;
+            this.type = type;
+            this.TearDownFeature = TearDownFeature;
+            this.direct = Convert.ToBoolean(m);
+        }
+    }
+
+    internal class SequentialRunner : IRunner
+    {
+        public void Run(Object typeObject, MethodInfo testMethod, Type type, 
+            List<string> attrs, BackgroundWorker bw = null, int count = 0, MethodInfo TearDownFeature = null)
         {
             IndividualTestState its = new IndividualTestState();
-            its.NameSpace = nameSpace;
+            its.NameSpace = type.FullName;
             its.Attributes = attrs;
             its.TestName = testMethod.Name;
             its.StartTime = DateTime.Now.Ticks;
@@ -26,7 +48,8 @@
                 its.EndTime = DateTime.Now.Ticks;
                 its.Result = true;
                 its.ThrownException = null;
-                Console.WriteLine("***\n\n\n{0}.{1}: Passed\n\n\n", its.NameSpace, its.TestName);
+                Console.WriteLine("***\n\n\n{0}.{1}: Passed\n\n\n", 
+                    its.NameSpace, its.TestName);
             }
             catch (Exception e)
             {
@@ -34,8 +57,10 @@
                 its.Result = false;
                 its.ThrownException = e;
                 if (its.CatchTimeOut)
-                    GlobalTestStates.PushToReRunList(its.InvokeObject, its.InvokeMethod, its.NameSpace, its.Attributes);
-                Console.WriteLine("***\n\n\n{0}.{1}: Failed\n\n\n", its.NameSpace, its.TestName);
+                    GlobalTestStates.PushToReRunList(its.InvokeObject, 
+                        its.InvokeMethod, its.NameSpace, its.Attributes);
+                Console.WriteLine("***\n\n\n{0}.{1}: Failed\n\n\n", 
+                    its.NameSpace, its.TestName);
             }
             GlobalTestStates.Add(its);
             if (GlobalTestStates.GetScenarioCount > 0)
@@ -45,18 +70,27 @@
         }
     }
 
-    public class ParallelRunner : IRunner
+    internal class ParallelRunner :  IDisposable, IRunner
     {
-        public void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs, BackgroundWorker bw)
+        public void Dispose()
+        {
+
+        }
+
+        public void Run(Object typeObject, MethodInfo testMethod, Type type, 
+            List<string> attrs, BackgroundWorker bw, int count = 0, MethodInfo TearDownFeature = null)
         {
             Task finalContinuation = null;
             Task task = Task.Factory.StartNew((Object obj) =>
             {
                 IndividualTestState its = obj as IndividualTestState;
-                bw.RunWorkerAsync();
+                while (bw.IsBusy) ;
+                bw.RunWorkerAsync(new Inter(typeObject, type, Inter.MT.Method,TearDownFeature));
                 testMethod.Invoke(typeObject, null);
             },
-            new IndividualTestState() { InvokeObject = typeObject, InvokeMethod = testMethod, NameSpace = nameSpace, Attributes = attrs, TestName = testMethod.Name, StartTime = DateTime.Now.Ticks });
+            new IndividualTestState() { InvokeObject = typeObject, InvokeMethod = testMethod, 
+                NameSpace = type.FullName, Attributes = attrs, TestName = testMethod.Name, 
+                StartTime = DateTime.Now.Ticks });
 
             finalContinuation = task.ContinueWith(continuation =>
                 continuation.Exception.Handle(ex =>
@@ -66,8 +100,10 @@
                     dataFault.Result = false;
                     dataFault.ThrownException = ex;
                     if (dataFault.CatchTimeOut)
-                        GlobalTestStates.PushToReRunList(dataFault.InvokeObject, dataFault.InvokeMethod, dataFault.NameSpace, dataFault.Attributes);
-                    Console.WriteLine("***\n\n\n{0}.{1}: Failed\n\n\n", dataFault.NameSpace, dataFault.TestName);
+                        GlobalTestStates.PushToReRunList(dataFault.InvokeObject, 
+                            dataFault.InvokeMethod, dataFault.NameSpace, dataFault.Attributes);
+                    Console.WriteLine("***\n\n\n{0}.{1}: Failed\n\n\n", 
+                        dataFault.NameSpace, dataFault.TestName);
                     GlobalTestStates.Add(dataFault);
                     return false;
                 })
@@ -82,7 +118,8 @@
                     dataPass.EndTime = DateTime.Now.Ticks;
                     dataPass.Result = true;
                     dataPass.ThrownException = null;
-                    Console.WriteLine("***\n\n\n{0}.{1}: Passed\n\n\n", dataPass.NameSpace, dataPass.TestName);
+                    Console.WriteLine("***\n\n\n{0}.{1}: Passed\n\n\n", 
+                        dataPass.NameSpace, dataPass.TestName);
                     GlobalTestStates.Add(dataPass);
                 }
             }
@@ -94,6 +131,26 @@
                     if (GlobalTestStates.GetScenarioCount > 0)
                     {
                         GlobalTestStates.DecrementScenarioCount();
+                        Console.WriteLine("\nRemaining Scenarios: {0}\n", GlobalTestStates.GetScenarioCount);
+                        if (!Convert.ToBoolean(GlobalTestStates.GetScenarioCount))
+                        {
+                            if (TearDownFeature != null)
+                                TearDownFeature.Invoke(typeObject, null);
+                            if (GlobalTestStates.featureBook.ContainsKey(type.FullName))
+                            {
+                                Console.WriteLine("Feature Book Key Found");
+                                GlobalTestStates.featureBook[type.FullName].EndTick = DateTime.Now.Ticks;
+                                IndividualFeatureTestState itfs = GlobalTestStates.featureBook[type.FullName];
+                                GlobalTestStates.AddFeature(itfs);
+                            }                          
+                            else
+                            {
+                                Console.WriteLine("Key not found in feature Book");
+                                throw new ArgumentNullException();
+                            }
+                            while (bw.IsBusy) ;
+                            bw.RunWorkerAsync(new Inter(typeObject, type, Inter.MT.Type, TearDownFeature));
+                        }
                     }
                 });
         }
