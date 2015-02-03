@@ -14,26 +14,124 @@
     using TestPipe.Common;
     using Tarsvin.Runner.Interfaces;
 
-    public class Executor
+    internal class Executor
     {
+        internal delegate void AsyncTaskHandler();
+        internal delegate void AsyncMethodHandler(Object obj, Type type, MethodInfo TearDownFeature);
         IRunner run = null;
         BackgroundWorker bw;
-        public Executor(string selection)
+        List<DllInfo> dlls = new List<DllInfo>();
+        List<Type> types = new List<Type>();
+        List<MethodInfo> methods = new List<MethodInfo>();
+        ILogManager logActivatorException = new Logger();
+        internal Executor(string selection, List<DllInfo> dlls)
         {
+            this.dlls = dlls;
             if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Sequential"))
                 run = new SequentialRunner();              
             else if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Parallel"))
                 run = new ParallelRunner();
             bw = new BackgroundWorker();
-            bw.DoWork += Temp;
+            bw.DoWork += MethodHandlerInterface;
+            bw.RunWorkerCompleted += MethodHandlerInterfaceCompleted;
         }
 
-        private void Temp(object sender, DoWorkEventArgs e)
+        internal void InitializeSystem(Executor exe)
         {
-            Console.WriteLine("Async Event Test");
+            GlobalTestStates.GrandStartTime = DateTime.Now.Ticks;
+            exe.ExecuteTest();
         }
 
-        public void ExcecuteTest(List<DllInfo> dlls)
+        internal void ExecuteTest()
+        {
+            if (Convert.ToBoolean(this.dlls.Count))
+            {
+                DllInfo dll = this.dlls.Last();
+                this.dlls.RemoveAt(this.dlls.Count - 1);
+                this.types = TestTypes(Assembly.Load(AssemblyName.GetAssemblyName(dll.path)).GetTypes().ToList());
+                AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
+                handler.BeginInvoke(null, null);
+            }
+            else
+            {
+                GlobalTestStates.GrandEndTime = DateTime.Now.Ticks;
+                Console.WriteLine("Done!");
+                this.LogTestSummary();
+            }
+        }
+
+        private void TypeHandler()
+        {
+            if (Convert.ToBoolean(this.types.Count))
+            {
+                Type type = this.types.Last();
+                this.types.RemoveAt(this.types.Count - 1);
+                GlobalTestStates.featureBook.Add(type.FullName, new IndividualFeatureTestState() { FeatureName = type.FullName, StartTick = DateTime.Now.Ticks });
+                Object obj = null;
+                try
+                {
+                    obj = Activator.CreateInstance(type);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Could not find Step class, Most Probable: Check feature file namespace or step class name");
+                    logActivatorException.Fatal("Could not find Step class, Most Probable: Check feature file namespace or step class name", e);
+                    System.Environment.Exit(-1);
+                }
+                MethodInfo TearDownFeature = null;
+                this.methods = TestMethods(type.GetMethods().ToList(), ref TearDownFeature);
+                // Need to change when feature will run in parallel
+                GlobalTestStates.SetScenarioCount(this.methods.Count);
+                AsyncMethodHandler handler = new AsyncMethodHandler(MethodHandler);
+                handler.BeginInvoke(obj, type, TearDownFeature, null, null);
+            }
+            else
+            {
+                Console.WriteLine("All available types are done for given project!");
+                AsyncTaskHandler handler = new AsyncTaskHandler(ExecuteTest);
+                handler.BeginInvoke(null, null);
+            }
+        }
+
+        private void MethodHandler(Object obj, Type type, MethodInfo TearDownFeature)
+        {
+            if (Convert.ToBoolean(this.methods.Count))
+            {
+                MethodInfo method = this.methods.Last();
+                this.methods.RemoveAt(this.methods.Count - 1);
+                List<string> attrsValues = this.GetAttributesConstructorValues(method);
+                run.Run(obj, method, type, attrsValues, bw, this.methods.Count, TearDownFeature);
+            }
+            else if (!Convert.ToBoolean(GlobalTestStates.GetScenarioCount))
+            {
+                Console.WriteLine("All available scenarios are done for given type!");
+                AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
+                handler.BeginInvoke(null, null);
+            }
+        }
+
+        internal void MethodHandlerInterface(object sender, DoWorkEventArgs e)
+        {
+            Inter i = e.Argument as Inter;
+            if (i.direct)
+            {
+                AsyncMethodHandler handler = new AsyncMethodHandler(MethodHandler);
+                handler.BeginInvoke(i.obj, i.type, i.TearDownFeature, null, null);
+            }
+            else
+            {
+                AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
+                handler.BeginInvoke(null, null);
+            }
+            
+        }
+
+        private void MethodHandlerInterfaceCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Console.WriteLine("\nMethod Handler Completed\n");
+        }
+        
+        internal void ExecuteTest(List<DllInfo> dlls)
         {
             ILogManager logActivatorException = new Logger();
             Assembly runtimeAssembly = null;
@@ -42,6 +140,7 @@
             {
                 runtimeAssembly = Assembly.Load(AssemblyName.GetAssemblyName(dllinfo.path));
                 List<Type> types = TestTypes(runtimeAssembly.GetTypes().ToList());
+                
                 foreach (Type type in types)
                 {
                     IndividualFeatureTestState itfs = new IndividualFeatureTestState();
@@ -65,7 +164,7 @@
                     {
                         List<string> attrsValues = this.GetAttributesConstructorValues(method);
                         GlobalTestStates.IncrementScenarioCount();
-                        run.Run(obj, method, type.FullName, attrsValues, bw);
+                        run.Run(obj, method, type, attrsValues, bw);
                     }
                     while (Convert.ToBoolean(GlobalTestStates.GetScenarioCount)) ;
                     TearDownFeature.Invoke(obj, null);
@@ -105,7 +204,7 @@
             return tempMethods;
         }
 
-        public List<Type> TestTypes(List<Type> types)
+        private List<Type> TestTypes(List<Type> types)
         {
             List<Type> tempTypes = new List<Type>();
             foreach (Type type in types)
@@ -119,7 +218,7 @@
             return tempTypes;
         }
 
-        public bool IsTestClass(List<CustomAttributeData> li)
+        private bool IsTestClass(List<CustomAttributeData> li)
         {
             foreach (CustomAttributeData attr in li)
             {
@@ -132,7 +231,7 @@
             return false;
         }
 
-        public bool IsTestMethod(List<Attribute> li, ref MethodInfo TearDownFeature, MethodInfo method)
+        private bool IsTestMethod(List<Attribute> li, ref MethodInfo TearDownFeature, MethodInfo method)
         {
             foreach (Attribute attr in li)
             {
@@ -149,5 +248,51 @@
             }
             return false;
         }
+
+        private void LogTestSummary()
+        {
+            IEnumerator ie = GlobalTestStates.manageState.GetEnumerator();
+            ILogManager log = new Logger();
+            while (ie.MoveNext())
+            {
+                IndividualTestState its = ie.Current as IndividualTestState;
+                string formattedScenario = string.Format("\n********************************************************************************\nScenario Namespace {0}\nScenario Name {1}\nExecution Time {2}\nAttributes:  ",
+                    its.NameSpace, its.TestName, its.ExecTime);
+                log.Info(formattedScenario);
+                Console.Write(formattedScenario);
+                foreach (string s in its.Attributes)
+                {
+                    string formattedAttr = string.Format("{0}   ", s.Trim('"'));
+                    log.Info(formattedAttr);
+                    Console.Write(formattedAttr);
+                }
+                string formattedResult = string.Format("\nResult {0}", its.Result);
+                log.Info(formattedResult);
+                Console.WriteLine(formattedResult);
+                if (its.ThrownException != null)
+                {
+                    string formattedException = string.Format("\n--------------------\n{0}\n--------------------\n", 
+                        its.ExceptionMessageStackTrace);
+                    log.Error(formattedException);
+                    Console.Write(formattedException);
+                }
+            }
+
+            IEnumerator fie = GlobalTestStates.featureState.GetEnumerator();
+            while (fie.MoveNext())
+            {
+                IndividualFeatureTestState itfs = fie.Current as IndividualFeatureTestState;
+                string formattedFeature = string.Format("\n********************************************************************************\nFeature Namespace {0}\nExecution Time {1}\n", 
+                    itfs.FeatureName, itfs.FeatureExecutionTime);
+                log.Info(formattedFeature);
+                Console.Write(formattedFeature);
+            }
+
+            string formattedTrollTime = string.Format("\n*******************************************************************************\nTroll Time: {0}\n*******************************************************************************\nAll available tests are completed\n*******************************************************************************\n", 
+                GlobalTestStates.GrandExecTime);
+            log.Info(formattedTrollTime);
+            Console.Write(formattedTrollTime);
+        }
+
     }
 }

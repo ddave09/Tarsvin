@@ -11,11 +11,6 @@
 
     public class IndividualTestState
     {
-        public IndividualTestState()
-        {
-            
-        }
-
         public Object InvokeObject
         {
             get;

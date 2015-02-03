@@ -10,6 +10,7 @@
 
     public interface IRunner
     {
-        void Run(Object typeObject, MethodInfo testMethod, string nameSpace, List<string> attrs, BackgroundWorker bw);
+        void Run(Object typeObject, MethodInfo testMethod, Type type, List<string> attrs, BackgroundWorker bw,
+            int count = 0, MethodInfo TearDownFeature = null);
     }
 }
