@@ -8,31 +8,33 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public static class GlobalTestStates
+    internal static class GlobalTestStates
     {
-        public static HashSet<IndividualTestState> manageState = new HashSet<IndividualTestState>();
-        public static HashSet<IndividualFeatureTestState> featureState = new HashSet<IndividualFeatureTestState>();
-        public static Dictionary<string, IndividualFeatureTestState> featureBook = new Dictionary<string, IndividualFeatureTestState>();
-        public static List<ReRunCase> reRunList = new List<ReRunCase>();
+        internal static bool onlyOnce = true;
+        internal static HashSet<IndividualTestState> manageState = new HashSet<IndividualTestState>();
+        internal static HashSet<IndividualFeatureTestState> featureState = new HashSet<IndividualFeatureTestState>();
+        internal static Dictionary<string, IndividualFeatureTestState> featureBook = new Dictionary<string, IndividualFeatureTestState>();
+        internal static Dictionary<string, ReRunCase> repeatBook = new Dictionary<string, ReRunCase>();
+        internal static Dictionary<string, ReRunCase> repeatBookCopy = new Dictionary<string, ReRunCase>();
         static Object sceCount = new Object();
         static Object lockFeatureAdd = new Object();
         static Object lockScenarioAdd = new Object();
         static Object reRunCaseAdd = new Object();
         private static int scenarioCount = 0;
 
-        public static long GrandStartTime
+        internal static long GrandStartTime
         {
             get;
             set;
         }
 
-        public static long GrandEndTime
+        internal static long GrandEndTime
         {
             get;
             set;
         }
 
-        public static TimeSpan GrandExecTime
+        internal static TimeSpan GrandExecTime
         {
             get
             {
@@ -40,7 +42,7 @@
             }
         }
 
-        public static void AddFeature(IndividualFeatureTestState itfs)
+        internal static void AddFeature(IndividualFeatureTestState itfs)
         {
             lock (lockFeatureAdd)
             {
@@ -48,7 +50,7 @@
             }
         }
 
-        public static void SetScenarioCount(int count)
+        internal static void SetScenarioCount(int count)
         {
             lock (sceCount)
             {
@@ -56,17 +58,17 @@
             }        
         }
 
-        public static void IncrementScenarioCount()
+        internal static void IncrementScenarioCount()
         {
             Interlocked.Increment(ref GlobalTestStates.scenarioCount);
         }
 
-        public static void DecrementScenarioCount()
+        internal static void DecrementScenarioCount()
         {
             Interlocked.Decrement(ref GlobalTestStates.scenarioCount);            
         }
 
-        public static int GetScenarioCount
+        internal static int GetScenarioCount
         {
             get
             {
@@ -74,7 +76,7 @@
             }
         }
 
-        public static void Add(IndividualTestState its)
+        internal static void Add(IndividualTestState its)
         {
             lock (lockScenarioAdd)
             {
@@ -82,12 +84,5 @@
             }            
         }
 
-        public static void PushToReRunList(Object obj, MethodInfo testMethod, string nameSpace, List<string> attrs)
-        {
-            lock (reRunCaseAdd)
-            {
-                reRunList.Add(new ReRunCase(obj, testMethod, nameSpace, ref attrs));           
-            }            
-        }
     }
 }
