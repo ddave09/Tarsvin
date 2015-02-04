@@ -16,6 +16,7 @@
 
     internal class Executor
     {
+        internal delegate void AsyncReRunHandler(KeyValuePair<string, ReRunCase> casePair);
         internal delegate void AsyncTaskHandler();
         internal delegate void AsyncMethodHandler(Object obj, Type type, MethodInfo TearDownFeature);
         IRunner run = null;
@@ -28,12 +29,21 @@
         {
             this.dlls = dlls;
             if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Sequential"))
-                run = new SequentialRunner();              
+                run = new SequentialRunner();
             else if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Parallel"))
                 run = new ParallelRunner();
             bw = new BackgroundWorker();
             bw.DoWork += MethodHandlerInterface;
             bw.RunWorkerCompleted += MethodHandlerInterfaceCompleted;
+        }
+
+        internal void ExecuteReRunCase(KeyValuePair<string, ReRunCase> casePair)
+        {
+            Console.WriteLine("\n**********Re-Run of Case {0}**********\n", casePair.Key);
+            this.types = new List<Type> { casePair.Value.type };
+            this.methods = casePair.Value.testMethods;
+            AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
+            handler.BeginInvoke(null, null);
         }
 
         internal void InitializeSystem(Executor exe)
@@ -42,8 +52,25 @@
             exe.ExecuteTest();
         }
 
+        internal Dictionary<TKey, TValue> CloneDictionary<TKey, TValue>
+            (Dictionary<TKey, TValue> original)
+        {
+            Dictionary<TKey, TValue> ret = new Dictionary<TKey, TValue>(original.Count,
+                                                                    original.Comparer);
+            foreach (KeyValuePair<TKey, TValue> entry in original)
+            {
+                ret.Add(entry.Key, (TValue)entry.Value);
+            }
+            return ret;
+        }
+
         internal void ExecuteTest()
         {
+            if (this.dlls.Count == 0 && GlobalTestStates.repeatBookCopy.Count == 0)
+            {
+                InitiateSummary();
+            }
+
             if (Convert.ToBoolean(this.dlls.Count))
             {
                 DllInfo dll = this.dlls.Last();
@@ -52,12 +79,25 @@
                 AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
                 handler.BeginInvoke(null, null);
             }
-            else
+            else if (GlobalTestStates.onlyOnce)
             {
-                GlobalTestStates.GrandEndTime = DateTime.Now.Ticks;
-                Console.WriteLine("Done!");
-                this.LogTestSummary();
+                GlobalTestStates.onlyOnce = false;
+                GlobalTestStates.repeatBookCopy = CloneDictionary<string, ReRunCase>(GlobalTestStates.repeatBook);
             }
+            if (Convert.ToBoolean(GlobalTestStates.repeatBookCopy.Count))
+            {
+                KeyValuePair<string, ReRunCase> casePair = GlobalTestStates.repeatBookCopy.First();
+                GlobalTestStates.repeatBookCopy.Remove(casePair.Key);
+                AsyncReRunHandler handler = new AsyncReRunHandler(ExecuteReRunCase);
+                handler.BeginInvoke(casePair, null, null);
+            }
+        }
+
+        private void InitiateSummary()
+        {
+            GlobalTestStates.GrandEndTime = DateTime.Now.Ticks;
+            Console.WriteLine("Done!");
+            this.LogTestSummary();
         }
 
         private void TypeHandler()
@@ -66,7 +106,14 @@
             {
                 Type type = this.types.Last();
                 this.types.RemoveAt(this.types.Count - 1);
-                GlobalTestStates.featureBook.Add(type.FullName, new IndividualFeatureTestState() { FeatureName = type.FullName, StartTick = DateTime.Now.Ticks });
+                if (!GlobalTestStates.featureBook.ContainsKey(type.FullName))
+                {
+                    GlobalTestStates.featureBook.Add(type.FullName, new IndividualFeatureTestState()
+                    {
+                        FeatureName = type.FullName,
+                        StartTick = DateTime.Now.Ticks
+                    });
+                }
                 Object obj = null;
                 try
                 {
@@ -79,7 +126,14 @@
                     System.Environment.Exit(-1);
                 }
                 MethodInfo TearDownFeature = null;
-                this.methods = TestMethods(type.GetMethods().ToList(), ref TearDownFeature);
+                if (Convert.ToBoolean(this.methods.Count))
+                {
+                    TestMethods(type.GetMethods().ToList(), ref TearDownFeature);
+                }
+                else
+                {
+                    this.methods = TestMethods(type.GetMethods().ToList(), ref TearDownFeature);
+                }
                 // Need to change when feature will run in parallel
                 GlobalTestStates.SetScenarioCount(this.methods.Count);
                 AsyncMethodHandler handler = new AsyncMethodHandler(MethodHandler);
@@ -123,14 +177,14 @@
                 AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
                 handler.BeginInvoke(null, null);
             }
-            
+
         }
 
         private void MethodHandlerInterfaceCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             Console.WriteLine("\nMethod Handler Completed\n");
         }
-        
+
         private List<string> GetAttributesConstructorValues(MethodInfo method)
         {
             List<string> attrValues = new List<string>();
@@ -227,7 +281,7 @@
                 Console.WriteLine(formattedResult);
                 if (its.ThrownException != null)
                 {
-                    string formattedException = string.Format("\n--------------------\n{0}\n--------------------\n", 
+                    string formattedException = string.Format("\n--------------------\n{0}\n--------------------\n",
                         its.ExceptionMessageStackTrace);
                     log.Error(formattedException);
                     Console.Write(formattedException);
@@ -238,16 +292,23 @@
             while (fie.MoveNext())
             {
                 IndividualFeatureTestState itfs = fie.Current as IndividualFeatureTestState;
-                string formattedFeature = string.Format("\n********************************************************************************\nFeature Namespace {0}\nExecution Time {1}\n", 
+                string formattedFeature = string.Format("\n********************************************************************************\nFeature Namespace {0}\nExecution Time {1}\n",
                     itfs.FeatureName, itfs.FeatureExecutionTime);
                 log.Info(formattedFeature);
                 Console.Write(formattedFeature);
             }
 
-            string formattedTrollTime = string.Format("\n*******************************************************************************\nTroll Time: {0}\n*******************************************************************************\nAll available tests are completed\n*******************************************************************************\n", 
+            string formattedTrollTime = string.Format("\n*******************************************************************************\nTroll Time: {0}\n*******************************************************************************\nAll available tests are completed\n*******************************************************************************\n",
                 GlobalTestStates.GrandExecTime);
             log.Info(formattedTrollTime);
             Console.Write(formattedTrollTime);
+
+            Console.WriteLine("\n**********************Dispalaying ReRun Cases**********************\n");
+            foreach (KeyValuePair<string, ReRunCase> element in GlobalTestStates.repeatBook)
+            {
+                Console.WriteLine(element.Value.nameSpace);
+            }
+            Console.WriteLine("\n**********************xxxxxxxxxxxxxxxxxxxxxxx**********************\n");
         }
 
     }

@@ -35,7 +35,8 @@
     internal class SequentialRunner : IRunner
     {
         public void Run(Object typeObject, MethodInfo testMethod, Type type, 
-            List<string> attrs, BackgroundWorker bw = null, int count = 0, MethodInfo TearDownFeature = null)
+            List<string> attrs, BackgroundWorker bw = null, int count = 0, 
+            MethodInfo TearDownFeature = null)
         {
             IndividualTestState its = new IndividualTestState();
             its.NameSpace = type.FullName;
@@ -57,8 +58,18 @@
                 its.Result = false;
                 its.ThrownException = e;
                 if (its.CatchTimeOut)
-                    GlobalTestStates.PushToReRunList(its.InvokeObject, 
-                        its.InvokeMethod, its.NameSpace, its.Attributes);
+                {
+                    if (GlobalTestStates.repeatBook.ContainsKey(type.FullName))
+                    {
+                        GlobalTestStates.repeatBook[type.FullName].testMethods.
+                            Add(testMethod);
+                    }
+                    else
+                    {
+                        GlobalTestStates.repeatBook.Add(type.FullName, new ReRunCase(type,
+                            new List<MethodInfo>() { testMethod }, type.FullName, attrs));
+                    }
+                }
                 Console.WriteLine("***\n\n\n{0}.{1}: Failed\n\n\n", 
                     its.NameSpace, its.TestName);
             }
@@ -70,22 +81,19 @@
         }
     }
 
-    internal class ParallelRunner :  IDisposable, IRunner
+    internal class ParallelRunner : IRunner
     {
-        public void Dispose()
-        {
-
-        }
-
         public void Run(Object typeObject, MethodInfo testMethod, Type type, 
-            List<string> attrs, BackgroundWorker bw, int count = 0, MethodInfo TearDownFeature = null)
+            List<string> attrs, BackgroundWorker bw, int count = 0, 
+            MethodInfo TearDownFeature = null)
         {
             Task finalContinuation = null;
             Task task = Task.Factory.StartNew((Object obj) =>
             {
                 IndividualTestState its = obj as IndividualTestState;
                 while (bw.IsBusy) ;
-                bw.RunWorkerAsync(new Inter(typeObject, type, Inter.MT.Method,TearDownFeature));
+                bw.RunWorkerAsync(new Inter(typeObject, type, 
+                    Inter.MT.Method,TearDownFeature));
                 testMethod.Invoke(typeObject, null);
             },
             new IndividualTestState() { InvokeObject = typeObject, InvokeMethod = testMethod, 
@@ -100,8 +108,18 @@
                     dataFault.Result = false;
                     dataFault.ThrownException = ex;
                     if (dataFault.CatchTimeOut)
-                        GlobalTestStates.PushToReRunList(dataFault.InvokeObject, 
-                            dataFault.InvokeMethod, dataFault.NameSpace, dataFault.Attributes);
+                    {
+                        if (GlobalTestStates.repeatBook.ContainsKey(type.FullName))
+                        {
+                            GlobalTestStates.repeatBook[type.FullName].testMethods.
+                                Add(testMethod);
+                        }
+                        else
+                        {
+                            GlobalTestStates.repeatBook.Add(type.FullName, new ReRunCase(type, 
+                                new List<MethodInfo>() { testMethod }, type.FullName, attrs));
+                        }
+                    }
                     Console.WriteLine("***\n\n\n{0}.{1}: Failed\n\n\n", 
                         dataFault.NameSpace, dataFault.TestName);
                     GlobalTestStates.Add(dataFault);
