@@ -35,7 +35,7 @@
     internal class SequentialRunner : IRunner
     {
         public void Run(Object typeObject, MethodInfo testMethod, Type type, 
-            List<string> attrs, BackgroundWorker bw = null, int count = 0, 
+            List<string> attrs, BackgroundWorker bw, int count = 0, 
             MethodInfo TearDownFeature = null)
         {
             IndividualTestState its = new IndividualTestState();
@@ -77,6 +77,31 @@
             if (GlobalTestStates.GetScenarioCount > 0)
             {
                 GlobalTestStates.DecrementScenarioCount();
+                Console.WriteLine("\nRemaining Scenarios: {0}\n", GlobalTestStates.GetScenarioCount);
+                if (!Convert.ToBoolean(GlobalTestStates.GetScenarioCount))
+                {
+                    if (TearDownFeature != null)
+                        TearDownFeature.Invoke(typeObject, null);
+                    if (GlobalTestStates.featureBook.ContainsKey(type.FullName))
+                    {
+                        Console.WriteLine("Feature Book Key Found");
+                        GlobalTestStates.featureBook[type.FullName].EndTick = DateTime.Now.Ticks;
+                        IndividualFeatureTestState itfs = GlobalTestStates.featureBook[type.FullName];
+                        GlobalTestStates.AddFeature(itfs);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Key not found in feature Book");
+                        throw new ArgumentNullException();
+                    }
+                    while (bw.IsBusy) ;
+                    bw.RunWorkerAsync(new Inter(typeObject, type, Inter.MT.Type, TearDownFeature));
+                }
+                else
+                {
+                    while (bw.IsBusy) ;
+                    bw.RunWorkerAsync(new Inter(typeObject, type, Inter.MT.Method, TearDownFeature));
+                }
             }
         }
     }
