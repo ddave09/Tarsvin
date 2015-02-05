@@ -19,6 +19,7 @@
         internal delegate void AsyncReRunHandler(KeyValuePair<string, ReRunCase> casePair);
         internal delegate void AsyncTaskHandler();
         internal delegate void AsyncMethodHandler(Object obj, Type type, MethodInfo TearDownFeature);
+
         IRunner run = null;
         BackgroundWorker bw;
         List<DllInfo> dlls = new List<DllInfo>();
@@ -66,7 +67,7 @@
 
         internal void ExecuteTest()
         {
-            if (this.dlls.Count == 0 && GlobalTestStates.repeatBookCopy.Count == 0)
+            if (this.dlls.Count == 0 && GlobalTestStates.repeatBookCopy.Count == 0 && GlobalTestStates.repeatInitiated)
             {
                 InitiateSummary();
             }
@@ -82,6 +83,7 @@
             else if (GlobalTestStates.onlyOnce)
             {
                 GlobalTestStates.onlyOnce = false;
+                GlobalTestStates.repeatInitiated = true;
                 GlobalTestStates.repeatBookCopy = CloneDictionary<string, ReRunCase>(GlobalTestStates.repeatBook);
             }
             if (Convert.ToBoolean(GlobalTestStates.repeatBookCopy.Count))

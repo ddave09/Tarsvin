@@ -10,6 +10,7 @@
 
     internal static class GlobalTestStates
     {
+        internal static bool repeatInitiated = false;
         internal static bool onlyOnce = true;
         internal static HashSet<IndividualTestState> manageState = new HashSet<IndividualTestState>();
         internal static HashSet<IndividualFeatureTestState> featureState = new HashSet<IndividualFeatureTestState>();
