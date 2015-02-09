@@ -11,7 +11,6 @@
         public static DllInfo GetDllInfo(SolutionProject project, string actualPath)
         {
             DllInfo info = new DllInfo();
-            info.name = project.ProjectName;
             string solutionPath = Path.GetDirectoryName(actualPath) + @"\";
             info.path = solutionPath + Path.GetDirectoryName(project.RelativePath) + @"\bin\debug\" + project.RelativePath.Split('\\').Last<string>().Replace(".csproj", ".dll");
             return info;

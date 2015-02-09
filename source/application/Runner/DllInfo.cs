@@ -8,7 +8,6 @@
 
     public class DllInfo
     {
-        public string name;
         public string path;
     }
 }
