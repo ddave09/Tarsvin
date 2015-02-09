@@ -29,21 +29,13 @@
                 if (StringComparer.OrdinalIgnoreCase.Equals(pName.Last<string>(), findTestProj))
                 {
                     DllInfo info = new DllInfo();
-                    info.name = sp.ProjectName;
                     info.path = slnDirPath + Path.GetDirectoryName(sp.RelativePath) + @"\bin\debug\" + sp.RelativePath.Split('\\').Last<string>().Replace(".csproj", ".dll");
                     addRefList.Add(info);
                 }
             }
             new StepLoader(addRefList);
         }
-
-        [TestMethod]
-        public void KillTasks()
-        {
-            Process p = Process.Start("TaskKiller.bat");
-            p.WaitForExit();
-        }
-
+        
         [TestMethod]
         public void StepLoaderStepTest()
         {

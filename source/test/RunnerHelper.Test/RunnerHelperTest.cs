@@ -77,7 +77,7 @@
             {
                 string projectNamePrefix = string.Empty;
                 Options options = new Options();
-                options.Projects = new string[]{};
+                options.Projects = new string[] { };
                 string projectName = "Tarsvin.Some.Specs";
 
                 bool actual = RunnerHelper.IsValidProject(projectNamePrefix, options, projectName);

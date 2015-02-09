@@ -15,7 +15,10 @@ namespace Tarsvin.Runner
             Assembly runtimeAssembly = null;
             foreach (DllInfo dllinfo in list)
             {
-                runtimeAssembly = Assembly.Load(AssemblyName.GetAssemblyName(dllinfo.path));
+                if (dllinfo.path == null)
+                    runtimeAssembly = Assembly.GetExecutingAssembly();
+                else
+                    runtimeAssembly = Assembly.Load(AssemblyName.GetAssemblyName(dllinfo.path));
                 List<Type> types = TestTypes(runtimeAssembly.GetTypes().ToList());
                 foreach (Type type in types)
                 {  

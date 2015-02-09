@@ -76,7 +76,10 @@
             {
                 DllInfo dll = this.dlls.Last();
                 this.dlls.RemoveAt(this.dlls.Count - 1);
-                this.types = TestTypes(Assembly.Load(AssemblyName.GetAssemblyName(dll.path)).GetTypes().ToList());
+                if (dll.path == null)
+                    this.types = TestTypes(Assembly.GetExecutingAssembly().GetTypes().ToList());
+                else
+                    this.types = TestTypes(Assembly.Load(AssemblyName.GetAssemblyName(dll.path)).GetTypes().ToList());
                 AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
                 handler.BeginInvoke(null, null);
             }
