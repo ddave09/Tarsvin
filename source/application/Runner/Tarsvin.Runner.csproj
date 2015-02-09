@@ -79,6 +79,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tarsvin.StepBuilder, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Tarsvin.StepBuilder.1.0.0\lib\net451\Tarsvin.StepBuilder.dll</HintPath>
+    </Reference>
     <Reference Include="TestPipe.Common, Version=3.2.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\TestPipe.Common.3.2.4.0\lib\net451\TestPipe.Common.dll</HintPath>
@@ -124,12 +128,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\StepBuilder\Tarsvin.StepBuilder.csproj">
-      <Project>{3b70a0ed-5d3d-4c13-9c6c-c0cc5e26a85c}</Project>
-      <Name>Tarsvin.StepBuilder</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\..\packages\WebDriver.IEDriverServer.win32.2.44\content\IEDriverServer.exe">
       <Link>IEDriverServer.exe</Link>
