@@ -1,15 +1,26 @@
-﻿namespace Tarsvin.Runner
+﻿/* Runner can support both solution file
+ * and dll file. But for now I have only
+ * programmed to support dll file and if
+ * dll is not passed it will use current
+ * executing assembly.
+*/
+
+namespace Tarsvin.Runner
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.IO;
     using TestPipe.Common;
 
     internal class ProgramYAR
     {
         private static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.SetData("APP_CONFIG_FILE", Directory.GetFiles(Directory.GetCurrentDirectory(), 
+                "*.config", SearchOption.TopDirectoryOnly)[0]);
+
             var options = new Options();
 
             if (!CommandLine.Parser.Default.ParseArguments(args, options))

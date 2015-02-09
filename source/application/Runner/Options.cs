@@ -19,7 +19,7 @@
         [Option('s', "solution", Required = false, HelpText = "Path to solution file containing test projects to run.")]
         public string SolutionFile { get; set; }
 
-        [Option('d', "project", Required = false, HelpText = "If project dll in not passed current project will be used")]
+        [Option('d', "project", Required = true, HelpText = "If project dll in not passed current project will be used")]
         public string Project { get; set; }
 
         [Option('n', "runner", Required = true, HelpText = "Sequential or Parallel")]
