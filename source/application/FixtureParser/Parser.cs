@@ -242,7 +242,7 @@
                         string featureNamespace =  string.Format("namespace {0}.Features{1}\r\n{{\r\n", rootNamespace, hierarchyName);
                         writeString += featureNamespace;
                         writeString += "using System;\r\n";
-                        writeString += "using StepBinder;\r\n\r\n";
+                        writeString += "using Tarsvin.StepBinder;\r\n\r\n";
                         hierarchyNameFlag = false;
                     }
 
