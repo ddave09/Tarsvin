@@ -126,6 +126,7 @@
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine("Error while instantiating type : {0}", type.Name);
                     Console.WriteLine("Could not find Step class, Most Probable: Check feature file namespace or step class name");
                     logActivatorException.Fatal("Could not find Step class, Most Probable: Check feature file namespace or step class name", e);
                     System.Environment.Exit(-1);
