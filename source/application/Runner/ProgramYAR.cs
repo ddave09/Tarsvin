@@ -18,9 +18,6 @@ namespace Tarsvin.Runner
     {
         private static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.SetData("APP_CONFIG_FILE", Directory.GetFiles(Directory.GetCurrentDirectory(), 
-                "*.config", SearchOption.TopDirectoryOnly)[0]);
-
             var options = new Options();
 
             if (!CommandLine.Parser.Default.ParseArguments(args, options))
@@ -38,6 +35,8 @@ namespace Tarsvin.Runner
                     Console.Error.WriteLine("");
                     return;
                 }
+
+            AppDomain.CurrentDomain.SetData("APP_CONFIG_FILE", string.Format("{0}{1}", options.Project, ".config"));
 
             if (Convert.ToBoolean(options.RunnerSelection.CompareTo("Sequential")) &&
                 Convert.ToBoolean(options.RunnerSelection.CompareTo("Parallel")))
