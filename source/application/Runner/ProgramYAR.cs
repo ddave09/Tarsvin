@@ -65,7 +65,7 @@ namespace Tarsvin.Runner
             new StepLoader(dllList);
             Executor exe = new Executor(options.RunnerSelection, dllList);
             exe.InitializeSystem(exe);
-            Console.ReadKey();
+            while (true) ;
         }
     }
 }

@@ -315,7 +315,7 @@
                 Console.WriteLine(element.Value.nameSpace);
             }
             Console.WriteLine("\n**********************xxxxxxxxxxxxxxxxxxxxxxx**********************\n");
+            System.Environment.Exit(0);
         }
-
     }
 }
