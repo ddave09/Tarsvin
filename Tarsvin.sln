@@ -22,6 +22,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarsvin.StepBuilder", "sour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner.Test.Unit", "source\test\RunnerHelper.Test\Runner.Test.Unit.csproj", "{6D0D385B-05EC-4B53-B259-928E9B1612E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarsvin.Build", "source\Tarsvin.Build\Tarsvin.Build.csproj", "{4D322598-B87C-471C-9DCA-5B234EF5562D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7DBB809-9354-494A-8809-ADFE84EFFFD0}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		license.txt = license.txt
+		Nake.bat = Nake.bat
+		Nake.csx = Nake.csx
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +97,15 @@ Global
 		{6D0D385B-05EC-4B53-B259-928E9B1612E3}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
 		{6D0D385B-05EC-4B53-B259-928E9B1612E3}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
 		{6D0D385B-05EC-4B53-B259-928E9B1612E3}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
+		{4D322598-B87C-471C-9DCA-5B234EF5562D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D322598-B87C-471C-9DCA-5B234EF5562D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D322598-B87C-471C-9DCA-5B234EF5562D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4D322598-B87C-471C-9DCA-5B234EF5562D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D322598-B87C-471C-9DCA-5B234EF5562D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D322598-B87C-471C-9DCA-5B234EF5562D}.Release|x86.ActiveCfg = Release|Any CPU
+		{4D322598-B87C-471C-9DCA-5B234EF5562D}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
+		{4D322598-B87C-471C-9DCA-5B234EF5562D}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
+		{4D322598-B87C-471C-9DCA-5B234EF5562D}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

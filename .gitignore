@@ -130,3 +130,8 @@ WebProject.*
 /Plugins/Browsers/TestPipe.Selenium.dll
 /Logs
 /region Tarsvin friends.txt
+/Tarsvin.sln.ide/edb.chk
+/Tarsvin.sln.ide/*.jrs
+/Tarsvin.sln.ide/*.ide
+/Tarsvin.sln.ide/*.edb
+/nake.log.txt
