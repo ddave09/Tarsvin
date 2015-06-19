@@ -11,6 +11,6 @@
     public interface IRunner
     {
         void Run(Object typeObject, MethodInfo testMethod, Type type, List<string> attrs, BackgroundWorker bw,
-            int count = 0, MethodInfo TearDownFeature = null);
+            SystemState ss, int count = 0, MethodInfo TearDownFeature = null);
     }
 }
