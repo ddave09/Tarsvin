@@ -8,6 +8,24 @@
 
     public class IndividualFeatureTestState
     {
+		private bool success;
+		public IndividualFeatureTestState()
+		{
+			success = true;
+		}
+
+		public bool Success
+		{
+			get
+			{
+				return success;
+			}
+			set
+			{
+				success = value;
+			}
+		}
+
         public string FeatureName
         {
             get;

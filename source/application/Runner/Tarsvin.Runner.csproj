@@ -95,6 +95,9 @@
     <Compile Include="RunnerHelper.cs" />
     <Compile Include="Solution.cs" />
     <Compile Include="StepLoader.cs" />
+    <Compile Include="XmlResultWriter.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
