@@ -21,17 +21,30 @@
 
 	internal static class GlobalTestStates
 	{
+		#region Variables
 		internal static bool onlyOnce = true;
 		internal static Dictionary<string, Result> ResultSet = new Dictionary<string, Result>();
 		internal static Dictionary<string, ReRunCase> repeatBook = new Dictionary<string, ReRunCase>();
+		
 		static Object lockTestInc = new Object();
 		static Object sceCount = new Object();
+		static Object lockSkipped = new Object();
+
+		private static int notRun = 0;
+		private static int inconclusive = 0;
+		private static int ignored = 0;
+		private static int skipped = 0;
+		private static int invalid = 0;
+		private static int error = 0;
+		private static int reError = 0;
 		private static int scenarioCount = 0;
 		private static int failureCount = 0;
 		private static int testsRun = 0;
 		private static int reFailureCount = 0;
 		private static int reTestsRun = 0;
+		#endregion
 
+		#region Properties
 		internal static long GrandStartTime
 		{
 			get;
@@ -50,6 +63,137 @@
 			{
 				return new TimeSpan(GrandEndTime - GrandStartTime);
 			}
+		}
+
+		internal static int FailureCount
+		{
+			get
+			{
+				return GlobalTestStates.failureCount;
+			}
+		}
+
+		internal static int ReFailureCount
+		{
+			get
+			{
+				return GlobalTestStates.reFailureCount;
+			}
+		}
+
+		internal static int TestsRun
+		{
+			get
+			{
+				return GlobalTestStates.testsRun;
+			}
+		}
+
+		internal static int ReTestsRun
+		{
+			get
+			{
+				return GlobalTestStates.reTestsRun;
+			}
+		}
+
+		internal static int GetScenarioCount
+		{
+			get
+			{
+				return scenarioCount;
+			}
+		}
+
+		internal static int NotRun
+		{
+			get
+			{
+				return GlobalTestStates.notRun;
+			}
+		}
+
+		internal static int Inconclusive
+		{
+			get
+			{
+				return GlobalTestStates.inconclusive;
+			}
+		}
+
+		internal static int Ignored
+		{
+			get
+			{
+				return GlobalTestStates.ignored;
+			}
+		}
+
+		internal static int Skipped
+		{
+			get
+			{
+				return GlobalTestStates.skipped;
+			}
+		}
+
+		internal static int Invalid
+		{
+			get
+			{
+				return GlobalTestStates.invalid;
+			}
+		}
+
+		internal static int Error
+		{
+			get
+			{
+				return GlobalTestStates.error;
+			}
+		}
+
+		internal static int ReError
+		{
+			get
+			{
+				return GlobalTestStates.reError;
+			}
+		}
+		#endregion
+
+		#region Members
+		internal static void IncrementNotRun()
+		{
+			Interlocked.Increment(ref GlobalTestStates.notRun);
+		}
+
+		internal static void IncrementInconclusive()
+		{
+			Interlocked.Increment(ref GlobalTestStates.inconclusive);
+		}
+
+		internal static void IncrementIgnored()
+		{
+			Interlocked.Increment(ref GlobalTestStates.ignored);
+		}
+
+		internal static void IncrementSkipped()
+		{
+			Interlocked.Increment(ref GlobalTestStates.skipped);
+		}
+
+		internal static void IncrementSkipped(int count)
+		{
+			lock (lockSkipped)
+			{
+				GlobalTestStates.skipped += count;
+			}
+		}
+
+		internal static void IncrementInvalid()
+		{
+			Interlocked.Increment(ref GlobalTestStates.invalid);
 		}
 
 		internal static void SetScenarioCount(int count)
@@ -96,44 +240,15 @@
 			Interlocked.Increment(ref GlobalTestStates.reFailureCount);
 		}
 
-		internal static int FailureCount
+		internal static void IncrementError()
 		{
-			get
-			{
-				return GlobalTestStates.failureCount;
-			}
+			Interlocked.Increment(ref GlobalTestStates.error);
 		}
 
-		internal static int ReFailureCount
+		internal static void IncrementReError()
 		{
-			get
-			{
-				return GlobalTestStates.reFailureCount;
-			}
+			Interlocked.Increment(ref GlobalTestStates.reError);
 		}
-
-		internal static int TestsRun
-		{
-			get
-			{
-				return GlobalTestStates.testsRun;
-			}
-		}
-
-		internal static int ReTestsRun
-		{
-			get
-			{
-				return GlobalTestStates.reTestsRun;
-			}
-		}
-
-		internal static int GetScenarioCount
-		{
-			get
-			{
-				return scenarioCount;
-			}
-		}
+		#endregion
 	}
 }

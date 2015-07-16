@@ -18,6 +18,10 @@ namespace Tarsvin.Runner
 	{
 		private static void Main(string[] args)
 		{
+			string[] ags = args;
+			string[] include = null;
+			string[] exclude = null;
+
 			var options = new Options();
 
 			if (!CommandLine.Parser.Default.ParseArguments(args, options))
@@ -26,11 +30,28 @@ namespace Tarsvin.Runner
 				return;
 			}
 
+			if(options.Include != null)
+				include = options.Include.Split(',');
+			
+			if(options.Exclude != null)
+				exclude = options.Exclude.Split(',');
+
+
 			if (options.Project != null)
 				if (!options.Project.EndsWith(".dll"))
 				{
 					Console.Error.WriteLine("-d has invalided argument.");
 					Console.Error.WriteLine("argument should end with \".dll\"");
+					Console.Error.Write(options.GetUsage());
+					Console.Error.WriteLine("");
+					return;
+				}
+
+			if(options.XmlResultPath != null)
+				if (!options.XmlResultPath.EndsWith(".xml"))
+				{
+					Console.Error.WriteLine("-x has invalid argument.");
+					Console.Error.WriteLine("argument should end with \".xml\"");
 					Console.Error.Write(options.GetUsage());
 					Console.Error.WriteLine("");
 					return;
@@ -63,7 +84,8 @@ namespace Tarsvin.Runner
 			List<DllInfo> dllList = new List<DllInfo>() { new DllInfo() { path = options.Project } };
 
 			new StepLoader(dllList);
-			Executor exe = new Executor(options.RunnerSelection, dllList, options.Project);
+			Executor exe = new Executor(options.RunnerSelection, dllList, 
+				options.Project, options.XmlResultPath, include, exclude);
 			exe.InitializeSystem(exe);
 			while (true) ;
 		}

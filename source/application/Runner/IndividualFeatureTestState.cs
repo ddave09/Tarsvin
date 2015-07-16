@@ -14,6 +14,12 @@
 			success = true;
 		}
 
+		public bool Exectuted
+		{
+			get;
+			set;
+		}
+
 		public bool Success
 		{
 			get

@@ -68,15 +68,22 @@
 
 				if (ss == SystemState.Initial)
 				{
-					GlobalTestStates.IncrementFailure();
+					if (its.IsFailure)
+						GlobalTestStates.IncrementFailure();
+					else
+						GlobalTestStates.IncrementError();
 				}
 				else if (ss == SystemState.Repeat)
 				{
-					GlobalTestStates.IncrementReFailure();
+					if (its.IsFailure)
+						GlobalTestStates.IncrementReFailure();
+					else
+						GlobalTestStates.IncrementReError();
 				}
+
 				if (GlobalTestStates.onlyOnce)
 				{
-					if (its.CatchTimeOut)
+					if (its.IsTimeOut)
 					{
 						if (GlobalTestStates.repeatBook.ContainsKey(type.FullName))
 						{
@@ -166,29 +173,35 @@
 
 					if (ss == SystemState.Initial)
 					{
-						GlobalTestStates.IncrementFailure();
+						if (dataFault.IsFailure)
+							GlobalTestStates.IncrementFailure();
+						else
+							GlobalTestStates.IncrementError();
 					}
 					else if (ss == SystemState.Repeat)
 					{
-						GlobalTestStates.IncrementReFailure();
+						if (dataFault.IsFailure)
+							GlobalTestStates.IncrementReFailure();
+						else
+							GlobalTestStates.IncrementReError();
 					}
 
 					if (GlobalTestStates.onlyOnce)
 					{
-						if (dataFault.CatchTimeOut)
+						//if (dataFault.IsTimeOut)
+						//{
+						if (GlobalTestStates.repeatBook.ContainsKey(type.FullName))
 						{
-							if (GlobalTestStates.repeatBook.ContainsKey(type.FullName))
-							{
-								GlobalTestStates.repeatBook[type.FullName].testMethods.
-									Add(testMethod);
-							}
-							else
-							{
-								GlobalTestStates.repeatBook.Add(type.FullName, new ReRunCase(type,
-									new List<MethodInfo>() { testMethod }, type.FullName, attrs));
-							}
-
+							GlobalTestStates.repeatBook[type.FullName].testMethods.
+								Add(testMethod);
 						}
+						else
+						{
+							GlobalTestStates.repeatBook.Add(type.FullName, new ReRunCase(type,
+								new List<MethodInfo>() { testMethod }, type.FullName, attrs));
+						}
+
+						//}
 					}
 
 					Console.WriteLine("\n***{0}: Failed***\n",
