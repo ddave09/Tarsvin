@@ -32,6 +32,12 @@
 			set;
 		}
 
+		public bool Executed
+		{
+			get;
+			set;
+		}
+
 		/// <summary>
 		/// This property stores attributes for the scenario
 		/// </summary>
@@ -95,13 +101,7 @@
 			set;
 		}
 
-		private void DesiredInnerException(ref Exception e)
-		{
-			while (e is TargetInvocationException && e.InnerException != null)
-				e = e.InnerException;
-		}
-
-		public string ExceptionMessageStackTrace
+		public string ExceptionStackTrace
 		{
 			get
 			{
@@ -111,18 +111,38 @@
 			}
 		}
 
-		public bool CatchTimeOut
+		public bool IsFailure
 		{
 			get
 			{
 				Exception e = this.ThrownException;
-				string captureTimeOut = ConfigurationManager.AppSettings["TimeOut"];
+				string captureFailure = ConfigurationManager.AppSettings["failure"];
+				DesiredInnerException(ref e);
+				if (StringComparer.OrdinalIgnoreCase.Equals(captureFailure, e.GetType().ToString()))
+					return true;
+				else
+					return false;
+			}
+		}
+
+		public bool IsTimeOut
+		{
+			get
+			{
+				Exception e = this.ThrownException;
+				string captureTimeOut = ConfigurationManager.AppSettings["timeout"];
 				DesiredInnerException(ref e);
 				if (StringComparer.OrdinalIgnoreCase.Equals(captureTimeOut, e.GetType().ToString()))
 					return true;
 				else
 					return false;
 			}
+		}
+
+		private void DesiredInnerException(ref Exception e)
+		{
+			while (e is TargetInvocationException && e.InnerException != null)
+				e = e.InnerException;
 		}
 	}
 }

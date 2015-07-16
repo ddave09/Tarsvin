@@ -47,14 +47,15 @@ namespace Tarsvin.Runner
 
 			xmlWriter.WriteAttributeString("name", this.projectPath);
 			xmlWriter.WriteAttributeString("total", GlobalTestStates.TestsRun.ToString());
-			xmlWriter.WriteAttributeString("errors", "0");
+			xmlWriter.WriteAttributeString("errors", 
+				(GlobalTestStates.Error - (GlobalTestStates.Error - GlobalTestStates.ReError)).ToString());
 			xmlWriter.WriteAttributeString("failures",
-				(GlobalTestStates.FailureCount - (GlobalTestStates.ReTestsRun - GlobalTestStates.ReFailureCount)).ToString());
-			xmlWriter.WriteAttributeString("not-run", "0");
-			xmlWriter.WriteAttributeString("inconclusive", "0");
-			xmlWriter.WriteAttributeString("ignored", "0");
-			xmlWriter.WriteAttributeString("skipped", "0");
-			xmlWriter.WriteAttributeString("invalid", "0");
+				(GlobalTestStates.FailureCount - (GlobalTestStates.FailureCount - GlobalTestStates.ReFailureCount)).ToString());
+			xmlWriter.WriteAttributeString("not-run", GlobalTestStates.NotRun.ToString());
+			xmlWriter.WriteAttributeString("inconclusive", GlobalTestStates.Inconclusive.ToString());
+			xmlWriter.WriteAttributeString("ignored", GlobalTestStates.Ignored.ToString());
+			xmlWriter.WriteAttributeString("skipped", GlobalTestStates.Skipped.ToString());
+			xmlWriter.WriteAttributeString("invalid", GlobalTestStates.Invalid.ToString());
 
 			DateTime now = DateTime.Now;
 			xmlWriter.WriteAttributeString("date", XmlConvert.ToString(now, "yyyy-MM-dd"));
@@ -236,7 +237,7 @@ namespace Tarsvin.Runner
 			xmlWriter.WriteEndElement();
 
 			xmlWriter.WriteStartElement("stack-trace");
-			xmlWriter.WriteCData(result.ExceptionMessageStackTrace);
+			xmlWriter.WriteCData(result.ExceptionStackTrace);
 			xmlWriter.WriteEndElement();
 
 			xmlWriter.WriteEndElement();

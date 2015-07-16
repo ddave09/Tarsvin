@@ -35,8 +35,12 @@
 		List<MethodInfo> methods = new List<MethodInfo>();
 		ILogManager logActivatorException = new Logger();
 		string projectPath = string.Empty;
+		string resultPath = string.Empty;
+		List<string> include = null;
+		List<string> exclude = null;
 
-		internal Executor(string selection, List<DllInfo> dlls, string projectPath)
+		internal Executor(string selection, List<DllInfo> dlls, string projectPath, 
+			string resultPath, string[] include, string[] exclude)
 		{
 			this.dlls = dlls;
 			if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Sequential"))
@@ -47,6 +51,12 @@
 			bw.DoWork += MethodHandlerInterface;
 			bw.RunWorkerCompleted += MethodHandlerInterfaceCompleted;
 			this.projectPath = projectPath;
+			this.resultPath = resultPath;
+			if(include != null)
+				this.include = new List<string>(include);
+			if(exclude != null)
+				this.exclude = new List<string>(exclude);
+
 		}
 
 		internal void ExecuteReRunCase(KeyValuePair<string, ReRunCase> casePair)
@@ -282,11 +292,13 @@
 		{
 			Console.WriteLine("\n***Features : {0}***\n", GlobalTestStates.ResultSet.Count);
 
-			Console.WriteLine(string.Format("\n***Tests: {0} \n ReTests: {1} \n Failures: {2} \n ReFailures: {3}***\n",
+			Console.WriteLine(string.Format("\n***Tests: {0} \n ReTests: {1} \n Failures: {2} \n ReFailures: {3} \n Errors: {4}" +
+				"\n ReErrors: {5} ***\n",
 				GlobalTestStates.TestsRun, GlobalTestStates.ReTestsRun,
-				GlobalTestStates.FailureCount, GlobalTestStates.ReFailureCount));
+				GlobalTestStates.FailureCount, GlobalTestStates.ReFailureCount,
+				GlobalTestStates.Error, GlobalTestStates.ReError));
 
-			XmlResultWriter xmlWriter = new XmlResultWriter("Result.xml", this.projectPath);
+			XmlResultWriter xmlWriter = new XmlResultWriter(this.resultPath, this.projectPath);
 			foreach (KeyValuePair<string, Result> element in GlobalTestStates.ResultSet)
 			{
 				xmlWriter.StartSuiteElement(element.Value.itfs);
