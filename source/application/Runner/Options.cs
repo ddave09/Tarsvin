@@ -28,11 +28,17 @@
 		[Option('x', "result", Required = true, HelpText = "xml output file path")]
 		public string XmlResultPath { get; set; }
 
-		[Option('i', "Include", Required = false, HelpText = "Include comma separated tags without white spaces")]
-		public string Include { get; set; }
+		[Option("IS", Required = false, HelpText = "Include scenario comma separated tags without white spaces")]
+		public string IncludeS { get; set; }
 
-		[Option('e', "Exclude", Required = false, HelpText = "Exclude comma sperated tags without white spaces")]
-		public string Exclude { get; set; }
+		[Option("ES", Required = false, HelpText = "Exclude scenario comma sperated tags without white spaces")]
+		public string ExcludeS { get; set; }
+
+		[Option("IF", Required = false, HelpText = "Include feature comma separated tags without white spaces")]
+		public string IncludeF { get; set; }
+
+		[Option("EF", Required = false, HelpText = "Exclude feature comma sperated tags without white spaces")]
+		public string ExcludeF { get; set; }
 
 		[HelpOption]
 		public string GetUsage()
@@ -46,7 +52,7 @@
 			};
 			help.AddPreOptionsLine("");
 			help.AddPreOptionsLine("Ussage: > Runner.exe -d <project dll file> -n <Runner Option> -x <xml result file path>" + 
-				"-i <comma separated tags to include> -e <comma separated tags to exclude");
+				"--IF <comma separated tags to include features> --IS <comma separated tags to include scenarios> --EF <comma separated tags to exclude features> --ES <comma separated tags to exclude scenarios>");
 			help.AddOptions(this);
 			return help;
 		}

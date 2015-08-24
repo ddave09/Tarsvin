@@ -36,11 +36,13 @@
 		ILogManager logActivatorException = new Logger();
 		string projectPath = string.Empty;
 		string resultPath = string.Empty;
-		List<string> include = null;
-		List<string> exclude = null;
+		List<string> includeF = null;
+		List<string> excludeF = null;
+		List<string> includeS = null;
+		List<string> excludeS = null;
 
 		internal Executor(string selection, List<DllInfo> dlls, string projectPath, 
-			string resultPath, string[] include, string[] exclude)
+			string resultPath, string[] includeF, string[] excludeF, string[] includeS, string[] excludeS)
 		{
 			this.dlls = dlls;
 			if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Sequential"))
@@ -52,11 +54,14 @@
 			bw.RunWorkerCompleted += MethodHandlerInterfaceCompleted;
 			this.projectPath = projectPath;
 			this.resultPath = resultPath;
-			if(include != null)
-				this.include = new List<string>(include);
-			if(exclude != null)
-				this.exclude = new List<string>(exclude);
-
+			if(includeF != null)
+				this.includeF = new List<string>(includeF);
+			if(excludeF != null)
+				this.excludeF = new List<string>(excludeF);
+			if (includeS != null)
+				this.includeS = new List<string>(includeS);
+			if (excludeS != null)
+				this.excludeS = new List<string>(excludeS);
 		}
 
 		internal void ExecuteReRunCase(KeyValuePair<string, ReRunCase> casePair)
@@ -234,7 +239,8 @@
 			List<MethodInfo> tempMethods = new List<MethodInfo>();
 			foreach (MethodInfo method in methods)
 			{
-				List<Attribute> li = method.GetCustomAttributes().ToList();
+				//List<Attribute> li = method.GetCustomAttributes().ToList();
+				List<CustomAttributeData> li = method.CustomAttributes.ToList();
 				if (IsTestMethod(li, ref TearDownFeature, method))
 				{
 					tempMethods.Add(method);
@@ -264,23 +270,80 @@
 				IList<CustomAttributeTypedArgument> lii = attr.ConstructorArguments;
 				if (StringComparer.OrdinalIgnoreCase.Equals(attr.AttributeType.ToString(), "Tarsvin.customAttributes.fixtureattr"))
 				{
-					return true;
+					if (includeF == null && excludeF == null)
+					{
+						return true;
+					}
+					else if (includeF != null && lii != null)
+					{
+						foreach (string x in includeF)
+						{
+							foreach (CustomAttributeTypedArgument y in lii)
+							{
+								if (StringComparer.OrdinalIgnoreCase.Equals(x, y.Value.ToString()))
+								{
+									return true;
+								}
+							}
+						}
+					}
+					if (excludeF != null && lii != null)
+					{
+						foreach (string x in excludeF)
+						{
+							foreach (CustomAttributeTypedArgument y in lii)
+							{
+								if (StringComparer.OrdinalIgnoreCase.Equals(x, y.Value.ToString()))
+								{
+									return false;
+								}
+							}
+						}
+					}
 				}
 			}
 			return false;
 		}
 
-		private bool IsTestMethod(List<Attribute> li, ref MethodInfo TearDownFeature, MethodInfo method)
+		private bool IsTestMethod(List<CustomAttributeData> li, ref MethodInfo TearDownFeature, MethodInfo method)
 		{
-			foreach (Attribute attr in li)
+			foreach (CustomAttributeData attr in li)
 			{
-				string x = attr.ToString();
-
-				if (StringComparer.OrdinalIgnoreCase.Equals(attr.ToString(), "Tarsvin.customAttributes.CaseAttr"))
+				IList<CustomAttributeTypedArgument> lii = attr.ConstructorArguments;
+				if (StringComparer.OrdinalIgnoreCase.Equals(attr.AttributeType.ToString(), "Tarsvin.customAttributes.CaseAttr"))
 				{
-					return true;
+					if (includeS == null && excludeS == null)
+					{
+						return true;
+					}
+					else if (includeS != null && lii != null)
+					{
+						foreach (string x in includeS)
+						{
+							foreach (CustomAttributeTypedArgument y in lii)
+							{
+								if (StringComparer.OrdinalIgnoreCase.Equals(x, y.Value.ToString()))
+								{
+									return true;
+								}
+							}
+						}
+					}
+					if (excludeS != null && lii != null)
+					{
+						foreach (string x in excludeS)
+						{
+							foreach (CustomAttributeTypedArgument y in lii)
+							{
+								if (StringComparer.OrdinalIgnoreCase.Equals(x, y.Value.ToString()))
+								{
+									return false;
+								}
+							}
+						}
+					}
 				}
-				else if (StringComparer.OrdinalIgnoreCase.Equals(attr.ToString(), "Tarsvin.customAttributes.FixtureEndAttr"))
+				else if (StringComparer.OrdinalIgnoreCase.Equals(attr.AttributeType.ToString(), "Tarsvin.customAttributes.FixtureEndAttr"))
 				{
 					TearDownFeature = method;
 				}

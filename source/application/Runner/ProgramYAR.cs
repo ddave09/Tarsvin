@@ -19,8 +19,10 @@ namespace Tarsvin.Runner
 		private static void Main(string[] args)
 		{
 			string[] ags = args;
-			string[] include = null;
-			string[] exclude = null;
+			string[] includeS = null;
+			string[] excludeS = null;
+			string[] includeF = null;
+			string[] excludeF = null;
 
 			var options = new Options();
 
@@ -30,12 +32,17 @@ namespace Tarsvin.Runner
 				return;
 			}
 
-			if(options.Include != null)
-				include = options.Include.Split(',');
+			if(options.IncludeS != null)
+				includeS = options.IncludeS.Split(',');
 			
-			if(options.Exclude != null)
-				exclude = options.Exclude.Split(',');
+			if(options.ExcludeS != null)
+				excludeS = options.ExcludeS.Split(',');
 
+			if (options.IncludeF != null)
+				includeF = options.IncludeF.Split(',');
+
+			if (options.ExcludeF != null)
+				excludeF = options.ExcludeF.Split(',');
 
 			if (options.Project != null)
 				if (!options.Project.EndsWith(".dll"))
@@ -85,7 +92,7 @@ namespace Tarsvin.Runner
 
 			new StepLoader(dllList);
 			Executor exe = new Executor(options.RunnerSelection, dllList, 
-				options.Project, options.XmlResultPath, include, exclude);
+				options.Project, options.XmlResultPath, includeF, excludeF, includeS, excludeS);
 			exe.InitializeSystem(exe);
 			while (true) ;
 		}
