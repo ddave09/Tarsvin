@@ -32,16 +32,16 @@ namespace Tarsvin.Runner
 				return;
 			}
 
-			if(options.IncludeS != null)
+			if(options.IncludeS != null && !StringComparer.OrdinalIgnoreCase.Equals(options.IncludeS, "none"))
 				includeS = options.IncludeS.Split(',');
-			
-			if(options.ExcludeS != null)
+
+			if (options.ExcludeS != null && !StringComparer.OrdinalIgnoreCase.Equals(options.ExcludeS, "none"))
 				excludeS = options.ExcludeS.Split(',');
 
-			if (options.IncludeF != null)
+			if (options.IncludeF != null && !StringComparer.OrdinalIgnoreCase.Equals(options.IncludeF, "none"))
 				includeF = options.IncludeF.Split(',');
 
-			if (options.ExcludeF != null)
+			if (options.ExcludeF != null && !StringComparer.OrdinalIgnoreCase.Equals(options.ExcludeF, "none"))
 				excludeF = options.ExcludeF.Split(',');
 
 			if (options.Project != null)
