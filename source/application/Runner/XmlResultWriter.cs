@@ -162,7 +162,7 @@ namespace Tarsvin.Runner
 				xmlWriter.WriteAttributeString("result", result);
 			}
 			xmlWriter.WriteAttributeString("success", itfs.Success.ToString());
-			xmlWriter.WriteAttributeString("time", itfs.FeatureExecutionTime.ToString());
+			xmlWriter.WriteAttributeString("time", itfs.FeatureExecutionTime.TotalSeconds.ToString());
 			xmlWriter.WriteAttributeString("asserts", "1");
 			xmlWriter.WriteStartElement("results");
 			foreach (string str in nameSpace)
@@ -173,7 +173,7 @@ namespace Tarsvin.Runner
 				xmlWriter.WriteAttributeString("executed", "True");
 				xmlWriter.WriteAttributeString("result", result);
 				xmlWriter.WriteAttributeString("success", itfs.Success.ToString());
-				xmlWriter.WriteAttributeString("time", itfs.FeatureExecutionTime.ToString());
+				xmlWriter.WriteAttributeString("time", itfs.FeatureExecutionTime.TotalSeconds.ToString());
 				xmlWriter.WriteAttributeString("asserts", "1");
 				xmlWriter.WriteStartElement("results");
 			}
@@ -209,7 +209,7 @@ namespace Tarsvin.Runner
 			}
 
 			xmlWriter.WriteAttributeString("success", result.Result.ToString());
-			xmlWriter.WriteAttributeString("time", result.ExecTime.ToString());
+			xmlWriter.WriteAttributeString("time", result.ExecTime.TotalSeconds.ToString());
 			xmlWriter.WriteAttributeString("asserts", "1");
 		}
 
