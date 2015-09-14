@@ -46,8 +46,6 @@
 				Parser ps = new Parser();
 				ps.Parse(filePath, projectPath, fileName);
 			}
-
-			Console.ReadKey();
 		}
 	}
 }
