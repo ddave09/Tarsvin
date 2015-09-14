@@ -20,6 +20,15 @@
 			set;
 		}
 
+		/// <summary>
+		/// This property stores attributes for the feature
+		/// </summary>
+		public List<string> Attributes
+		{
+			get;
+			set;
+		}
+
 		public bool Success
 		{
 			get

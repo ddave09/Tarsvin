@@ -127,6 +127,7 @@
 					Result result = new Result();
 					result.itfs.FeatureName = type.FullName;
 					result.itfs.StartTick = DateTime.Now.Ticks;
+					result.itfs.Attributes = this.GetFeatureAttributesConstructorValues(type);
 					GlobalTestStates.ResultSet.Add(type.FullName, result);
 				}
 
@@ -176,7 +177,7 @@
 			{
 				MethodInfo method = this.methods.Last();
 				this.methods.RemoveAt(this.methods.Count - 1);
-				List<string> attrsValues = this.GetAttributesConstructorValues(method);
+				List<string> attrsValues = this.GetScenarioAttributesConstructorValues(method);
 				run.Run(obj, method, type, attrsValues, bw, ss, this.methods.Count, TearDownFeature);
 			}
 			else if (!Convert.ToBoolean(GlobalTestStates.GetScenarioCount))
@@ -219,10 +220,25 @@
 			}
 		}
 
-		private List<string> GetAttributesConstructorValues(MethodInfo method)
+		private List<string> GetScenarioAttributesConstructorValues(MethodInfo method)
 		{
 			List<string> attrValues = new List<string>();
 			IList<CustomAttributeData> cadS = method.GetCustomAttributesData();
+			foreach (CustomAttributeData cad in cadS)
+			{
+				IList<CustomAttributeTypedArgument> cadAs = cad.ConstructorArguments;
+				foreach (CustomAttributeTypedArgument cata in cadAs)
+				{
+					attrValues.Add(cata.ToString());
+				}
+			}
+			return attrValues;
+		}
+
+		private List<string> GetFeatureAttributesConstructorValues(Type type)
+		{
+			List<string> attrValues = new List<string>();
+			IList<CustomAttributeData> cadS = type.GetCustomAttributesData();
 			foreach (CustomAttributeData cad in cadS)
 			{
 				IList<CustomAttributeTypedArgument> cadAs = cad.ConstructorArguments;
@@ -265,11 +281,14 @@
 
 		private bool IsTestClass(List<CustomAttributeData> li)
 		{
+			bool isFixture = false;
+
 			foreach (CustomAttributeData attr in li)
 			{
 				IList<CustomAttributeTypedArgument> lii = attr.ConstructorArguments;
 				if (StringComparer.OrdinalIgnoreCase.Equals(attr.AttributeType.ToString(), "Tarsvin.customAttributes.fixtureattr"))
 				{
+					isFixture = true;
 					if (includeF == null && excludeF == null)
 					{
 						return true;
@@ -302,16 +321,23 @@
 					}
 				}
 			}
+			if (isFixture && (includeF == null))
+			{
+				return true;
+			}
 			return false;
 		}
 
 		private bool IsTestMethod(List<CustomAttributeData> li, ref MethodInfo TearDownFeature, MethodInfo method)
 		{
+			bool isCase = false;
+
 			foreach (CustomAttributeData attr in li)
 			{
 				IList<CustomAttributeTypedArgument> lii = attr.ConstructorArguments;
 				if (StringComparer.OrdinalIgnoreCase.Equals(attr.AttributeType.ToString(), "Tarsvin.customAttributes.CaseAttr"))
 				{
+					isCase = true;
 					if (includeS == null && excludeS == null)
 					{
 						return true;
@@ -348,6 +374,10 @@
 					TearDownFeature = method;
 				}
 			}
+			if (isCase && (includeS == null))
+			{
+				return true;
+			}
 			return false;
 		}
 
@@ -362,6 +392,7 @@
 				GlobalTestStates.Error, GlobalTestStates.ReError));
 
 			XmlResultWriter xmlWriter = new XmlResultWriter(this.resultPath, this.projectPath);
+			xmlWriter.RenderAssemblySuite();
 			foreach (KeyValuePair<string, Result> element in GlobalTestStates.ResultSet)
 			{
 				xmlWriter.StartSuiteElement(element.Value.itfs);
@@ -373,6 +404,7 @@
 				xmlWriter.EndSuiteElement(element.Value.itfs);
 				Console.WriteLine("\n***Feature: {0} Scenarios: {1}***\n", element.Key.Split('.').Last(), element.Value.its.Count);
 			}
+
 			xmlWriter.Terminate();
 			System.Environment.Exit(GlobalTestStates.FailureCount - (GlobalTestStates.ReTestsRun - GlobalTestStates.ReFailureCount));
 		}

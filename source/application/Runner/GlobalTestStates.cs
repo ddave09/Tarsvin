@@ -65,6 +65,22 @@
 			}
 		}
 
+		internal static bool Success
+		{
+			get
+			{
+				if (FailureCount == 0)
+				{
+					return true;
+				}
+				else if (FailureCount != 0 && ReFailureCount == 0)
+				{
+					return true;
+				}
+				return false;
+			}
+		}
+
 		internal static int FailureCount
 		{
 			get

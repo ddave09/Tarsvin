@@ -3,6 +3,7 @@ namespace Tarsvin.Runner
 	using System;
 	using System.Collections;
 	using System.Collections.Generic;
+	using System.Linq;
 	using System.Globalization;
 	using System.IO;
 	using System.Reflection;
@@ -14,6 +15,9 @@ namespace Tarsvin.Runner
 		private TextWriter writer;
 		private MemoryStream memoryStream;
 		private string projectPath;
+		private bool init = false;
+		bool reachedBase = false;
+		int suiteCount = 0;
 
 		#region Constructors
 		public XmlResultWriter(string fileName, string projectPath)
@@ -47,7 +51,7 @@ namespace Tarsvin.Runner
 
 			xmlWriter.WriteAttributeString("name", this.projectPath);
 			xmlWriter.WriteAttributeString("total", GlobalTestStates.TestsRun.ToString());
-			xmlWriter.WriteAttributeString("errors", 
+			xmlWriter.WriteAttributeString("errors",
 				(GlobalTestStates.Error - (GlobalTestStates.Error - GlobalTestStates.ReError)).ToString());
 			xmlWriter.WriteAttributeString("failures",
 				(GlobalTestStates.FailureCount - (GlobalTestStates.FailureCount - GlobalTestStates.ReFailureCount)).ToString());
@@ -105,7 +109,7 @@ namespace Tarsvin.Runner
 		{
 			StartTestElement(result);
 
-			WriteCategoriesElement(result);
+			WriteScenarioCategoriesElement(result);
 
 			switch (result.Result)
 			{
@@ -143,15 +147,14 @@ namespace Tarsvin.Runner
 			}
 		}
 
-		public void StartSuiteElement(IndividualFeatureTestState itfs)
+		public void RenderAssemblySuite()
 		{
 			string result = string.Empty;
-			string[] nameSpace = itfs.FeatureName.Split('.');
 			xmlWriter.WriteStartElement("test-suite");
 			xmlWriter.WriteAttributeString("type", "Assemlbly");
 			xmlWriter.WriteAttributeString("name", this.projectPath);
 			xmlWriter.WriteAttributeString("executed", "True");
-			if (itfs.Success)
+			if (GlobalTestStates.Success)
 			{
 				result = "Success";
 				xmlWriter.WriteAttributeString("result", result);
@@ -161,36 +164,91 @@ namespace Tarsvin.Runner
 				result = "Failure";
 				xmlWriter.WriteAttributeString("result", result);
 			}
-			xmlWriter.WriteAttributeString("success", itfs.Success.ToString());
-			xmlWriter.WriteAttributeString("time", itfs.FeatureExecutionTime.TotalSeconds.ToString());
+			xmlWriter.WriteAttributeString("success", GlobalTestStates.Success.ToString());
+			xmlWriter.WriteAttributeString("time", GlobalTestStates.GrandExecTime.TotalSeconds.ToString());
 			xmlWriter.WriteAttributeString("asserts", "1");
 			xmlWriter.WriteStartElement("results");
+		}
+
+		public void StartSuiteElement(IndividualFeatureTestState itfs)
+		{
+			string result = string.Empty;
+			string[] nameSpace = itfs.FeatureName.Split('.');
+			string fixture = nameSpace.Last();
+			//xmlWriter.WriteStartElement("test-suite");
+			//xmlWriter.WriteAttributeString("type", "Assemlbly");
+			//xmlWriter.WriteAttributeString("name", this.projectPath);
+			//xmlWriter.WriteAttributeString("executed", "True");
+			if (itfs.Success)
+			{
+				result = "Success";
+				//xmlWriter.WriteAttributeString("result", result);
+			}
+			else
+			{
+				result = "Failure";
+				//xmlWriter.WriteAttributeString("result", result);
+			}
+			//xmlWriter.WriteAttributeString("success", itfs.Success.ToString());
+			//xmlWriter.WriteAttributeString("time", itfs.FeatureExecutionTime.TotalSeconds.ToString());
+			//xmlWriter.WriteAttributeString("asserts", "1");
+			//xmlWriter.WriteStartElement("results");
 			foreach (string str in nameSpace)
 			{
+				if (init)
+				{
+					if (StringComparer.OrdinalIgnoreCase.Equals(str, "Features"))
+					{
+						reachedBase = true;
+						continue;
+					}
+					if (!reachedBase)
+					{
+						continue;
+					}
+				}
 				xmlWriter.WriteStartElement("test-suite");
-				xmlWriter.WriteAttributeString("type", "Namespace");
-				xmlWriter.WriteAttributeString("name", str);
-				xmlWriter.WriteAttributeString("executed", "True");
-				xmlWriter.WriteAttributeString("result", result);
-				xmlWriter.WriteAttributeString("success", itfs.Success.ToString());
-				xmlWriter.WriteAttributeString("time", itfs.FeatureExecutionTime.TotalSeconds.ToString());
-				xmlWriter.WriteAttributeString("asserts", "1");
+				if (StringComparer.OrdinalIgnoreCase.Equals(str, fixture))
+				{
+					xmlWriter.WriteAttributeString("type", "TestFixture");
+					xmlWriter.WriteAttributeString("name", str);
+					xmlWriter.WriteAttributeString("executed", "True");
+					xmlWriter.WriteAttributeString("result", result);
+					xmlWriter.WriteAttributeString("success", itfs.Success.ToString());
+					xmlWriter.WriteAttributeString("time", itfs.FeatureExecutionTime.TotalSeconds.ToString());
+					xmlWriter.WriteAttributeString("asserts", "1");
+					WriteFeatureCategoriesElement(itfs);
+				}
+				else
+				{
+					if (init)
+					{
+						suiteCount++;
+					}
+					xmlWriter.WriteAttributeString("type", "Namespace");
+					xmlWriter.WriteAttributeString("name", str);
+					xmlWriter.WriteAttributeString("executed", "True");
+					xmlWriter.WriteAttributeString("result", result);
+					xmlWriter.WriteAttributeString("success", itfs.Success.ToString());
+					xmlWriter.WriteAttributeString("time", itfs.FeatureExecutionTime.TotalSeconds.ToString());
+					xmlWriter.WriteAttributeString("asserts", "1");
+				}
 				xmlWriter.WriteStartElement("results");
 			}
+			init = true;
 		}
 
 		public void EndSuiteElement(IndividualFeatureTestState itfs)
 		{
-			List<string> nameSpace = new List<string>(itfs.FeatureName.Split('.'));
-			int twice = nameSpace.Count << 1;
+			xmlWriter.WriteEndElement();
+			xmlWriter.WriteEndElement();
 
-			while (twice > 0)
+			while (suiteCount > 0)
 			{
 				xmlWriter.WriteEndElement();
-				twice--;
+				xmlWriter.WriteEndElement();
+				suiteCount--;
 			}
-			xmlWriter.WriteEndElement();
-			xmlWriter.WriteEndElement();
 		}
 
 		private void StartTestElement(IndividualTestState result)
@@ -213,7 +271,22 @@ namespace Tarsvin.Runner
 			xmlWriter.WriteAttributeString("asserts", "1");
 		}
 
-		private void WriteCategoriesElement(IndividualTestState result)
+		private void WriteScenarioCategoriesElement(IndividualTestState result)
+		{
+			if (result.Attributes != null && result.Attributes.Count > 0)
+			{
+				xmlWriter.WriteStartElement("categories");
+				foreach (string attribute in result.Attributes)
+				{
+					xmlWriter.WriteStartElement("category");
+					xmlWriter.WriteAttributeString("name", attribute.Trim('"'));
+					xmlWriter.WriteEndElement();
+				}
+				xmlWriter.WriteEndElement();
+			}
+		}
+
+		private void WriteFeatureCategoriesElement(IndividualFeatureTestState result)
 		{
 			if (result.Attributes != null && result.Attributes.Count > 0)
 			{
