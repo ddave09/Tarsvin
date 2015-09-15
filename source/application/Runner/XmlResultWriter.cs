@@ -16,8 +16,7 @@ namespace Tarsvin.Runner
 		private MemoryStream memoryStream;
 		private string projectPath;
 		private bool init = false;
-		bool reachedBase = false;
-		int suiteCount = 0;
+		int suiteCount = -1;
 
 		#region Constructors
 		public XmlResultWriter(string fileName, string projectPath)
@@ -81,7 +80,7 @@ namespace Tarsvin.Runner
 		private void WriteEnvironment()
 		{
 			xmlWriter.WriteStartElement("environment");
-			xmlWriter.WriteAttributeString("Tarsvin-version",
+			xmlWriter.WriteAttributeString("nunit-version",
 										   Assembly.GetExecutingAssembly().GetName().Version.ToString());
 			xmlWriter.WriteAttributeString("clr-version",
 										   Environment.Version.ToString());
@@ -175,38 +174,32 @@ namespace Tarsvin.Runner
 			string result = string.Empty;
 			string[] nameSpace = itfs.FeatureName.Split('.');
 			string fixture = nameSpace.Last();
-			//xmlWriter.WriteStartElement("test-suite");
-			//xmlWriter.WriteAttributeString("type", "Assemlbly");
-			//xmlWriter.WriteAttributeString("name", this.projectPath);
-			//xmlWriter.WriteAttributeString("executed", "True");
 			if (itfs.Success)
 			{
 				result = "Success";
-				//xmlWriter.WriteAttributeString("result", result);
 			}
 			else
 			{
 				result = "Failure";
-				//xmlWriter.WriteAttributeString("result", result);
 			}
-			//xmlWriter.WriteAttributeString("success", itfs.Success.ToString());
-			//xmlWriter.WriteAttributeString("time", itfs.FeatureExecutionTime.TotalSeconds.ToString());
-			//xmlWriter.WriteAttributeString("asserts", "1");
-			//xmlWriter.WriteStartElement("results");
+
+			bool reachedBase = false;
+			suiteCount = -1;
+
 			foreach (string str in nameSpace)
 			{
-				if (init)
+				if (StringComparer.OrdinalIgnoreCase.Equals(str, "Features"))
 				{
-					if (StringComparer.OrdinalIgnoreCase.Equals(str, "Features"))
-					{
-						reachedBase = true;
+					reachedBase = true;
+					if (init)
 						continue;
-					}
-					if (!reachedBase)
-					{
-						continue;
-					}
 				}
+				if (!reachedBase)
+				{
+					if (init)
+						continue;
+				}
+
 				xmlWriter.WriteStartElement("test-suite");
 				if (StringComparer.OrdinalIgnoreCase.Equals(str, fixture))
 				{
@@ -221,7 +214,7 @@ namespace Tarsvin.Runner
 				}
 				else
 				{
-					if (init)
+					if (reachedBase)
 					{
 						suiteCount++;
 					}
