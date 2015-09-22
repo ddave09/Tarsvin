@@ -188,8 +188,6 @@
 
 					if (GlobalTestStates.onlyOnce)
 					{
-						//if (dataFault.IsTimeOut)
-						//{
 						if (GlobalTestStates.repeatBook.ContainsKey(type.FullName))
 						{
 							GlobalTestStates.repeatBook[type.FullName].testMethods.
@@ -200,8 +198,6 @@
 							GlobalTestStates.repeatBook.Add(type.FullName, new ReRunCase(type,
 								new List<MethodInfo>() { testMethod }, type.FullName, attrs));
 						}
-
-						//}
 					}
 
 					Console.WriteLine("\n***{0}: Failed***\n",
@@ -213,13 +209,11 @@
 						{
 							GlobalTestStates.ResultSet[type.FullName].itfs.Success = false;
 						}
+						if (!GlobalTestStates.onlyOnce)
+						{
+							GlobalTestStates.ResultSet[type.FullName].its.Add(dataFault);
+						}
 					}
-
-					if (GlobalTestStates.ResultSet.ContainsKey(type.FullName))
-					{
-						GlobalTestStates.ResultSet[type.FullName].its.Add(dataFault);
-					}
-
 					return false;
 				})
 			, TaskContinuationOptions.OnlyOnFaulted
