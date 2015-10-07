@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="RunnerHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NamespaceGroupingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\application\Runner\Tarsvin.Runner.csproj">
