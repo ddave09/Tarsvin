@@ -3,8 +3,8 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyVersion("1.1.0")]
-[assembly: AssemblyFileVersion("1.1.0")]
+[assembly: AssemblyVersion("1.2.5")]
+[assembly: AssemblyFileVersion("1.2.5")]
 [assembly: AssemblyTitle("Tarsvin")]
 [assembly: AssemblyCopyright("Copyright (c) 2014, Darshit Dave")]
 [assembly: AssemblyTrademark("Trademark by Darshit Dave")]

@@ -406,7 +406,8 @@
 			}
 
 			xmlWriter.Terminate();
-			System.Environment.Exit(GlobalTestStates.FailureCount - (GlobalTestStates.ReTestsRun - GlobalTestStates.ReFailureCount));
+			System.Environment.Exit((GlobalTestStates.FailureCount + GlobalTestStates.Error) - 
+				(GlobalTestStates.ReTestsRun - (GlobalTestStates.ReFailureCount + GlobalTestStates.ReError)));
 		}
 	}
 }
