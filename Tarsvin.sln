@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{967F1C73-A97A-4DF6-AF1E-A4A322F34959}"
 	ProjectSection(SolutionItems) = preProject
@@ -30,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Nake.csx = Nake.csx
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarsvin.Build", "source\application\Tarsvin.Build\Tarsvin.Build.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,15 @@ Global
 		{6D0D385B-05EC-4B53-B259-928E9B1612E3}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
 		{6D0D385B-05EC-4B53-B259-928E9B1612E3}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
 		{6D0D385B-05EC-4B53-B259-928E9B1612E3}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|x86.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.VS2010IntegrationTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.VS2010IntegrationTest|Any CPU.Build.0 = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.VS2010IntegrationTest|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,5 +113,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C54DDC83-7692-4828-90B8-D416DBA0507D} = {B6731B74-CE3F-47C5-9F09-B32B13FF7932}
 		{6D0D385B-05EC-4B53-B259-928E9B1612E3} = {B6731B74-CE3F-47C5-9F09-B32B13FF7932}
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389} = {967F1C73-A97A-4DF6-AF1E-A4A322F34959}
 	EndGlobalSection
 EndGlobal
