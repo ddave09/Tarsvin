@@ -121,7 +121,7 @@
 				Type type = this.types.Last();
 				this.types.RemoveAt(this.types.Count - 1);
 
-				//Lock below once feature run in parallel
+				//Lock below once features run in parallel
 				if (!GlobalTestStates.ResultSet.ContainsKey(type.FullName))
 				{
 					Result result = new Result();
@@ -158,7 +158,7 @@
 				else if (ss == SystemState.Repeat)
 					GlobalTestStates.IncrementReTestCount(this.methods.Count);
 
-				// Need to change when feature will run in parallel
+				// Need to change when features will run in parallel
 				GlobalTestStates.SetScenarioCount(this.methods.Count);
 				AsyncMethodHandler handler = new AsyncMethodHandler(MethodHandler);
 				handler.BeginInvoke(obj, type, TearDownFeature, null, null);

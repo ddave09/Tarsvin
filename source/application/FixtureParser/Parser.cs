@@ -233,7 +233,17 @@
 
 					if (hierarchyNameFlag)
 					{
+						int count = -1;
 						for (int i = 1; i < attrs.Count - 1; i++)
+						{
+							if(!Regex.IsMatch(attrs[i], @"OT(F|D)\d*", RegexOptions.IgnoreCase) &&
+								!Regex.IsMatch(attrs[i], @"\d*\.\d*\.\d*", RegexOptions.IgnoreCase))
+							{
+								++count;
+							}
+						}
+
+						for (int i = 1; i <= count; i++)
 						{
 							hierarchyName += ".";
 							hierarchyName += attrs[i];
