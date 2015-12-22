@@ -135,3 +135,5 @@ WebProject.*
 /Tarsvin.sln.ide/*.ide
 /Tarsvin.sln.ide/*.edb
 /nake.log.txt
+/tools/EwsManagedApi/2.0/*.dll
+*.dll
