@@ -7,7 +7,6 @@
 	internal class ProgramFP
 	{
 		private const string FeatureFolder = "Features";
-		private const string ProjectExtension = "csproj";
 
 		private static void Main(string[] args)
 		{
@@ -25,10 +24,20 @@
 			string projectName = options.Project;
 
 			//C:\_Tarsvin - Copy\source\test\FPBRTest\
-			string rootProjectPath = filePath.Substring(0, filePath.IndexOf(ProgramFP.FeatureFolder));
+			string rootProjectPath = string.Empty;
+			try
+			{
+				rootProjectPath = filePath.Substring(0, filePath.IndexOf(ProgramFP.FeatureFolder));
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("File path must contain \"Features\" sub direcotory");
+				System.Environment.Exit(0);
+			}
 
+			// User must pass full project name including project extension
 			//C:\_Tarsvin - Copy\source\test\FPBRTest\FPBRTest.Specs.csproj
-			string projectPath = string.Format("{0}{1}.{2}", rootProjectPath, projectName, ProjectExtension);
+			string projectPath = string.Format("{0}{1}", rootProjectPath, projectName);
 
 			if (multiple)
 			{
