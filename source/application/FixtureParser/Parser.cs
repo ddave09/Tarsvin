@@ -38,18 +38,22 @@
 		public void AddFileToProject(Project p, string fileName, string featurFileName)
 		{
 			ICollection<ProjectItem> items = p.GetItems("Compile");
+			bool found = false;
 
 			foreach (ProjectItem pi in items)
 			{
 				if (StringComparer.OrdinalIgnoreCase.Equals(pi.EvaluatedInclude, fileName))
-					goto Finish;
+				{
+					found = true;
+				}
 			}
-
-			KeyValuePair<string, string> kivi = new KeyValuePair<string, string>("DependentUpon", featurFileName);
-			List<KeyValuePair<string, string>> likivi = new List<KeyValuePair<string, string>>();
-			likivi.Add(kivi);
-			p.AddItem("Compile", fileName, likivi);
-		Finish:
+			if (!found)
+			{
+				KeyValuePair<string, string> kivi = new KeyValuePair<string, string>("DependentUpon", featurFileName);
+				List<KeyValuePair<string, string>> likivi = new List<KeyValuePair<string, string>>();
+				likivi.Add(kivi);
+				p.AddItem("Compile", fileName, likivi);
+			}
 			p.Save();
 		}
 
@@ -193,7 +197,17 @@
 						continue;
 
 					if (lineToken != string.Empty)
-						goto merger;
+					{
+						if (lineToken == string.Empty || lineToken == "background")
+							break;
+
+						lineName += " " + token;
+						if (Regex.IsMatch(token, @"\d."))
+							continue;
+						name += token[0].ToString().ToUpper() + token.Substring(1);
+						writeString += (token[0].ToString().ToUpper() + token.Substring(1)).Trim(',');
+						continue;
+					}
 
 					if (StringComparer.OrdinalIgnoreCase.Equals(token.First(), '#'))
 					{
@@ -357,17 +371,7 @@
 						backgroundExists = true;
 						attrs.Clear();
 						writeString += "\t" + modifiers["public"] + " " + modifiers["void"] + " " + "FeatureBackground";
-						continue;
 					}
-				merger:
-					if (lineToken == string.Empty || lineToken == "background")
-						break;
-
-					lineName += " " + token;
-					if (Regex.IsMatch(token, @"\d."))
-						continue;
-					name += token[0].ToString().ToUpper() + token.Substring(1);
-					writeString += (token[0].ToString().ToUpper() + token.Substring(1)).Trim(',');
 				}
 				#endregion
 

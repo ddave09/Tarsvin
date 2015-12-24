@@ -4,6 +4,9 @@ Feature: FPBRTest Search
 	As a math idiot
 	I want to be told the sum of two numbers
 
+Background: 
+	Given Background test
+
 @FPBRTest @Search @Smoke
 Scenario: 1. Search for TestPipe
 	Given I am on the search page
