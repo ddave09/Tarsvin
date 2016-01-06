@@ -275,6 +275,10 @@
 
 					if (StringComparer.OrdinalIgnoreCase.Equals(token, "given"))
 					{
+						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "feature"))
+						{
+							break;
+						}
 						previousToken = "step";
 						lineToken = "step";
 						currentStep = "Given";
@@ -286,6 +290,10 @@
 					}
 					if (StringComparer.OrdinalIgnoreCase.Equals(token, "when"))
 					{
+						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "feature"))
+						{
+							break;
+						}
 						previousToken = "step";
 						lineToken = "step";
 						currentStep = "When";
@@ -297,6 +305,10 @@
 					}
 					if (StringComparer.OrdinalIgnoreCase.Equals(token, "then"))
 					{
+						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "feature"))
+						{
+							break;
+						}
 						previousToken = "step";
 						lineToken = "step";
 						currentStep = "Then";
@@ -308,6 +320,10 @@
 					}
 					if (StringComparer.OrdinalIgnoreCase.Equals(token, "and"))
 					{
+						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "feature"))
+						{
+							break;
+						}
 						previousToken = "step";
 						lineToken = "step";
 						if (hierarchyName != null)
@@ -318,6 +334,10 @@
 					}
 					if (StringComparer.OrdinalIgnoreCase.Equals(token, "but"))
 					{
+						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "feature"))
+						{
+							break;
+						}
 						previousToken = "step";
 						lineToken = "step";
 						if (hierarchyName != null)
@@ -371,7 +391,9 @@
 						backgroundExists = true;
 						attrs.Clear();
 						writeString += "\t" + modifiers["public"] + " " + modifiers["void"] + " " + "FeatureBackground";
+						continue;
 					}
+					break;
 				}
 				#endregion
 
