@@ -10,21 +10,18 @@ namespace Tarsvin.Runner
 {
 	public class StepLoader
 	{
-		public StepLoader(List<DllInfo> list)
+		public StepLoader(DllInfo dllInfo)
 		{
 			Assembly runtimeAssembly = null;
-			foreach (DllInfo dllinfo in list)
+			if (dllInfo.path == null)
+				runtimeAssembly = Assembly.GetExecutingAssembly();
+			else
+				runtimeAssembly = Assembly.Load(AssemblyName.GetAssemblyName(dllInfo.path));
+			List<Type> types = TestTypes(runtimeAssembly.GetTypes().ToList());
+			foreach (Type type in types)
 			{
-				if (dllinfo.path == null)
-					runtimeAssembly = Assembly.GetExecutingAssembly();
-				else
-					runtimeAssembly = Assembly.Load(AssemblyName.GetAssemblyName(dllinfo.path));
-				List<Type> types = TestTypes(runtimeAssembly.GetTypes().ToList());
-				foreach (Type type in types)
-				{
-					List<MethodInfo> methods = type.GetMethods().ToList();
-					BindMap.AddToBindMap(type.FullName, dllinfo.path, type, methods);
-				}
+				List<MethodInfo> methods = type.GetMethods().ToList();
+				BindMap.AddToBindMap(type.FullName, dllInfo.path, type, methods);
 			}
 		}
 

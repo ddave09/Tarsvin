@@ -275,7 +275,7 @@
 
 					if (StringComparer.OrdinalIgnoreCase.Equals(token, "given"))
 					{
-						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "feature"))
+						if (StringComparer.OrdinalIgnoreCase.Equals(previousParentToken, "feature"))
 						{
 							break;
 						}
@@ -290,7 +290,7 @@
 					}
 					if (StringComparer.OrdinalIgnoreCase.Equals(token, "when"))
 					{
-						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "feature"))
+						if (StringComparer.OrdinalIgnoreCase.Equals(previousParentToken, "feature"))
 						{
 							break;
 						}
@@ -305,7 +305,7 @@
 					}
 					if (StringComparer.OrdinalIgnoreCase.Equals(token, "then"))
 					{
-						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "feature"))
+						if (StringComparer.OrdinalIgnoreCase.Equals(previousParentToken, "feature"))
 						{
 							break;
 						}
@@ -320,7 +320,7 @@
 					}
 					if (StringComparer.OrdinalIgnoreCase.Equals(token, "and"))
 					{
-						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "feature"))
+						if (StringComparer.OrdinalIgnoreCase.Equals(previousParentToken, "feature"))
 						{
 							break;
 						}
@@ -334,7 +334,7 @@
 					}
 					if (StringComparer.OrdinalIgnoreCase.Equals(token, "but"))
 					{
-						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "feature"))
+						if (StringComparer.OrdinalIgnoreCase.Equals(previousParentToken, "feature"))
 						{
 							break;
 						}

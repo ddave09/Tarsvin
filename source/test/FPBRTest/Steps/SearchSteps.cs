@@ -70,6 +70,12 @@
 			StepHelper.TearDownScenario(this.scenario);
 		}
 
+		[Given(@"Background test")]
+		public void GivenBackgroundTest()
+		{
+
+		}
+
 		[Then(@"results should be displayed")]
 		public void ThenResultsShouldBeDisplayed()
 		{
@@ -83,11 +89,13 @@
 		{
 			this.searchText = this.scenario.Data.Q;
 
-			this.sut.EnterText(this.sut.Search, this.searchText);
+			this.sut.Search.TypeText(this.searchText);
+
+			//this.sut.EnterText(this.sut.Search, this.searchText);
 
 			this.sut = new SearchPage(this.scenario.Browser, TestSession.Environment);
 
-			this.resultPage = this.sut.Submit(this.searchText);
+			//this.resultPage = this.sut.Submit(this.searchText);
 		}
 	}
 }

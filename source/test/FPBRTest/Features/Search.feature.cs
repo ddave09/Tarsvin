@@ -34,8 +34,7 @@ namespace Tarsvin.FPBRTest.Specs.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "FPBRTest Search", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-                    "wo numbers", ProgrammingLanguage.CSharp, new string[] {
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "FPBRTest Search", "", ProgrammingLanguage.CSharp, new string[] {
                         "FPBRTest",
                         "Search"});
             testRunner.OnFeatureStart(featureInfo);
@@ -69,14 +68,6 @@ namespace Tarsvin.FPBRTest.Specs.Features
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void FeatureBackground()
-        {
-#line 7
-#line 8
- testRunner.Given("Background test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-        }
-        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("1. Search for TestPipe")]
         [NUnit.Framework.CategoryAttribute("FPBRTest")]
@@ -88,39 +79,10 @@ namespace Tarsvin.FPBRTest.Specs.Features
                         "FPBRTest",
                         "Search",
                         "Smoke"});
-#line 11
+#line 5
 this.ScenarioSetup(scenarioInfo);
-#line 7
-this.FeatureBackground();
-#line 12
+#line 6
  testRunner.Given("I am on the search page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 13
- testRunner.When("I submit a search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
- testRunner.Then("results should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("2. Search for Something")]
-        [NUnit.Framework.CategoryAttribute("FPBRTest")]
-        [NUnit.Framework.CategoryAttribute("Search")]
-        public virtual void _2_SearchForSomething()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2. Search for Something", new string[] {
-                        "FPBRTest",
-                        "Search"});
-#line 17
-this.ScenarioSetup(scenarioInfo);
-#line 7
-this.FeatureBackground();
-#line 18
- testRunner.Given("I am on the search page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 19
- testRunner.When("I submit a search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 20
- testRunner.Then("results should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

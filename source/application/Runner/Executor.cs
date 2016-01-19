@@ -30,21 +30,22 @@
 		SystemState ss = SystemState.Initial;
 		IRunner run = null;
 		BackgroundWorker bw;
-		List<DllInfo> dlls = new List<DllInfo>();
+		DllInfo dllInfo = null;
 		List<Type> types = new List<Type>();
 		List<MethodInfo> methods = new List<MethodInfo>();
 		ILogManager logActivatorException = new Logger();
 		string projectPath = string.Empty;
 		string resultPath = string.Empty;
+		bool initiated = false;
 		List<string> includeF = null;
 		List<string> excludeF = null;
 		List<string> includeS = null;
 		List<string> excludeS = null;
 
-		internal Executor(string selection, List<DllInfo> dlls, string projectPath, 
+		internal Executor(string selection, DllInfo dllInfo, string projectPath, 
 			string resultPath, string[] includeF, string[] excludeF, string[] includeS, string[] excludeS)
 		{
-			this.dlls = dlls;
+			this.dllInfo = dllInfo;
 			if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Sequential"))
 				run = new SequentialRunner();
 			else if (StringComparer.OrdinalIgnoreCase.Equals(selection, "Parallel"))
@@ -82,14 +83,15 @@
 
 		internal void ExecuteTest()
 		{
-			if (this.dlls.Count == 0 && GlobalTestStates.repeatBook.Count == 0)
+			if (initiated && GlobalTestStates.repeatBook.Count == 0)
 			{
 				InitiateSummary();
 			}
-			else if (Convert.ToBoolean(this.dlls.Count))
+			else if (!initiated)
 			{
-				DllInfo dll = this.dlls.Last();
-				this.dlls.RemoveAt(this.dlls.Count - 1);
+				initiated = true;
+				DllInfo dll = this.dllInfo;
+				//Dll path is going to be null. Check and remove the if condition. Or remove the requirement of having DllInfo object.
 				if (dll.path == null)
 					this.types = TestTypes(Assembly.GetExecutingAssembly().GetTypes().ToList());
 				else
@@ -255,7 +257,6 @@
 			List<MethodInfo> tempMethods = new List<MethodInfo>();
 			foreach (MethodInfo method in methods)
 			{
-				//List<Attribute> li = method.GetCustomAttributes().ToList();
 				List<CustomAttributeData> li = method.CustomAttributes.ToList();
 				if (IsTestMethod(li, ref TearDownFeature, method))
 				{

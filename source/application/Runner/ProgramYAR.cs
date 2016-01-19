@@ -76,22 +76,9 @@ namespace Tarsvin.Runner
 				return;
 			}
 
-			//string actualPath = options.SolutionFile;
-			//Console.WriteLine("Solution File: {0}", actualPath);
-
-			//string projectPrefix = options.ProjectPrefix ?? ConfigurationManager.AppSettings["tarsvin.test.projectnameprefix"];
-			//Console.WriteLine("Project Prefix: {0}", projectPrefix);
-
-			//if (actualPath != null)
-			//{
-			//	Solution sln = new Solution(actualPath);
-			//	RunnerHelper.GetDllList(options, actualPath, projectPrefix, sln);
-			//}
-
-			List<DllInfo> dllList = new List<DllInfo>() { new DllInfo() { path = options.Project } };
-
-			new StepLoader(dllList);
-			Executor exe = new Executor(options.RunnerSelection, dllList, 
+			DllInfo dllInfo = new DllInfo() {path = options.Project };
+			new StepLoader(dllInfo);
+			Executor exe = new Executor(options.RunnerSelection, dllInfo, 
 				options.Project, options.XmlResultPath, includeF, excludeF, includeS, excludeS);
 			exe.InitializeSystem(exe);
 			while (true) ;

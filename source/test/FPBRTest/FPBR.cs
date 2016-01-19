@@ -18,22 +18,8 @@
 	{
 		public FPBR()
 		{
-			string actualPath = @"../../FPBRTest.sln";
-			string slnDirPath = Path.GetDirectoryName(actualPath) + @"\";
-			Solution sln = new Solution(actualPath);
-			string findTestProj = "specs";
-			List<DllInfo> addRefList = new List<DllInfo>();
-			foreach (SolutionProject sp in sln.Projects)
-			{
-				string[] pName = sp.ProjectName.Split('.');
-				if (StringComparer.OrdinalIgnoreCase.Equals(pName.Last<string>(), findTestProj))
-				{
-					DllInfo info = new DllInfo();
-					info.path = slnDirPath + Path.GetDirectoryName(sp.RelativePath) + @"\bin\debug\" + sp.RelativePath.Split('\\').Last<string>().Replace(".csproj", ".dll");
-					addRefList.Add(info);
-				}
-			}
-			new StepLoader(addRefList);
+			//Test does not support solution file anymore.
+			//Rebuild test having only one dll in mind. As Tarsvin is not a library which exists in test project itself.
 		}
 
 		[TestMethod]
