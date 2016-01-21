@@ -11,7 +11,7 @@
 	{
 		public static void FindKey(string nameSpace, string hierarchy, string type, out InvokeInfo iI)
 		{
-			if (!BindMap.bitMap.TryGetValue(GenerateTypeName(nameSpace, type, hierarchy), out iI))
+			if (!BindMap._bindMap.TryGetValue(GenerateTypeName(nameSpace, type, hierarchy), out iI))
 			{
 				throw new ArgumentNullException();
 			}

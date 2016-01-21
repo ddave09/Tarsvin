@@ -23,17 +23,17 @@
 
 	internal class Executor
 	{
-		internal delegate void AsyncReRunHandler(KeyValuePair<string, ReRunCase> casePair);
-		internal delegate void AsyncTaskHandler();
-		internal delegate void AsyncMethodHandler(Object obj, Type type, MethodInfo TearDownFeature);
+		delegate void AsynceExecuteTest();
+		delegate void AsyncReRunHandler(KeyValuePair<string, ReRunCase> casePair);
+		delegate void AsyncTypeHandler(MethodInfo TearDownFeature);
+		delegate void AsyncMethodHandler(Object obj, Type type, MethodInfo TearDownFeature);
 
 		SystemState ss = SystemState.Initial;
 		IRunner run = null;
 		BackgroundWorker bw;
 		DllInfo dllInfo = null;
-		List<Type> types = new List<Type>();
-		List<MethodInfo> methods = new List<MethodInfo>();
-		ILogManager logActivatorException = new Logger();
+		List<Type> types = null;
+		List<MethodInfo> methods = null;
 		string projectPath = string.Empty;
 		string resultPath = string.Empty;
 		bool initiated = false;
@@ -71,8 +71,8 @@
 			Console.WriteLine("\n***Re-Run of Case {0}***\n", casePair.Key);
 			this.types = new List<Type> { casePair.Value.type };
 			this.methods = casePair.Value.testMethods;
-			AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
-			handler.BeginInvoke(null, null);
+			AsyncTypeHandler handler = new AsyncTypeHandler(TypeHandler);
+			handler.BeginInvoke(casePair.Value.TearDownFeature, null, null);
 		}
 
 		internal void InitializeSystem(Executor exe)
@@ -83,29 +83,25 @@
 
 		internal void ExecuteTest()
 		{
-			if (initiated && GlobalTestStates.repeatBook.Count == 0)
-			{
-				InitiateSummary();
-			}
-			else if (!initiated)
+			if (!initiated)
 			{
 				initiated = true;
 				DllInfo dll = this.dllInfo;
-				//Dll path is going to be null. Check and remove the if condition. Or remove the requirement of having DllInfo object.
-				if (dll.path == null)
-					this.types = TestTypes(Assembly.GetExecutingAssembly().GetTypes().ToList());
-				else
-					this.types = TestTypes(Assembly.Load(AssemblyName.GetAssemblyName(dll.path)).GetTypes().ToList());
-				AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
-				handler.BeginInvoke(null, null);
+				this.types = TestTypes(Assembly.Load(AssemblyName.GetAssemblyName(dll.path)).GetTypes().ToList());
+				AsyncTypeHandler handler = new AsyncTypeHandler(TypeHandler);
+				handler.BeginInvoke(null, null, null);
 			}
-			else if (Convert.ToBoolean(GlobalTestStates.repeatBook.Count))
+			else if (GlobalTestStates.repeatBook.Count != 0)
 			{
 				GlobalTestStates.onlyOnce = false;
 				KeyValuePair<string, ReRunCase> casePair = GlobalTestStates.repeatBook.First();
 				GlobalTestStates.repeatBook.Remove(casePair.Key);
 				AsyncReRunHandler handler = new AsyncReRunHandler(ExecuteReRunCase);
 				handler.BeginInvoke(casePair, null, null);
+			}
+			else if (initiated && GlobalTestStates.repeatBook.Count == 0)
+			{
+				InitiateSummary();
 			}
 		}
 
@@ -116,7 +112,7 @@
 			this.LogTestSummary();
 		}
 
-		private void TypeHandler()
+		private void TypeHandler(MethodInfo TearDownFeature = null)
 		{
 			if (Convert.ToBoolean(this.types.Count))
 			{
@@ -140,25 +136,26 @@
 				}
 				catch (Exception e)
 				{
-					Console.WriteLine("\n***Error while instantiating type : {0}***\n{1}", type.Name,
-						"\n***Could not find Step class, Most Probable: Check feature file namespace or step class name***\n");
-					logActivatorException.Fatal("\n***Could not find Step class, Most Probable: Check feature file namespace or step class name***\n", e);
-					System.Environment.Exit(-1);
-				}
-				MethodInfo TearDownFeature = null;
-				if (Convert.ToBoolean(this.methods.Count))
-				{
-					TestMethods(type.GetMethods().ToList(), ref TearDownFeature);
-				}
-				else
-				{
-					this.methods = TestMethods(type.GetMethods().ToList(), ref TearDownFeature);
+					Console.WriteLine("Skipping: {0} :: Could not intantiate given type", string.Format("{0}", 
+						type.Name));
+					AsyncTypeHandler typeHandler = new AsyncTypeHandler(TypeHandler);
+					typeHandler.BeginInvoke(null, null, null);
+					return;
 				}
 
 				if (ss == SystemState.Initial)
+				{
+					this.methods = TestMethods(type.GetMethods().ToList(), ref TearDownFeature);
 					GlobalTestStates.IncrementTestCount(this.methods.Count);
+				}
 				else if (ss == SystemState.Repeat)
+				{
+					if (TearDownFeature == null)
+					{
+						Console.WriteLine("\n\nTeardown feature function not found :: Browser may not shut down\n");
+					}
 					GlobalTestStates.IncrementReTestCount(this.methods.Count);
+				}
 
 				// Need to change when features will run in parallel
 				GlobalTestStates.SetScenarioCount(this.methods.Count);
@@ -168,7 +165,7 @@
 			else
 			{
 				Console.WriteLine("\n***All available types are done for given project!***\n");
-				AsyncTaskHandler handler = new AsyncTaskHandler(ExecuteTest);
+				AsynceExecuteTest handler = new AsynceExecuteTest(ExecuteTest);
 				handler.BeginInvoke(null, null);
 			}
 		}
@@ -185,8 +182,8 @@
 			else if (!Convert.ToBoolean(GlobalTestStates.GetScenarioCount))
 			{
 				Console.WriteLine("\n***All available scenarios are done for given type!***\n");
-				AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
-				handler.BeginInvoke(null, null);
+				AsyncTypeHandler handler = new AsyncTypeHandler(TypeHandler);
+				handler.BeginInvoke(null, null, null);
 			}
 		}
 
@@ -202,8 +199,8 @@
 			}
 			else
 			{
-				AsyncTaskHandler handler = new AsyncTaskHandler(TypeHandler);
-				handler.BeginInvoke(null, null);
+				AsyncTypeHandler handler = new AsyncTypeHandler(TypeHandler);
+				handler.BeginInvoke(null, null, null);
 			}
 
 		}

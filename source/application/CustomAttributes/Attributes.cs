@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Tarsvin.CustomAttributes
+﻿namespace Tarsvin.CustomAttributes
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Text;
+	using System.Threading.Tasks;
+
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
 	public class FixtureAttr : Attribute
 	{
@@ -63,6 +63,13 @@ namespace Tarsvin.CustomAttributes
 				return this.value;
 			}
 		}
+	}
+
+
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+	public class StepTypeAttr : Attribute
+	{
+
 	}
 
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]

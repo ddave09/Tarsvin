@@ -86,6 +86,27 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("2. Search for Something")]
+        [NUnit.Framework.CategoryAttribute("FPBRTest")]
+        [NUnit.Framework.CategoryAttribute("Search")]
+        [NUnit.Framework.CategoryAttribute("Smoke")]
+        public virtual void _2_SearchForSomething()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2. Search for Something", new string[] {
+                        "FPBRTest",
+                        "Search",
+                        "Smoke"});
+#line 9
+this.ScenarioSetup(scenarioInfo);
+#line 10
+ testRunner.Given("I am on the search page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 11
+ testRunner.Then("Fail", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

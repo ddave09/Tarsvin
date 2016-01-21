@@ -22,11 +22,11 @@
 
 	public static class BindMap
 	{
-		public static Dictionary<string, InvokeInfo> bitMap = new Dictionary<string, InvokeInfo>();
+		public static Dictionary<string, InvokeInfo> _bindMap = new Dictionary<string, InvokeInfo>();
 		public static void AddToBindMap(string fullName, string dllPath, Type type, List<MethodInfo> li)
 		{
 			InvokeInfo iI = new InvokeInfo(dllPath, type, li);
-			bitMap.Add(fullName, iI);
+			_bindMap.Add(fullName, iI);
 		}
 	}
 }

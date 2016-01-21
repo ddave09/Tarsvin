@@ -93,7 +93,7 @@
 						else
 						{
 							GlobalTestStates.repeatBook.Add(type.FullName, new ReRunCase(type,
-								new List<MethodInfo>() { testMethod }, type.FullName, attrs));
+								new List<MethodInfo>() { testMethod }, type.FullName, attrs, TearDownFeature));
 						}
 					}
 				}
@@ -196,7 +196,7 @@
 						else
 						{
 							GlobalTestStates.repeatBook.Add(type.FullName, new ReRunCase(type,
-								new List<MethodInfo>() { testMethod }, type.FullName, attrs));
+								new List<MethodInfo>() { testMethod }, type.FullName, attrs, TearDownFeature));
 						}
 					}
 

@@ -9,7 +9,7 @@
 	using TestPipe.Runner;
 
 	[Tarsvin.CustomAttributes.StepTypeAttr]
-	public class FPBRTestSearchSteps
+	public class FPBRTestSearch2Steps
 	{
 		private static SessionFeature feature;
 		private BasePage resultPage;
@@ -76,7 +76,7 @@
 
 		public void ThenFail()
 		{
-			scenario.Asserts.Fail("Correct Failure");
+			
 		}
 	}
 }

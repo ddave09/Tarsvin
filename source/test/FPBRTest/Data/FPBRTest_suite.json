@@ -26,8 +26,12 @@
 			"Path": "Search_feature.json"
 		},
 		{
-			"Title": "Result",
-			"Path": "Result_feature.json"
+			"Title": "FPBRTest Search1",
+			"Path": "Search1_feature.json"
+		},
+		{
+			"Title": "FPBRTest Search2",
+			"Path": "Search2_feature.json"
 		}
 	]
 }

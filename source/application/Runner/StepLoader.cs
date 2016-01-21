@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tarsvin.StepBinder;
-
-namespace Tarsvin.Runner
+﻿namespace Tarsvin.Runner
 {
-	public class StepLoader
+	using System;
+	using System.Collections.Generic;
+	using System.Reflection;
+	using System.Linq;
+	using System.Text;
+	using System.Threading.Tasks;
+	using Tarsvin.StepBinder;
+
+	internal class StepLoader
 	{
-		public StepLoader(DllInfo dllInfo)
+		internal StepLoader(DllInfo dllInfo)
 		{
-			Assembly runtimeAssembly = null;
-			if (dllInfo.path == null)
-				runtimeAssembly = Assembly.GetExecutingAssembly();
-			else
-				runtimeAssembly = Assembly.Load(AssemblyName.GetAssemblyName(dllInfo.path));
+			Assembly runtimeAssembly = Assembly.Load(AssemblyName.GetAssemblyName(dllInfo.path));
 			List<Type> types = TestTypes(runtimeAssembly.GetTypes().ToList());
 			foreach (Type type in types)
 			{
@@ -25,7 +21,7 @@ namespace Tarsvin.Runner
 			}
 		}
 
-		public List<Type> TestTypes(List<Type> types)
+		private List<Type> TestTypes(List<Type> types)
 		{
 			List<Type> tempTypes = new List<Type>();
 			foreach (Type type in types)
@@ -39,11 +35,13 @@ namespace Tarsvin.Runner
 			return tempTypes;
 		}
 
-		public bool IsTestClass(List<CustomAttributeData> li)
+		private bool IsTestClass(List<CustomAttributeData> li)
 		{
 			foreach (CustomAttributeData attr in li)
 			{
-				if (StringComparer.OrdinalIgnoreCase.Equals(attr.AttributeType.ToString(), "techtalk.specflow.bindingattribute"))
+				if (StringComparer.OrdinalIgnoreCase.Equals(attr.AttributeType.ToString(), "techtalk.specflow.bindingattribute")
+					||
+					StringComparer.OrdinalIgnoreCase.Equals(attr.AttributeType.ToString(), "Tarsvin.CustomAttributes.StepTypeAttr"))
 				{
 					return true;
 				}

@@ -9,7 +9,7 @@
 	using TestPipe.Runner;
 
 	[Tarsvin.CustomAttributes.StepTypeAttr]
-	public class FPBRTestSearchSteps
+	public class FPBRTestSearch1Step
 	{
 		private static SessionFeature feature;
 		private BasePage resultPage;

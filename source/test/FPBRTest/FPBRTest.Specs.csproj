@@ -85,10 +85,6 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.XML" />
-    <Reference Include="Tarsvin.CustomAttributes, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Tarsvin.CustomAttributes.1.1.0\lib\net451\Tarsvin.CustomAttributes.dll</HintPath>
-    </Reference>
     <Reference Include="TechTalk.SpecFlow, Version=1.9.0.77, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
@@ -143,6 +139,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Features\Search1_feature.cs">
+      <DependentUpon>Search1.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Search2_feature.cs">
+      <DependentUpon>Search2.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Search_feature.cs">
       <DependentUpon>Search.feature</DependentUpon>
     </Compile>
@@ -154,10 +156,16 @@
     </Compile>
     <Compile Include="FPBR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\Search2Steps.cs" />
+    <Compile Include="Steps\Search1Steps.cs" />
     <Compile Include="Steps\SearchSteps.cs" />
     <Compile Include="Steps\StepHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\application\CustomAttributes\Tarsvin.CustomAttributes.csproj">
+      <Project>{9202e856-3f34-47ce-ab99-b14eb8319e29}</Project>
+      <Name>Tarsvin.CustomAttributes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\application\Runner\Tarsvin.Runner.csproj">
       <Project>{b55f8446-aad0-4c31-bddf-1cf8ea427f51}</Project>
       <Name>Tarsvin.Runner</Name>
@@ -169,8 +177,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Data\Search1_feature.json" />
+    <None Include="Data\Search2_feature.json" />
     <None Include="Data\Search_feature.json" />
     <None Include="Data\FPBRTest_suite.json" />
+    <None Include="Features\Search2.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Search2.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Search1.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Search1.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Search.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Search.feature.cs</LastGenOutput>
