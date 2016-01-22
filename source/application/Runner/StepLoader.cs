@@ -8,9 +8,9 @@
 	using System.Threading.Tasks;
 	using Tarsvin.StepBinder;
 
-	internal class StepLoader
+	internal static class StepLoader
 	{
-		internal StepLoader(DllInfo dllInfo)
+		internal static void LoadSteps(DllInfo dllInfo)
 		{
 			Assembly runtimeAssembly = Assembly.Load(AssemblyName.GetAssemblyName(dllInfo.path));
 			List<Type> types = TestTypes(runtimeAssembly.GetTypes().ToList());
@@ -21,7 +21,7 @@
 			}
 		}
 
-		private List<Type> TestTypes(List<Type> types)
+		private static List<Type> TestTypes(List<Type> types)
 		{
 			List<Type> tempTypes = new List<Type>();
 			foreach (Type type in types)
@@ -35,7 +35,7 @@
 			return tempTypes;
 		}
 
-		private bool IsTestClass(List<CustomAttributeData> li)
+		private static bool IsTestClass(List<CustomAttributeData> li)
 		{
 			foreach (CustomAttributeData attr in li)
 			{

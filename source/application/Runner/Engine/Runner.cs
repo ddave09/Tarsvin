@@ -84,35 +84,35 @@
 
 				if (GlobalTestStates.onlyOnce)
 				{
-					if (its.IsTimeOut)
+					if (GlobalTestStates.repeatBook.ContainsKey(type.FullName))
 					{
-						if (GlobalTestStates.repeatBook.ContainsKey(type.FullName))
-						{
-							GlobalTestStates.repeatBook[type.FullName].testMethods.
-								Add(testMethod);
-						}
-						else
-						{
-							GlobalTestStates.repeatBook.Add(type.FullName, new ReRunCase(type,
-								new List<MethodInfo>() { testMethod }, type.FullName, attrs, TearDownFeature));
-						}
+						GlobalTestStates.repeatBook[type.FullName].testMethods.
+							Add(testMethod);
+					}
+					else
+					{
+						GlobalTestStates.repeatBook.Add(type.FullName, new ReRunCase(type,
+							new List<MethodInfo>() { testMethod }, type.FullName, attrs, TearDownFeature));
 					}
 				}
 
-				if (GlobalTestStates.ResultSet.ContainsKey(type.FullName))
+				if (GlobalTestStates.resultSet.ContainsKey(type.FullName))
 				{
-					if (GlobalTestStates.ResultSet[type.FullName].itfs.Success)
+					if (GlobalTestStates.resultSet[type.FullName].itfs.Success)
 					{
-						GlobalTestStates.ResultSet[type.FullName].itfs.Success = false;
+						GlobalTestStates.resultSet[type.FullName].itfs.Success = false;
 					}
 				}
 				Console.WriteLine("\n***{0}: Failed***\n",
 					its.NameSpace, its.TestName);
 			}
 
-			if (GlobalTestStates.ResultSet.ContainsKey(type.FullName))
+			if (GlobalTestStates.onlyOnce)
 			{
-				GlobalTestStates.ResultSet[type.FullName].its.Add(its);
+				if (GlobalTestStates.resultSet.ContainsKey(type.FullName))
+				{
+					GlobalTestStates.resultSet[type.FullName].its.Add(its);
+				}
 			}
 
 			GlobalTestStates.DecrementScenarioCount();
@@ -123,9 +123,9 @@
 				{
 					TearDownFeature.Invoke(typeObject, null);
 				}
-				if (GlobalTestStates.ResultSet.ContainsKey(type.FullName))
+				if (GlobalTestStates.resultSet.ContainsKey(type.FullName))
 				{
-					GlobalTestStates.ResultSet[type.FullName].itfs.EndTick = DateTime.Now.Ticks;
+					GlobalTestStates.resultSet[type.FullName].itfs.EndTick = DateTime.Now.Ticks;
 				}
 
 				while (bw.IsBusy) ;
@@ -204,15 +204,15 @@
 					Console.WriteLine("\n***{0}: Failed***\n",
 						dataFault.TestName);
 
-					if (GlobalTestStates.ResultSet.ContainsKey(type.FullName))
+					if (GlobalTestStates.resultSet.ContainsKey(type.FullName))
 					{
-						if (GlobalTestStates.ResultSet[type.FullName].itfs.Success)
+						if (GlobalTestStates.resultSet[type.FullName].itfs.Success)
 						{
-							GlobalTestStates.ResultSet[type.FullName].itfs.Success = false;
+							GlobalTestStates.resultSet[type.FullName].itfs.Success = false;
 						}
 						if (!GlobalTestStates.onlyOnce)
 						{
-							GlobalTestStates.ResultSet[type.FullName].its.Add(dataFault);
+							GlobalTestStates.resultSet[type.FullName].its.Add(dataFault);
 						}
 					}
 					return false;
@@ -230,9 +230,9 @@
 					dataPass.ThrownException = null;
 					Console.WriteLine("\n***{0}: Passed***\n",
 						dataPass.TestName);
-					if (GlobalTestStates.ResultSet.ContainsKey(type.FullName))
+					if (GlobalTestStates.resultSet.ContainsKey(type.FullName))
 					{
-						GlobalTestStates.ResultSet[type.FullName].its.Add(dataPass);
+						GlobalTestStates.resultSet[type.FullName].its.Add(dataPass);
 					}
 				}
 			}
@@ -248,9 +248,9 @@
 						if (TearDownFeature != null)
 							TearDownFeature.Invoke(typeObject, null);
 
-						if (GlobalTestStates.ResultSet.ContainsKey(type.FullName))
+						if (GlobalTestStates.resultSet.ContainsKey(type.FullName))
 						{
-							GlobalTestStates.ResultSet[type.FullName].itfs.EndTick = DateTime.Now.Ticks;
+							GlobalTestStates.resultSet[type.FullName].itfs.EndTick = DateTime.Now.Ticks;
 						}
 
 						while (bw.IsBusy) ;

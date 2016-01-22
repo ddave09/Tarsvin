@@ -89,7 +89,7 @@ namespace Tarsvin.Runner
 			}
 
 			DllInfo dllInfo = new DllInfo() {path = options.Project };
-			new StepLoader(dllInfo);
+			StepLoader.LoadSteps(dllInfo);
 			Executor exe = new Executor(options.RunnerSelection, dllInfo, 
 				options.Project, options.XmlResultPath, includeF, excludeF, includeS, excludeS);
 			exe.InitializeSystem(exe);

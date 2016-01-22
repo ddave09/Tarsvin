@@ -115,13 +115,13 @@
 				this.types.RemoveAt(this.types.Count - 1);
 
 				//Lock below once features run in parallel
-				if (!GlobalTestStates.ResultSet.ContainsKey(type.FullName))
+				if (!GlobalTestStates.resultSet.ContainsKey(type.FullName))
 				{
 					Result result = new Result();
 					result.itfs.FeatureName = type.FullName;
 					result.itfs.StartTick = DateTime.Now.Ticks;
 					result.itfs.Attributes = this.GetFeatureAttributesConstructorValues(type);
-					GlobalTestStates.ResultSet.Add(type.FullName, result);
+					GlobalTestStates.resultSet.Add(type.FullName, result);
 				}
 
 				Object obj = null;
@@ -376,7 +376,7 @@
 
 		private void LogTestSummary()
 		{
-			Console.WriteLine("\n***Features : {0}***\n", GlobalTestStates.ResultSet.Count);
+			Console.WriteLine("\n***Features : {0}***\n", GlobalTestStates.resultSet.Count);
 
 			Console.WriteLine(string.Format("\n***Tests: {0} \n ReTests: {1} \n Failures: {2} \n ReFailures: {3} \n Errors: {4}" +
 				"\n ReErrors: {5} ***\n",
@@ -386,7 +386,7 @@
 
 			XmlResultWriter xmlWriter = new XmlResultWriter(this.resultPath, this.projectPath);
 			xmlWriter.RenderAssemblySuite();
-			foreach (KeyValuePair<string, Result> element in GlobalTestStates.ResultSet)
+			foreach (KeyValuePair<string, Result> element in GlobalTestStates.resultSet)
 			{
 				xmlWriter.StartSuiteElement(element.Value.itfs);
 				IEnumerator<IndividualTestState> its = element.Value.its.GetEnumerator();

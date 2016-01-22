@@ -6,6 +6,7 @@
 	using System.Linq;
 	using System.Reflection;
 	using System.Text;
+	using System.Text.RegularExpressions;
 	using System.Threading;
 	using System.Threading.Tasks;
 
@@ -116,26 +117,15 @@
 			get
 			{
 				Exception e = this.ThrownException;
-				string captureFailure = ConfigurationManager.AppSettings["failure"];
 				DesiredInnerException(ref e);
-				if (StringComparer.OrdinalIgnoreCase.Equals(captureFailure, e.GetType().ToString()))
+				if (Regex.IsMatch(e.GetType().ToString(), "[a-z|A-Z|.]*[a|A]ssert[a-z|A-Z|.]*"))
+				{
 					return true;
+				}
 				else
+				{
 					return false;
-			}
-		}
-
-		public bool IsTimeOut
-		{
-			get
-			{
-				Exception e = this.ThrownException;
-				string captureTimeOut = ConfigurationManager.AppSettings["timeout"];
-				DesiredInnerException(ref e);
-				if (StringComparer.OrdinalIgnoreCase.Equals(captureTimeOut, e.GetType().ToString()))
-					return true;
-				else
-					return false;
+				}
 			}
 		}
 

@@ -19,11 +19,30 @@
 		}
 	}
 
+	internal class ReRunCase
+	{
+		internal Type type = null;
+		internal List<MethodInfo> testMethods = null;
+		internal string nameSpace = string.Empty;
+		internal List<string> attrs = null;
+		internal MethodInfo TearDownFeature = null;
+
+		internal ReRunCase(Type type, List<MethodInfo> testMethods, string nameSpace, List<string> attrs,
+			MethodInfo TearDownFeature)
+		{
+			this.type = type;
+			this.testMethods = testMethods;
+			this.nameSpace = nameSpace;
+			this.attrs = attrs;
+			this.TearDownFeature = TearDownFeature;
+		}
+	}
+
 	internal static class GlobalTestStates
 	{
 		#region Variables
 		internal static bool onlyOnce = true;
-		internal static Dictionary<string, Result> ResultSet = new Dictionary<string, Result>();
+		internal static Dictionary<string, Result> resultSet = new Dictionary<string, Result>();
 		internal static Dictionary<string, ReRunCase> repeatBook = new Dictionary<string, ReRunCase>();
 		
 		static Object lockTestInc = new Object();
