@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tarsvin.Runner;
+using Tarsvin.Runner.Report;
 
 namespace RunnerHelper.Test
 {

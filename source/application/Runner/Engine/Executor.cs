@@ -1,4 +1,4 @@
-﻿namespace Tarsvin.Runner
+﻿namespace Tarsvin.Runner.Engine
 {
 	using System;
 	using System.Configuration;
@@ -14,12 +14,7 @@
 	using System.Threading.Tasks;
 	using TestPipe.Common;
 	using Tarsvin.Runner.Interfaces;
-
-	public enum SystemState : sbyte
-	{
-		Initial,
-		Repeat
-	};
+	using Tarsvin.Runner.Report;
 
 	internal class Executor
 	{

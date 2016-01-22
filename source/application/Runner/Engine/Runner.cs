@@ -1,4 +1,4 @@
-﻿namespace Tarsvin.Runner
+﻿namespace Tarsvin.Runner.Engine
 {
 	using System;
 	using System.Configuration;
@@ -10,6 +10,7 @@
 	using System.Threading;
 	using System.Threading.Tasks;
 	using Tarsvin.Runner.Interfaces;
+	using Tarsvin.Runner.Report;
 
 	internal class Inter
 	{

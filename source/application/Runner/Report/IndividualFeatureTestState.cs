@@ -1,4 +1,4 @@
-﻿namespace Tarsvin.Runner
+﻿namespace Tarsvin.Runner.Report
 {
     using System;
     using System.Collections.Generic;

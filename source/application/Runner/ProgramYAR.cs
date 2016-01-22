@@ -13,6 +13,18 @@ namespace Tarsvin.Runner
 	using System.Configuration;
 	using System.IO;
 	using TestPipe.Common;
+	using Tarsvin.Runner.Engine;
+
+	public enum SystemState : sbyte
+	{
+		Initial,
+		Repeat
+	};
+
+	public class DllInfo
+	{
+		public string path;
+	}
 
 	internal class ProgramYAR
 	{
