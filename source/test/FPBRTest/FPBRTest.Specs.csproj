@@ -149,11 +149,6 @@
       <DependentUpon>Search.feature</DependentUpon>
     </Compile>
     <Compile Include="Pages\SearchPage.cs" />
-    <Compile Include="Features\Search.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Search.feature</DependentUpon>
-    </Compile>
     <Compile Include="FPBR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\Search2Steps.cs" />
