@@ -351,9 +351,9 @@
 						if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "step") && !StringComparer.OrdinalIgnoreCase.Equals(previousParentToken, "background"))
 						{
 							if (hierarchyName != null)
-								writeString += "\t\t" + "FunctionBinder.CallAfterX(\"" + functionNamespace + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", obj);" + "\r\n";
+								writeString += "\t\t" + "}\n\t\tfinally\n\t\t{\n\t\tFunctionBinder.CallAfterX(\"" + functionNamespace + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", obj);" + "\r\n\t\t}\n";
 							else
-								writeString += "\t\t" + "FunctionBinder.CallAfterX(\"" + functionNamespace + "\", \"" + "\", \"" + className + "\", obj);" + "\r\n";
+								writeString += "\t\t" + "}\n\t\tfinally\n\t\t{\n\t\tFunctionBinder.CallAfterX(\"" + functionNamespace + "\", \"" + "\", \"" + className + "\", obj);" + "\r\n\t\t}\n";
 							writeString += "\t" + "}" + "\r\n" + "\r\n";
 						}
 						else if (StringComparer.OrdinalIgnoreCase.Equals(previousToken, "step"))
@@ -432,9 +432,9 @@
 
 					writeString += "(" + ")" + "\r\n\t" + "{" + "\r\n" + "\t\t";
 					if (hierarchyName != null)
-						writeString += "Object" + " obj" + "= " + "FunctionBinder.CallBeforeScenario(\"" + functionNamespace + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\");"/*, \"scenario\");"*/ + "\r\n";
+						writeString += "Object" + " obj" + "= " + "FunctionBinder.CallBeforeScenario(\"" + functionNamespace + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\");"/*, \"scenario\");"*/ + "\r\n\t\ttry\n\t\t{\n";
 					else
-						writeString += "Object" + " obj" + "= " + "FunctionBinder.CallBeforeScenario(\"" + functionNamespace + "\", \"" + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\");"/*, \"scenario\");"*/ + "\r\n";
+						writeString += "Object" + " obj" + "= " + "FunctionBinder.CallBeforeScenario(\"" + functionNamespace + "\", \"" + "\", \"" + className + "\", \"" + lineName.Trim() + "\", \"" + attributeString.Trim('.') + "\");"/*, \"scenario\");"*/ + "\r\n\t\ttry\n\t\t{\n";
 
 					name = string.Empty;
 					lineName = string.Empty;
@@ -460,9 +460,9 @@
 
 			writeString += "\t\t";
 			if (hierarchyName != null)
-				writeString += "FunctionBinder.CallAfterX(\"" + functionNamespace + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", obj);" + "\r\n";
+				writeString += "}\n\t\tfinally\n\t\t{\n\t\tFunctionBinder.CallAfterX(\"" + functionNamespace + "\", \"" + hierarchyName.Substring(1) + "\", \"" + className + "\", obj);" + "\r\n\t\t}\n";
 			else
-				writeString += "FunctionBinder.CallAfterX(\"" + functionNamespace + "\", \"" + "\", \"" + className + "\", obj);" + "\r\n";
+				writeString += "}\n\t\tfinally\n\t\t{\n\t\tFunctionBinder.CallAfterX(\"" + functionNamespace + "\", \"" + "\", \"" + className + "\", obj);" + "\r\n\t\t}\n";
 			writeString += "\t" + "}" + "\r\n" + "}" + "\r\n" + "}";
 
 			#endregion
